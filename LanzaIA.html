@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Catálogo de IA: Chatbots, Asistentes y Herramientas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Accede a las interfaces de las IA más famosas con un solo clic. ChatGPT, Claude, Gemini y más, categorizadas para facilitar tu búsqueda.">
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --dark-bg: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --card-hover: rgba(255, 255, 255, 0.15);
+      --text-primary: #ffffff;
+      --text-secondary: #e0e6ed;
+      --accent-color: #ff6b6b;
+      --border-radius: 16px;
+      --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.1);
+      --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.3);
+      --shadow-heavy: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--dark-bg);
+      min-height: 100vh;
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    /* Header mejorado */
+    header {
+      text-align: center;
+      margin: 2rem 0 3rem 0;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      background: linear-gradient(45deg, #fff, #64b5f6, #81c784);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    header p {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    /* Barra de Búsqueda */
+    .search-container {
+        text-align: center;
+        margin: 2rem 0;
+        position: sticky;
+        top: 20px;
+        z-index: 100;
+    }
+
+    .search-box {
+        padding: 12px 20px;
+        font-size: 1rem;
+        border: 2px solid rgba(255,255,255,0.2);
+        border-radius: 50px;
+        background: rgba(255,255,255,0.1);
+        color: white;
+        backdrop-filter: blur(10px);
+        width: 100%;
+        max-width: 400px;
+        transition: all 0.3s ease;
+    }
+
+    .search-box:focus {
+        outline: none;
+        border-color: rgba(255,255,255,0.5);
+        box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    }
+
+    /* Canales de suscripción mejorados */
+    .subscribe-channels-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .subscribe-container {
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      text-align: center;
+      box-shadow: var(--shadow-medium);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .subscribe-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .subscribe-container:hover::before {
+      left: 100%;
+    }
+
+    .subscribe-container:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: var(--shadow-heavy);
+    }
+    
+    .subscribe-container.youtube { background: linear-gradient(135deg, #FF0000, #CD201F); }
+    .subscribe-container.whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
+    .subscribe-container.telegram { background: linear-gradient(135deg, #0088CC, #005A7F); }
+
+    .subscribe-container h2 {
+      color: #fff;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .subscribe-container p {
+      color: rgba(255,255,255,0.9);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .subscribe-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.95);
+      color: #333;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-light);
+    }
+    
+    .subscribe-container.youtube .subscribe-button { color: #FF0000; }
+    .subscribe-container.whatsapp .subscribe-button { color: #25D366; }
+    .subscribe-container.telegram .subscribe-button { color: #0088CC; }
+
+    .subscribe-button:hover {
+      background: #fff;
+      transform: scale(1.05);
+      box-shadow: var(--shadow-medium);
+    }
+
+    /* Secciones de categorías */
+    .category-section {
+      margin-bottom: 3rem;
+    }
+
+    .category-section h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .category-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--secondary-gradient);
+      border-radius: 2px;
+    }
+
+    /* Grid de tarjetas mejorado */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    .card.visible {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      background: var(--card-hover);
+      box-shadow: var(--shadow-heavy);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Iconos mejorados */
+    .icon-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 1rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      box-shadow: var(--shadow-light);
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      color: #fff;
+    }
+    
+    .card:hover .icon-circle {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: var(--shadow-medium);
+    }
+
+    /* Iconos específicos */
+    .icon-circle.chatgpt { background: linear-gradient(135deg, #10a37f, #1a7f64); }
+    .icon-circle.claude { background: linear-gradient(135deg, #d4850c, #b8730a); }
+    .icon-circle.gemini { background: linear-gradient(135deg, #4285f4, #34a853); }
+    .icon-circle.copilot { background: linear-gradient(135deg, #0078d4, #106ebe); }
+    .icon-circle.deepseek { background: linear-gradient(135deg, #1e3a8a, #1e40af); }
+    .icon-circle.qwen { background: linear-gradient(135deg, #ff6b35, #f7931e); }
+    .icon-circle.metaai { background: linear-gradient(135deg, #1877f2, #42a5f5); }
+    .icon-circle.mistral { background: linear-gradient(135deg, #ff7000, #e65100); }
+    .icon-circle.grok { background: linear-gradient(135deg, #1da1f2, #0d8bd9); }
+    .icon-circle.perplexity { background: linear-gradient(135deg, #20bcd5, #1ba3b8); }
+    .icon-circle.luzia { background: linear-gradient(135deg, #e91e63, #ad1457); }
+    .icon-circle.youcom { background: linear-gradient(135deg, #8e24aa, #7b1fa2); }
+    .icon-circle.genspark { background: linear-gradient(135deg, #ff9800, #f57c00); }
+    .icon-circle.manus { background: linear-gradient(135deg, #607d8b, #455a64); }
+    .icon-circle.googleaistudio { background: linear-gradient(135deg, #4caf50, #388e3c); }
+    .icon-circle.notebooklm { background: linear-gradient(135deg, #ff5722, #d84315); }
+    .icon-circle.one_min_ai { background: linear-gradient(135deg, #9c27b0, #7b1fa2); }
+    .icon-circle.merlinai { background: linear-gradient(135deg, #673ab7, #512da8); }
+    .icon-circle.ai4chat { background: linear-gradient(135deg, #00bcd4, #0097a7); }
+    .icon-circle.erniebot { background: linear-gradient(135deg, #2932e1, #1652f1); }
+    .icon-circle.minimax { background: linear-gradient(135deg, #333333, #555555); }
+    .icon-circle.kimi { background: linear-gradient(135deg, #8a4dff, #6d28d9); }
+
+
+    .icon-circle::before {
+        font-style: normal;
+    }
+
+    .icon-circle.chatgpt::before { content: '💬'; }
+    .icon-circle.claude::before { content: '🤖'; }
+    .icon-circle.gemini::before { content: '✨'; }
+    .icon-circle.copilot::before { content: '✈️'; }
+    .icon-circle.deepseek::before { content: '🧠'; }
+    .icon-circle.qwen::before { content: '🐉'; }
+    .icon-circle.metaai::before { content: '🌐'; }
+    .icon-circle.mistral::before { content: '🔥'; }
+    .icon-circle.grok::before { content: '🤪'; }
+    .icon-circle.perplexity::before { content: '❓'; }
+    .icon-circle.luzia::before { content: '👋'; }
+    .icon-circle.youcom::before { content: '🔍'; }
+    .icon-circle.genspark::before { content: '⚡'; }
+    .icon-circle.manus::before { content: '⚙️'; }
+    .icon-circle.googleaistudio::before { content: '🚀'; }
+    .icon-circle.notebooklm::before { content: '📝'; }
+    .icon-circle.one_min_ai::before { content: '⏱️'; }
+    .icon-circle.merlinai::before { content: '🧙'; }
+    .icon-circle.ai4chat::before { content: '💬'; }
+    .icon-circle.erniebot::before { content: '🐾'; }
+    .icon-circle.minimax::before { content: '👨‍💻'; }
+    .icon-circle.kimi::before { content: '📚'; }
+
+
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+
+    /* Footer mejorado */
+    footer {
+      margin-top: 4rem;
+      padding: 2rem 0;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.2);
+    }
+
+    footer p {
+      margin-bottom: 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    footer .author-info {
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    /* Animaciones de entrada */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsividad */
+    @media (max-width: 768px) {
+      .container-wrapper {
+        padding: 0.5rem;
+      }
+      .subscribe-channels-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .subscribe-container, .card {
+        padding: 1.5rem;
+      }
+      .container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+      }
+      .icon-circle {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+      .card, .subscribe-container {
+        padding: 1.25rem;
+      }
+    }
+
+    /* Estados de focus para accesibilidad */
+    .card:focus,
+    .subscribe-button:focus,
+    .search-box:focus {
+      outline: 2px solid #64b5f6;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-wrapper">
+    <header>
+      <h1>Catálogo de IA: Chatbots, Asistentes y Herramientas</h1>
+      <p>Accede a las interfaces de las IA más famosas y usadas con un solo clic.<br>Categorizadas para facilitar tu búsqueda y optimizar tu productividad.</p>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="search-box" class="search-box" placeholder="🔎 Buscar herramientas de IA...">
+    </div>
+
+    <div class="subscribe-channels-container">
+      <div class="subscribe-container youtube">
+        <h2>¡Únete a la Comunidad TecnoEducaTics!</h2>
+        <p>Descubre tutoriales exclusivos, cursos especializados y contenido educativo de vanguardia para docentes y profesionales.</p>
+        <a href="https://www.youtube.com/@TecnoEducaTics?sub_confirmation=1" target="_blank" class="subscribe-button" rel="noopener">
+          🔔 ¡Suscríbete en YouTube!
+        </a>
+      </div>
+
+      <div class="subscribe-container whatsapp">
+        <h2>Canal de WhatsApp</h2>
+        <p>Recibe las últimas novedades, tips exclusivos y recursos directamente en tu WhatsApp.</p>
+        <a href="https://whatsapp.com/channel/0029Va6FP4C6hENyzxtO8d0e" target="_blank" class="subscribe-button" rel="noopener">
+          📱 ¡Únete al canal!
+        </a>
+      </div>
+
+      <div class="subscribe-container telegram">
+        <h2>Canal de Telegram</h2>
+        <p>Accede a material exclusivo, discusiones especializadas y anuncios importantes de nuestra comunidad.</p>
+        <a href="https://t.me/cursoseducativos" target="_blank" class="subscribe-button" rel="noopener">
+          📢 ¡Síguenos en Telegram!
+        </a>
+      </div>
+    </div>
+
+    <div class="category-section" id="category-chatbots">
+      <h2>Chatbots Conversacionales</h2>
+      <div class="container" id="chatbots-container"></div>
+    </div>
+
+    <div class="category-section" id="category-assistants">
+      <h2>Asistentes y Agentes de IA</h2>
+      <div class="container" id="assistants-agents-container"></div>
+    </div>
+
+    <div class="category-section" id="category-tools">
+      <h2>Herramientas de Productividad y Utilidades de IA</h2>
+      <div class="container" id="tools-utilities-container"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container-wrapper">
+      <p>© 2025 - Catálogo de IA. Todos los derechos reservados.</p>
+      <p class="author-info">Desarrollado por: Ing. de Sistemas Rubén Sierra</p>
+      <p class="author-info">Diseño e interactividad realizados con la ayuda de ChatGPT y Gemini</p>
+    </div>
+  </footer>
+
+  <script>
+    const iaList = [
+      {
+        nombre: "ChatGPT",
+        descripcion: "Modelo de lenguaje avanzado de OpenAI para conversaciones inteligentes, generación de texto, código y análisis.",
+        iconClass: "chatgpt",
+        enlaceChat: "https://chat.openai.com/",
+        categoria: "Chatbots Conversacionales"
+      },
+      {
+        nombre: "Claude",
+        descripcion: "Chatbot de Anthropic reconocido por su seguridad, capacidad de contexto extenso y razonamiento ético.",
+        iconClass: "claude",
+        enlaceChat: "https://claude.ai/",
+        categoria: "Chatbots Conversacionales"
+      },
+      {
+        nombre: "Gemini",
+        descripcion: "Chatbot multimodal de Google con capacidades avanzadas para entender y generar texto, imágenes, audio y video.",
+        iconClass: "gemini",
+        enlaceChat: "https://gemini.google.com/",
+        categoria: "Chatbots Conversacionales"
+      },
+      {
+        nombre: "Copilot",
+        descripcion: "Asistente de IA de Microsoft (antes Bing Chat) para productividad, integrado en navegadores y SO.",
+        iconClass: "copilot",
+        enlaceChat: "https://copilot.microsoft.com/",
+        categoria: "Chatbots Conversacionales"
+      },
+      {
+        nombre: "DeepSeek",
+        descripcion: "IA china competitiva, ofreciendo modelos de lenguaje potentes, eficientes y de código abierto.",
+        iconClass: "deepseek",
+        enlaceChat: "https://chat.deepseek.com/",
+        categoria: "Chatbots Conversacionales"
+      },
+      {
+        nombre: "Qwen",
+        descripcion: "Chatbot avanzado de Alibaba Cloud con capacidades multilingües, multimodales y para tareas complejas.",
+        iconClass: "qwen",
+        enlaceChat: "https://qwen.ai/",
+        categoria: "Chatbots Conversacionales"
+      },
+      {
+        nombre: "Meta AI",
+        descripcion: "Solución conversacional de Meta integrada en WhatsApp, Instagram y Facebook para interacciones naturales.",
+        iconClass: "metaai",
+        enlaceChat: "https://www.meta.ai/",
+        categoria: "Chatbots Conversacionales"
+      },
+      {
+        nombre: "Mistral AI",
+        descripcion: "Chatbot europeo de alta eficiencia basado en modelos Mistral, especializado en tareas complejas y razonamiento.",
+        iconClass: "mistral",
+        enlaceChat: "https://chat.mistral.ai/chat",
+        categoria: "Chatbots Conversacionales"
+      },
+      {
+        nombre: "Grok",
+        descripcion: "Chatbot de xAI (Elon Musk) integrado en X, con acceso a datos en tiempo real y personalidad distintiva.",
+        iconClass: "grok",
+        enlaceChat: "https://x.com/grok",
+        categoria: "Chatbots Conversacionales"
+      },
+      {
+        nombre: "Perplexity AI",
+        descripcion: "Motor de búsqueda conversacional que proporciona respuestas precisas con fuentes citadas y verificadas.",
+        iconClass: "perplexity",
+        enlaceChat: "https://www.perplexity.ai/",
+        categoria: "Chatbots Conversacionales"
+      },
+      {
+        nombre: "ERNIE Bot (Baidu)",
+        descripcion: "Chatbot de Baidu (Wenxin Yiyan), un modelo de lenguaje mejorado con conocimiento para texto y código.",
+        iconClass: "erniebot",
+        enlaceChat: "https://chat.baidu.com/",
+        categoria: "Chatbots Conversacionales"
+      },
+      {
+        nombre: "Luzia",
+        descripcion: "Asistente personal de IA multifuncional en WhatsApp para tareas diarias, traducciones y transcripciones.",
+        iconClass: "luzia",
+        enlaceChat: "https://www.luzia.com/",
+        categoria: "Asistentes y Agentes de IA"
+      },
+      {
+        nombre: "You.com",
+        descripcion: "Motor de búsqueda y asistente de IA centrado en productividad con chat, búsqueda web y agentes especializados.",
+        iconClass: "youcom",
+        enlaceChat: "https://you.com/",
+        categoria: "Asistentes y Agentes de IA"
+      },
+      {
+        nombre: "Genspark AI",
+        descripcion: "Motor de agente de IA autónomo que sintetiza información y ejecuta tareas complejas con planificación.",
+        iconClass: "genspark",
+        enlaceChat: "https://www.genspark.ai/",
+        categoria: "Asistentes y Agentes de IA"
+      },
+      {
+        nombre: "Manus AI",
+        descripcion: "Agente de IA autónomo para realizar tareas online complejas sin supervisión, incluyendo desarrollo y escritura.",
+        iconClass: "manus",
+        enlaceChat: "https://manus.im/",
+        categoria: "Asistentes y Agentes de IA"
+      },
+      {
+        nombre: "Minimax Agent",
+        descripcion: "Agente de IA autónomo de código abierto para realizar tareas complejas de varios pasos como codificación y análisis.",
+        iconClass: "minimax",
+        enlaceChat: "https://agent.minimax.io/",
+        categoria: "Asistentes y Agentes de IA"
+      },
+      {
+        nombre: "Kimi Chat",
+        descripcion: "Asistente de IA (Moonshot AI) que procesa y resume documentos y archivos de texto extremadamente largos.",
+        iconClass: "kimi",
+        enlaceChat: "https://www.kimi.com/",
+        categoria: "Asistentes y Agentes de IA"
+      },
+      {
+        nombre: "Google AI Studio",
+        descripcion: "Plataforma avanzada de Google para desarrolladores, permitiendo construir y experimentar con modelos de IA.",
+        iconClass: "googleaistudio",
+        enlaceChat: "https://aistudio.google.com/",
+        categoria: "Herramientas de Productividad y Utilidades de IA"
+      },
+      {
+        nombre: "NotebookLM",
+        descripcion: "Herramienta colaborativa de IA de Google que resume, genera ideas y organiza información de fuentes propias.",
+        iconClass: "notebooklm",
+        enlaceChat: "https://notebooklm.google.com/",
+        categoria: "Herramientas de Productividad y Utilidades de IA"
+      },
+      {
+        nombre: "1min.ai",
+        descripcion: "Aplicación todo-en-uno con chat, generación de imágenes, música, voz y video, impulsada por múltiples IAs.",
+        iconClass: "one_min_ai",
+        enlaceChat: "https://1min.ai/",
+        categoria: "Herramientas de Productividad y Utilidades de IA"
+      },
+      {
+        nombre: "Merlin AI",
+        descripcion: "Extensión de navegador con IA para investigación, escritura y resumen que combina múltiples modelos.",
+        iconClass: "merlinai",
+        enlaceChat: "https://www.getmerlin.in/",
+        categoria: "Herramientas de Productividad y Utilidades de IA"
+      },
+      {
+        nombre: "AI4Chat",
+        descripcion: "Plataforma integral de IA con chat multi-modelo, generación de contenido multimedia y herramientas productivas.",
+        iconClass: "ai4chat",
+        enlaceChat: "https://www.ai4chat.co/",
+        categoria: "Herramientas de Productividad y Utilidades de IA"
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const containers = {
+            'Chatbots Conversacionales': document.getElementById('chatbots-container'),
+            'Asistentes y Agentes de IA': document.getElementById('assistants-agents-container'),
+            'Herramientas de Productividad y Utilidades de IA': document.getElementById('tools-utilities-container')
+        };
+        const searchBox = document.getElementById('search-box');
+
+        function createCard(ia) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'button');
+            card.setAttribute('aria-label', `Abrir ${ia.nombre}: ${ia.descripcion}`);
+            card.dataset.name = ia.nombre.toLowerCase();
+            card.dataset.description = ia.descripcion.toLowerCase();
+            card.dataset.category = ia.categoria;
+
+            card.addEventListener('click', () => {
+                window.open(ia.enlaceChat, '_blank', 'noopener,noreferrer');
+            });
+
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    window.open(ia.enlaceChat, '_blank', 'noopener,noreferrer');
+                }
+            });
+
+            const iconCircle = document.createElement('div');
+            iconCircle.className = `icon-circle ${ia.iconClass}`;
+
+            const title = document.createElement('h3');
+            title.textContent = ia.nombre;
+
+            const description = document.createElement('p');
+            description.textContent = ia.descripcion;
+
+            card.appendChild(iconCircle);
+            card.appendChild(title);
+            card.appendChild(description);
+            return card;
+        }
+
+        function renderCards() {
+            // Limpiar contenedores antes de renderizar
+            Object.values(containers).forEach(container => container.innerHTML = '');
+
+            iaList.forEach(ia => {
+                const card = createCard(ia);
+                const container = containers[ia.categoria];
+                if (container) {
+                    container.appendChild(card);
+                }
+            });
+            setupIntersectionObserver();
+        }
+
+        function filterCards() {
+            const searchTerm = searchBox.value.toLowerCase();
+            const allCards = document.querySelectorAll('.card');
+            const categorySections = document.querySelectorAll('.category-section');
+
+            allCards.forEach(card => {
+                const isVisible = card.dataset.name.includes(searchTerm) || card.dataset.description.includes(searchTerm);
+                card.style.display = isVisible ? 'flex' : 'none';
+            });
+            
+            categorySections.forEach(section => {
+                const visibleCards = section.querySelectorAll('.card[style*="display: flex"]');
+                section.style.display = visibleCards.length > 0 ? 'block' : 'none';
+            });
+        }
+        
+        function setupIntersectionObserver() {
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { 
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px' 
+                });
+
+                document.querySelectorAll('.card').forEach(card => {
+                    observer.observe(card);
+                });
+            } else {
+                // Fallback para navegadores sin IntersectionObserver
+                document.querySelectorAll('.card').forEach(card => {
+                    card.classList.add('visible');
+                });
+            }
+        }
+        
+        searchBox.addEventListener('input', filterCards);
+        renderCards();
+
+        console.log('🚀 Catálogo de IA cargado exitosamente.');
+        console.log(`📊 Total de herramientas: ${iaList.length}`);
+    });
+  </script>
+</body>
+</html>
