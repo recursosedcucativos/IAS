@@ -104,7 +104,7 @@
     /* Canales de suscripción mejorados */
     .subscribe-channels-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1.5rem;
       margin-bottom: 3rem;
     }
@@ -144,6 +144,8 @@
     .subscribe-container.youtube { background: linear-gradient(135deg, #FF0000, #CD201F); }
     .subscribe-container.whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
     .subscribe-container.telegram { background: linear-gradient(135deg, #0088CC, #005A7F); }
+    .subscribe-container.spreaker { background: linear-gradient(135deg, #00a651, #007d3c); }
+
 
     .subscribe-container h2 {
       color: #fff;
@@ -177,6 +179,7 @@
     .subscribe-container.youtube .subscribe-button { color: #FF0000; }
     .subscribe-container.whatsapp .subscribe-button { color: #25D366; }
     .subscribe-container.telegram .subscribe-button { color: #0088CC; }
+    .subscribe-container.spreaker .subscribe-button { color: #00a651; }
 
     .subscribe-button:hover {
       background: #fff;
@@ -298,6 +301,7 @@
     .icon-circle.erniebot { background: linear-gradient(135deg, #2932e1, #1652f1); }
     .icon-circle.minimax { background: linear-gradient(135deg, #333333, #555555); }
     .icon-circle.kimi { background: linear-gradient(135deg, #8a4dff, #6d28d9); }
+    .icon-circle.convergence { background: linear-gradient(135deg, #3f51b5, #303f9f); }
 
 
     .icon-circle::before {
@@ -326,6 +330,7 @@
     .icon-circle.erniebot::before { content: '🐾'; }
     .icon-circle.minimax::before { content: '👨‍💻'; }
     .icon-circle.kimi::before { content: '📚'; }
+    .icon-circle.convergence::before { content: '🔄'; }
 
 
     .card h3 {
@@ -427,26 +432,34 @@
 
     <div class="subscribe-channels-container">
       <div class="subscribe-container youtube">
-        <h2>¡Únete a la Comunidad TecnoEducaTics!</h2>
-        <p>Descubre tutoriales exclusivos, cursos especializados y contenido educativo de vanguardia para docentes y profesionales.</p>
+        <h2>Comunidad TecnoEducaTics</h2>
+        <p>Descubre tutoriales, cursos y contenido educativo para docentes y profesionales.</p>
         <a href="https://www.youtube.com/@TecnoEducaTics?sub_confirmation=1" target="_blank" class="subscribe-button" rel="noopener">
-          🔔 ¡Suscríbete en YouTube!
+          🔔 YouTube
         </a>
       </div>
 
       <div class="subscribe-container whatsapp">
         <h2>Canal de WhatsApp</h2>
-        <p>Recibe las últimas novedades, tips exclusivos y recursos directamente en tu WhatsApp.</p>
+        <p>Recibe las últimas novedades y tips exclusivos directamente en tu WhatsApp.</p>
         <a href="https://whatsapp.com/channel/0029Va6FP4C6hENyzxtO8d0e" target="_blank" class="subscribe-button" rel="noopener">
-          📱 ¡Únete al canal!
+          📱 Unirse
         </a>
       </div>
 
       <div class="subscribe-container telegram">
         <h2>Canal de Telegram</h2>
-        <p>Accede a material exclusivo, discusiones especializadas y anuncios importantes de nuestra comunidad.</p>
+        <p>Accede a material exclusivo, discusiones y anuncios de nuestra comunidad.</p>
         <a href="https://t.me/cursoseducativos" target="_blank" class="subscribe-button" rel="noopener">
-          📢 ¡Síguenos en Telegram!
+          📢 Seguir
+        </a>
+      </div>
+      
+      <div class="subscribe-container spreaker">
+        <h2>Podcast TecnoEducaTics</h2>
+        <p>Escucha análisis, entrevistas y novedades sobre tecnología educativa y IA.</p>
+        <a href="https://www.spreaker.com/podcast/tecnoeducatics--6664603" target="_blank" class="subscribe-button" rel="noopener">
+          🎙️ Escuchar
         </a>
       </div>
     </div>
@@ -580,6 +593,13 @@
         descripcion: "Agente de IA autónomo para realizar tareas online complejas sin supervisión, incluyendo desarrollo y escritura.",
         iconClass: "manus",
         enlaceChat: "https://manus.im/",
+        categoria: "Asistentes y Agentes de IA"
+      },
+       {
+        nombre: "Convergence AI",
+        descripcion: "Asistente de IA que automatiza tareas diarias y flujos de trabajo a través de comandos de lenguaje natural, aprendiendo y adaptándose al usuario.",
+        iconClass: "convergence",
+        enlaceChat: "http://Convergence.ai",
         categoria: "Asistentes y Agentes de IA"
       },
       {
