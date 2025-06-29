@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Rifa Familiar carrasca</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 0;
+    }
+    h3 {
+      margin-top: 5px;
+      font-weight: normal;
+      color: gray;
+    }
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 600px;
+      margin: 20px auto;
+      justify-content: center;
+    }
+    .numero {
+      width: 50px;
+      height: 50px;
+      margin: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .numero:hover {
+      transform: scale(1.1);
+    }
+    .libre {
+      background: lightgreen;
+    }
+    .reservado {
+      background: tomato;
+      color: white;
+    }
+    button {
+      padding: 8px 16px;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rifa Familiar Carrasca</h1>
+  <h3 id="infoRifa">Cargando...</h3>
+  <button onclick="reiniciarRifa()">🔄 Reiniciar Rifa</button>
+  <div class="grid" id="numerosGrid"></div>
+
+  <script>
+    const BIN_ID = "6861316d8561e97a502e10de"; // ← Reemplaza por tu ID real
+    const API_KEY = "$2a$10$JtUdB/4h3eflXjvQEt3Dj.z2rtWUeMH8GP0uV5lRZ8uDaFIGo4pxC"; // ← Reemplaza por tu API KEY
+    const URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+    const headers = {
+      "X-Master-Key": API_KEY,
+      "Content-Type": "application/json"
+    };
+
+    async function cargarNumeros() {
+      const res = await fetch(URL, { headers });
+      const data = await res.json();
+      const { numeros, loteria = "Lotería", fecha = "Sin fecha" } = data.record;
+
+      document.getElementById("infoRifa").innerText = `🎰 ${loteria} — 📅 ${fecha}`;
+      mostrarNumeros(numeros);
+    }
+
+    function mostrarNumeros(lista) {
+      const grid = document.getElementById("numerosGrid");
+      grid.innerHTML = "";
+
+      lista.forEach(n => {
+        const div = document.createElement("div");
+        div.className = "numero " + (n.reservado ? "reservado" : "libre");
+        div.innerText = n.numero;
+        div.onclick = () => reservarNumero(n.numero);
+        grid.appendChild(div);
+      });
+    }
+
+    async function reservarNumero(num) {
+      const res = await fetch(URL, { headers });
+      const data = await res.json();
+      const { numeros } = data.record;
+
+      const n = numeros.find(n => n.numero === num);
+
+      if (n.reservado) {
+        alert(`Número ${n.numero} ya está reservado por:\n\n👤 ${n.nombre}`);
+        return;
+      }
+
+      const nombre = prompt("¿Cuál es tu nombre?");
+      if (!nombre) return;
+
+      // 🔐 Validación de concurrencia
+      const res2 = await fetch(URL, { headers });
+      const data2 = await res2.json();
+      const numeroActual = data2.record.numeros.find(n => n.numero === num);
+
+      if (numeroActual.reservado) {
+        alert(`⚠️ Alguien acaba de tomar el número ${num}. Intenta otro.`);
+        cargarNumeros();
+        return;
+      }
+
+      numeroActual.nombre = nombre;
+      numeroActual.reservado = true;
+
+      await fetch(URL, {
+        method: "PUT",
+        headers,
+        body: JSON.stringify(data2.record)
+      });
+
+      cargarNumeros();
+    }
+
+    async function reiniciarRifa() {
+      const claveIngresada = prompt("Introduce la contraseña para reiniciar la rifa:");
+      if (!claveIngresada) return;
+
+      const res = await fetch(URL, { headers });
+      const data = await res.json();
+      const { password, numeros } = data.record;
+
+      if (claveIngresada !== password) {
+        alert("Contraseña incorrecta ❌");
+        return;
+      }
+
+      numeros.forEach(n => {
+        n.nombre = "";
+        n.reservado = false;
+      });
+
+      await fetch(URL, {
+        method: "PUT",
+        headers,
+        body: JSON.stringify(data.record)
+      });
+
+      alert("Rifa reiniciada exitosamente ✅");
+      cargarNumeros();
+    }
+
+    cargarNumeros();
+  </script>
+</body>
+</html>
