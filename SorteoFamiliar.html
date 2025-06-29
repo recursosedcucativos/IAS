@@ -2,162 +2,325 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Rifa Familiar carrasca</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rifa Familiar Carrascal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --color-primario: #2c3e50;
+      --color-secundario: #3498db;
+      --color-fondo: #ecf0f1;
+      --color-disponible: #2ecc71;
+      --color-reservado: #e74c3c;
+      --color-texto-claro: #ffffff;
+      --sombra: 0 4px 15px rgba(0, 0, 0, 0.1);
+      --radio-borde: 12px;
+    }
+
     body {
-      font-family: sans-serif;
+      font-family: 'Poppins', sans-serif;
       text-align: center;
       padding: 20px;
-    }
-    h1 {
-      margin-bottom: 0;
-    }
-    h3 {
-      margin-top: 5px;
-      font-weight: normal;
-      color: gray;
-    }
-    .grid {
+      background-color: var(--color-fondo);
+      color: var(--color-primario);
+      margin: 0;
       display: flex;
-      flex-wrap: wrap;
-      max-width: 600px;
-      margin: 20px auto;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
       justify-content: center;
     }
+
+    .container {
+      background: var(--color-texto-claro);
+      padding: 25px 30px;
+      border-radius: var(--radio-borde);
+      box-shadow: var(--sombra);
+      width: 100%;
+      max-width: 700px;
+      box-sizing: border-box;
+    }
+    
+    .header-rifa h1 {
+      margin: 0;
+      color: var(--color-secundario);
+      font-weight: 700;
+      font-size: 2.5em;
+    }
+    
+    .header-rifa h2 {
+      margin: 10px 0;
+      font-weight: 600;
+      font-size: 1.2em;
+    }
+
+    .info-rifa {
+      margin: 20px 0;
+      font-size: 1.1em;
+      font-weight: 400;
+      color: gray;
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+      min-height: 24px; /* Evita que salte el dise?o al cargar */
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+      gap: 10px;
+      max-width: 100%;
+      margin: 25px auto;
+    }
+
     .numero {
-      width: 50px;
-      height: 50px;
-      margin: 5px;
+      width: 100%;
+      aspect-ratio: 1 / 1; /* Para que sea siempre un cuadrado */
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 6px;
-      font-weight: bold;
+      border-radius: var(--radio-borde);
+      font-weight: 600;
+      font-size: 1.2em;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 2px solid transparent;
     }
+
     .numero:hover {
-      transform: scale(1.1);
+      transform: scale(1.1) translateY(-3px);
+      box-shadow: var(--sombra);
     }
+
     .libre {
-      background: lightgreen;
+      background: var(--color-disponible);
+      color: var(--color-texto-claro);
+      border-color: #27ae60;
     }
+
     .reservado {
-      background: tomato;
-      color: white;
+      background: var(--color-reservado);
+      color: var(--color-texto-claro);
+      cursor: not-allowed;
+       border-color: #c0392b;
     }
+
+    .botones {
+        margin-top: 20px;
+    }
+    
     button {
-      padding: 8px 16px;
-      font-size: 14px;
-      margin-top: 10px;
+      padding: 12px 24px;
+      font-size: 1em;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      background-color: var(--color-secundario);
+      color: var(--color-texto-claro);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      background-color: #2980b9;
+    }
+
+    footer {
+        margin-top: 30px;
+        font-size: 0.9em;
+        color: #7f8c8d;
+    }
+    
+    /* Adaptaci¨®n para m¨®viles */
+    @media (max-width: 600px) {
+        body {
+            padding: 10px;
+        }
+        .container {
+            padding: 20px 15px;
+        }
+        .header-rifa h1 {
+            font-size: 2em;
+        }
+        .grid {
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 8px;
+        }
+        .numero {
+            font-size: 1em;
+            border-radius: 8px;
+        }
     }
   </style>
 </head>
 <body>
-  <h1>Rifa Familiar Carrascal</h1>
-  <h1>Fecha:Juega el 16 de Julio 2025</h1>
-  <h1>Loteria:Loteriadelvalle.com</h1>
-  <h3 id="infoRifa">Cargando...</h3>
-  <button onclick="reiniciarRifa()">ðŸ”„ Reiniciar Rifa</button>
-  <div class="grid" id="numerosGrid"></div>
+  <div class="container">
+    <header class="header-rifa">
+      <h1>Rifa Familiar Carrascal</h1>
+      <h2>Juega el 16 de Julio de 2025</h2>
+    </header>
+    
+    <div class="info-rifa" id="infoRifa">Cargando datos de la rifa...</div>
+
+    <div class="grid" id="numerosGrid"></div>
+
+    <div class="botones">
+        <button onclick="reiniciarRifa()">?? Reiniciar Rifa</button>
+    </div>
+  </div>
+  
+  <footer>
+      <p>&copy; 2025 Rifa Carrascal - Hecho con ?? para la familia.</p>
+  </footer>
 
   <script>
-    const BIN_ID = "6861316d8561e97a502e10de"; // â† Reemplaza por tu ID real
-    const API_KEY = "$2a$10$JtUdB/4h3eflXjvQEt3Dj.z2rtWUeMH8GP0uV5lRZ8uDaFIGo4pxC"; // â† Reemplaza por tu API KEY
-    const URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+    // ?? NOTA DE SEGURIDAD IMPORTANTE ??
+    // Exponer tu API Key de jsonbin.io en el c¨®digo del cliente (navegador) es un riesgo de seguridad.
+    // Cualquier persona con conocimientos t¨¦cnicos puede verla y modificar tus datos sin restricciones.
+    // Para una rifa familiar peque?a y privada, puede ser aceptable, pero NUNCA uses este m¨¦todo 
+    // para aplicaciones p¨²blicas o que manejen informaci¨®n sensible.
+    const BIN_ID = "6861316d8561e97a502e10de"; // ¡û REEMPLAZA POR TU ID REAL
+    const API_KEY = "$2a$10$JtUdB/4h3eflXjvQEt3Dj.z2rtWUeMH8GP0uV5lRZ8uDaFIGo4pxC"; // ¡û REEMPLAZA POR TU API KEY REAL
+    const URL = `https://api.jsonbin.io/v3/b/${BIN_ID}/latest`; // Usamos /latest para no cachear resultados
+    
     const headers = {
+      "Content-Type": "application/json",
       "X-Master-Key": API_KEY,
-      "Content-Type": "application/json"
     };
+    const readHeaders = { "X-Master-Key": API_KEY };
+
+    const grid = document.getElementById("numerosGrid");
+    const infoRifaDiv = document.getElementById("infoRifa");
+    
+    async function fetchData() {
+        try {
+            const res = await fetch(URL, { headers: readHeaders });
+            if (!res.ok) throw new Error(`Error en la red: ${res.statusText}`);
+            const data = await res.json();
+            return data.record;
+        } catch (error) {
+            console.error("Error al cargar los datos:", error);
+            infoRifaDiv.innerText = "? Error de conexi¨®n. Revisa tus claves o el JSON.";
+            return null;
+        }
+    }
 
     async function cargarNumeros() {
-      const res = await fetch(URL, { headers });
-      const data = await res.json();
-      const { numeros, loteria = "LoterÃ­a", fecha = "Sin fecha" } = data.record;
+      infoRifaDiv.innerText = "?? Cargando n¨²meros...";
+      grid.innerHTML = "";
+      
+      const data = await fetchData();
+      if (!data) return;
 
-      document.getElementById("infoRifa").innerText = `ðŸŽ° ${loteria} â€” ðŸ“… ${fecha}`;
+      const { numeros, loteria = "Loter¨ªa" } = data;
+      
+      infoRifaDiv.innerText = `?? Juega con la ${loteria}`;
       mostrarNumeros(numeros);
     }
 
     function mostrarNumeros(lista) {
-      const grid = document.getElementById("numerosGrid");
-      grid.innerHTML = "";
+      grid.innerHTML = ""; 
 
-      lista.forEach(n => {
+      lista.sort((a, b) => a.numero - b.numero).forEach(n => {
         const div = document.createElement("div");
         div.className = "numero " + (n.reservado ? "reservado" : "libre");
-        div.innerText = n.numero;
+        div.innerText = n.numero.toString().padStart(2, '0');
         div.onclick = () => reservarNumero(n.numero);
         grid.appendChild(div);
       });
     }
 
     async function reservarNumero(num) {
-      const res = await fetch(URL, { headers });
-      const data = await res.json();
-      const { numeros } = data.record;
+      let data = await fetchData();
+      if (!data) return;
 
-      const n = numeros.find(n => n.numero === num);
+      const n = data.numeros.find(n => n.numero === num);
 
       if (n.reservado) {
-        alert(`NÃºmero ${n.numero} ya estÃ¡ reservado por:\n\nðŸ‘¤ ${n.nombre}`);
+        alert(`El n¨²mero ${String(num).padStart(2, '0')} ya est¨¢ reservado por:\n\n?? ${n.nombre}`);
+        return;
+      }
+      
+      const confirmacion = confirm(`?Est¨¢s seguro de que quieres reservar el n¨²mero ${String(num).padStart(2, '0')}?`);
+      if (!confirmacion) return;
+
+      const nombre = prompt("Ingresa tu nombre para reservar:");
+      if (!nombre || nombre.trim() === "") {
+        alert("Debes ingresar un nombre para reservar.");
         return;
       }
 
-      const nombre = prompt("Â¿CuÃ¡l es tu nombre?");
-      if (!nombre) return;
-
-      // ðŸ” ValidaciÃ³n de concurrencia
-      const res2 = await fetch(URL, { headers });
-      const data2 = await res2.json();
-      const numeroActual = data2.record.numeros.find(n => n.numero === num);
+      const dataConcurrencia = await fetchData();
+       if (!dataConcurrencia) return;
+      const numeroActual = dataConcurrencia.numeros.find(n => n.numero === num);
 
       if (numeroActual.reservado) {
-        alert(`âš ï¸ Alguien acaba de tomar el nÃºmero ${num}. Intenta otro.`);
-        cargarNumeros();
+        alert(`?? ?Qu¨¦ pena! Alguien acaba de tomar el n¨²mero ${String(num).padStart(2, '0')}. Por favor, intenta con otro.`);
+        mostrarNumeros(dataConcurrencia.numeros);
         return;
       }
 
-      numeroActual.nombre = nombre;
+      numeroActual.nombre = nombre.trim();
       numeroActual.reservado = true;
+      
+      try {
+        const updateRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+          method: "PUT",
+          headers,
+          body: JSON.stringify(dataConcurrencia)
+        });
+        if (!updateRes.ok) throw new Error("No se pudo guardar el cambio.");
 
-      await fetch(URL, {
-        method: "PUT",
-        headers,
-        body: JSON.stringify(data2.record)
-      });
-
-      cargarNumeros();
+        alert(`?Felicidades, ${nombre}! Has reservado el n¨²mero ${String(num).padStart(2, '0')} ?`);
+        cargarNumeros();
+      } catch (error) {
+         console.error("Error al guardar el n¨²mero:", error);
+         alert("? Hubo un error al intentar guardar tu n¨²mero. Por favor, int¨¦ntalo de nuevo.");
+      }
     }
 
     async function reiniciarRifa() {
-      const claveIngresada = prompt("Introduce la contraseÃ±a para reiniciar la rifa:");
+      const confirmacion = confirm("?? ?Est¨¢s seguro de que deseas reiniciar TODA la rifa? Se borrar¨¢n todos los nombres reservados.");
+      if (!confirmacion) return;
+
+      const claveIngresada = prompt("Introduce la contrase?a de administrador para reiniciar:");
       if (!claveIngresada) return;
 
-      const res = await fetch(URL, { headers });
-      const data = await res.json();
-      const { password, numeros } = data.record;
-
-      if (claveIngresada !== password) {
-        alert("ContraseÃ±a incorrecta âŒ");
+      const data = await fetchData();
+      if (!data) return;
+      
+      if (claveIngresada !== data.password) {
+        alert("Contrase?a incorrecta ?");
         return;
       }
 
-      numeros.forEach(n => {
+      data.numeros.forEach(n => {
         n.nombre = "";
         n.reservado = false;
       });
+      
+      try {
+         const resetRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+            method: "PUT",
+            headers,
+            body: JSON.stringify(data)
+         });
+         if (!resetRes.ok) throw new Error("No se pudo reiniciar la rifa.");
 
-      await fetch(URL, {
-        method: "PUT",
-        headers,
-        body: JSON.stringify(data.record)
-      });
-
-      alert("Rifa reiniciada exitosamente âœ…");
-      cargarNumeros();
+         alert("Rifa reiniciada exitosamente ?");
+         cargarNumeros();
+      } catch (error) {
+         console.error("Error al reiniciar la rifa:", error);
+         alert("? Hubo un error al intentar reiniciar la rifa.");
+      }
     }
 
+    // Iniciar la aplicaci¨®n
     cargarNumeros();
   </script>
 </body>
