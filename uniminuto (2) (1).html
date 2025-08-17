@@ -1,0 +1,2192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Viaje del Agua: Un Recurso Vital - Unidad Didáctica Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Loader Styles */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .water-drop {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .drop {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            animation: dropAnimation 2s ease-in-out infinite;
+        }
+
+        @keyframes dropAnimation {
+            0%, 100% { transform: rotate(-45deg) scale(1); }
+            50% { transform: rotate(-45deg) scale(1.2); }
+        }
+
+        .loader p {
+            color: white;
+            font-size: 18px;
+            font-weight: 300;
+        }
+
+        /* Portada (Cover) Styles */
+        .cover-content {
+            text-align: center;
+            color: white;
+            max-width: 90%;
+        }
+        .cover-content h1 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .cover-content .subtitle {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        .cover-content p {
+            font-size: 16px;
+            margin: 4px 0;
+        }
+        .uniminuto-logo {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: #4facfe;
+        }
+
+        .nav-logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #4facfe;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4facfe;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        #waterCanvas {
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .info-item i {
+            font-size: 1.2rem;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.8s both;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid white;
+            border-bottom: 2px solid white;
+            transform: rotate(45deg);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+
+        .alt-bg {
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .section-line {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            margin: 0 auto 20px;
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Description Section */
+        .description-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .description-text h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .description-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .knowledge-requirements,
+        .session-info {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .knowledge-requirements h4,
+        .session-info h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .knowledge-requirements ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .knowledge-requirements li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .knowledge-requirements li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4facfe;
+            font-weight: bold;
+        }
+
+        .sessions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .session-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #4facfe;
+        }
+
+        .session-number {
+            background: #4facfe;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .session-card h5 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .session-card p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .water-cycle-preview {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            height: 400px;
+        }
+
+        #cyclePreview {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        /* Justification Section */
+        .importance-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .importance-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .importance-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .card-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .importance-card h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .importance-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Objectives Section */
+        .objectives-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .objective-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .objective-item:hover {
+            transform: translateX(10px);
+        }
+
+        .objective-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .objective-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .objective-content h3 {
+            font-size: 1.4rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .objective-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Content Tabs */
+        .content-tabs {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-buttons {
+            display: flex;
+            background: #f8fafc;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 20px;
+            border: none;
+            background: transparent;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .tab-button.active {
+            background: #4facfe;
+            color: white;
+        }
+
+        .tab-button:hover:not(.active) {
+            background: #e2e8f0;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .content-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #4facfe;
+        }
+
+        .content-card h4 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .content-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .content-card li {
+            padding: 5px 0;
+            color: #666;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .content-card li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #4facfe;
+            font-weight: bold;
+        }
+
+        /* Activities Timeline */
+        .activities-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .activities-timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #4facfe;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 40px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: -47px;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            background: #4facfe;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .activity-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #e2e8f0;
+            color: #4a5568;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Evaluation Section */
+        .evaluation-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .eval-type {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .eval-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .eval-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .eval-type h3 {
+            font-size: 1.4rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .eval-type p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .eval-type ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .eval-type li {
+            padding: 8px 0;
+            color: #666;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .eval-type li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4facfe;
+            font-weight: bold;
+        }
+
+        .rubric-preview {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .rubric-preview h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .criteria-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .criterion {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .criterion h4 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .criterion-levels {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .level {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .level.excellent {
+            background: #10b981;
+            color: white;
+        }
+
+        .level.good {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .level.satisfactory {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .level.needs-improvement {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* Resources Section */
+        .resource-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .resource-category {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .resource-category h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .resource-category i {
+            color: #4facfe;
+        }
+
+        .resource-category ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .resource-category li {
+            padding: 10px 0;
+            color: #666;
+            position: relative;
+            padding-left: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        /* Style for links in resource list */
+        .resource-category li a {
+            text-decoration: none;
+            color: #3b82f6;
+            transition: color 0.3s ease;
+        }
+
+        .resource-category li a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        .resource-category li:last-child {
+            border-bottom: none;
+        }
+
+        .resource-category li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #4facfe;
+            font-weight: bold;
+        }
+
+        .bibliography {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .bibliography h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .bibliography-list p {
+            margin-bottom: 15px;
+            color: #666;
+            line-height: 1.6;
+            padding-left: 20px;
+            text-indent: -20px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a202c;
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #4facfe;
+        }
+
+        .footer-info p {
+            color: #a0aec0;
+            margin-bottom: 5px;
+        }
+
+        .footer-details p {
+            color: #a0aec0;
+            margin-bottom: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #2d3748;
+            color: #718096;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 20px 0;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .hero-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .description-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .sessions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .importance-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .evaluation-types {
+                grid-template-columns: 1fr;
+            }
+            
+            .resource-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .tab-buttons {
+                flex-direction: column;
+            }
+            
+            .objective-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loader" class="loader">
+        <!-- Portada de presentación basada en la información del pie de página con formato APA -->
+        <div class="cover-content">
+            <img src="https://virtual-uniminuto.com/maestrias/media/img/logo.png" alt="Logo UNIMINUTO" class="uniminuto-logo">
+            <h1>El Viaje del Agua: Un Recurso Vital</h1>
+            <p class="subtitle">Unidad Didáctica Digital</p>
+            <p><strong>Institución educativa:</strong> I.E Leones</p>
+            <p><strong>Universidad:</strong> UNIMINUTO</p>
+            <p><strong>Docente:</strong> Giovanny Gutierrez Vargas</p>
+            <p><strong>Año:</strong> 2025 – <strong>Modalidad:</strong> Virtual</p>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-tint"></i>
+                <span>El Viaje del Agua</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                <li><a href="#descripcion" class="nav-link">Descripción</a></li>
+                <li><a href="#objetivos" class="nav-link">Objetivos</a></li>
+                <li><a href="#contenidos" class="nav-link">Contenidos</a></li>
+                <li><a href="#actividades" class="nav-link">Actividades</a></li>
+                <li><a href="#evaluacion" class="nav-link">Evaluación</a></li>
+                <!-- Nueva sección para detallar la organización espacial y temporal de la unidad -->
+                <li><a href="#organizacion" class="nav-link">Organización</a></li>
+                <li><a href="#recursos" class="nav-link">Recursos</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section id="inicio" class="hero">
+        <div class="hero-background">
+            <canvas id="waterCanvas"></canvas>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">El Viaje del Agua</h1>
+                <h2 class="hero-subtitle">Un Recurso Vital</h2>
+                <p class="hero-description">
+                    Descubre el fascinante mundo del ciclo del agua y su papel fundamental 
+                    en el mantenimiento de la vida en la Tierra
+                </p>
+                <div class="hero-info">
+                    <div class="info-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Grado 7°</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>8 horas</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-leaf"></i>
+                        <span>Ciencias Naturales</span>
+                    </div>
+                </div>
+                <button class="cta-button" onclick="scrollToSection('descripcion')">
+                    Comenzar Exploración
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+
+    <section id="descripcion" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Descripción de la Unidad</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="description-content">
+                <div class="description-text">
+                    <h3>¿Qué aprenderemos?</h3>
+                    <p>
+                        Esta unidad didáctica digital interactiva te sumergirá en el fascinante mundo del ciclo del agua 
+                        y su papel fundamental en el mantenimiento de la vida en la Tierra. Comprenderás los procesos 
+                        físicos y biológicos involucrados en el ciclo del agua, así como la importancia de su conservación 
+                        y las consecuencias de su alteración.
+                    </p>
+                    
+                    <div class="knowledge-requirements">
+                        <h4><i class="fas fa-brain"></i> Conocimientos Previos</h4>
+                        <ul>
+                            <li>Estados de la materia (sólido, líquido, gaseoso)</li>
+                            <li>Concepto básico de ecosistema</li>
+                            <li>Importancia del agua en la vida diaria</li>
+                        </ul>
+                    </div>
+
+                    <div class="session-info">
+                        <h4><i class="fas fa-calendar-alt"></i> Organización</h4>
+                        <div class="sessions-grid">
+                            <div class="session-card">
+                                <div class="session-number">1</div>
+                                <h5>Introducción al Ciclo del Agua</h5>
+                                <p>Conceptos básicos y procesos principales</p>
+                            </div>
+                            <div class="session-card">
+                                <div class="session-number">2</div>
+                                <h5>Ecosistemas y Agua</h5>
+                                <p>Relación entre agua y diferentes ecosistemas</p>
+                            </div>
+                            <div class="session-card">
+                                <div class="session-number">3</div>
+                                <h5>Contaminación y Escasez</h5>
+                                <p>Problemas ambientales relacionados con el agua</p>
+                            </div>
+                            <div class="session-card">
+                                <div class="session-number">4</div>
+                                <h5>Conservación y Acción</h5>
+                                <p>Propuestas para el uso sostenible del agua</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="description-visual">
+                    <div class="water-cycle-preview">
+                        <canvas id="cyclePreview"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="justificacion" class="section alt-bg">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">¿Por qué es importante?</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="justification-content">
+                <div class="importance-cards">
+                    <div class="importance-card">
+                        <div class="card-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3>Relevancia Global</h3>
+                        <p>
+                            El agua es un recurso crítico que afecta directamente la sostenibilidad 
+                            de los ecosistemas y la vida humana en todo el planeta.
+                        </p>
+                    </div>
+                    <div class="importance-card">
+                        <div class="card-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3>Conciencia Ambiental</h3>
+                        <p>
+                            Fomenta una conciencia ambiental temprana y promueve prácticas 
+                            responsables desde una edad formativa.
+                        </p>
+                    </div>
+                    <div class="importance-card">
+                        <div class="card-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3>Aprendizaje Digital</h3>
+                        <p>
+                            Utiliza metodologías dinámicas y visualmente atractivas que se adaptan 
+                            a las características de los nativos digitales.
+                        </p>
+                    </div>
+                <!-- Tarjeta adicional basada en la bibliografía recomendada -->
+                <div class="importance-card">
+                    <div class="card-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Planificación Basada en Evidencias</h3>
+                    <p>
+                        Esta unidad se fundamenta en las orientaciones de la política <em>Evaluar para Avanzar</em> del Ministerio de Educación Nacional, la cual concibe la evaluación como una herramienta para fortalecer los procesos de aprendizaje y desarrollo, reconociendo los ritmos y estilos de los estudiantes. Asimismo, adopta el enfoque de diseño inverso o “programar al revés”, en el que los objetivos de aprendizaje guían la selección de actividades y evaluaciones para garantizar la coherencia curricular. Finalmente, concibe el currículo como un elemento transformador que democratiza el acceso al aprendizaje continuo y demanda cambios profundos en la escuela para responder a los desafíos actuales.
+                    </p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="objetivos" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Objetivos de Aprendizaje</h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">Al finalizar esta unidad, los estudiantes serán capaces de:</p>
+            </div>
+            <div class="objectives-container">
+                <div class="objectives-list">
+                    <div class="objective-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="objective-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="objective-content">
+                            <h3>Identificar y Describir</h3>
+                            <p>Las etapas principales del ciclo del agua: evaporación, condensación, precipitación, escorrentía, infiltración y transpiración.</p>
+                        </div>
+                    </div>
+                    <div class="objective-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="objective-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="objective-content">
+                            <h3>Explicar</h3>
+                            <p>La importancia del agua para la vida en la Tierra y para el funcionamiento de los diferentes ecosistemas.</p>
+                        </div>
+                    </div>
+                    <div class="objective-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="objective-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="objective-content">
+                            <h3>Analizar</h3>
+                            <p>Las causas y consecuencias de la contaminación del agua y la escasez hídrica a nivel local y global.</p>
+                        </div>
+                    </div>
+                    <div class="objective-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="objective-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <div class="objective-content">
+                            <h3>Proponer</h3>
+                            <p>Acciones individuales y colectivas para el uso sostenible y la conservación del agua.</p>
+                        </div>
+                    </div>
+                    <div class="objective-item" data-aos="fade-up" data-aos-delay="500">
+                        <div class="objective-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="objective-content">
+                            <h3>Valorar</h3>
+                            <p>El agua como un recurso esencial y finito, desarrollando una actitud de respeto y responsabilidad hacia su cuidado.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contenidos" class="section alt-bg">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Contenidos</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="content-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="conceptuales">
+                        <i class="fas fa-book"></i>
+                        Conceptuales
+                    </button>
+                    <button class="tab-button" data-tab="procedimentales">
+                        <i class="fas fa-cogs"></i>
+                        Procedimentales
+                    </button>
+                    <button class="tab-button" data-tab="actitudinales">
+                        <i class="fas fa-heart"></i>
+                        Actitudinales
+                    </button>
+                </div>
+                
+                <div class="tab-content active" id="conceptuales">
+                    <div class="content-grid">
+                        <div class="content-card">
+                            <h4>Propiedades del Agua</h4>
+                            <ul>
+                                <li>Definición y propiedades físicas y químicas</li>
+                                <li>Estados del agua: sólido, líquido, gaseoso</li>
+                            </ul>
+                        </div>
+                        <div class="content-card">
+                            <h4>Ciclo del Agua</h4>
+                            <ul>
+                                <li>Evaporación y transpiración</li>
+                                <li>Condensación y precipitación</li>
+                                <li>Escorrentía e infiltración</li>
+                            </ul>
+                        </div>
+                        <div class="content-card">
+                            <h4>Ecosistemas</h4>
+                            <ul>
+                                <li>Ecosistemas acuáticos y terrestres</li>
+                                <li>Fuentes de agua dulce y salada</li>
+                            </ul>
+                        </div>
+                        <div class="content-card">
+                            <h4>Problemáticas</h4>
+                            <ul>
+                                <li>Contaminación del agua</li>
+                                <li>Escasez hídrica</li>
+                                <li>Tratamiento de aguas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="procedimentales">
+                    <div class="content-grid">
+                        <div class="content-card">
+                            <h4>Interpretación</h4>
+                            <ul>
+                                <li>Diagramas del ciclo del agua</li>
+                                <li>Modelos y representaciones</li>
+                            </ul>
+                        </div>
+                        <div class="content-card">
+                            <h4>Análisis de Datos</h4>
+                            <ul>
+                                <li>Consumo y disponibilidad de agua</li>
+                                <li>Estadísticas ambientales</li>
+                            </ul>
+                        </div>
+                        <div class="content-card">
+                            <h4>Investigación</h4>
+                            <ul>
+                                <li>Identificación de fuentes de contaminación</li>
+                                <li>Uso de herramientas digitales</li>
+                            </ul>
+                        </div>
+                        <div class="content-card">
+                            <h4>Propuestas</h4>
+                            <ul>
+                                <li>Elaboración de planes de ahorro</li>
+                                <li>Participación en debates</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="actitudinales">
+                    <div class="content-grid">
+                        <div class="content-card">
+                            <h4>Valoración</h4>
+                            <ul>
+                                <li>Agua como recurso vital y limitado</li>
+                                <li>Respeto por el medio ambiente</li>
+                            </ul>
+                        </div>
+                        <div class="content-card">
+                            <h4>Conciencia Crítica</h4>
+                            <ul>
+                                <li>Análisis de problemáticas ambientales</li>
+                                <li>Reflexión sobre el impacto humano</li>
+                            </ul>
+                        </div>
+                        <div class="content-card">
+                            <h4>Responsabilidad</h4>
+                            <ul>
+                                <li>Compromiso con la conservación</li>
+                                <li>Participación ciudadana activa</li>
+                            </ul>
+                        </div>
+                        <div class="content-card">
+                            <h4>Colaboración</h4>
+                            <ul>
+                                <li>Trabajo en equipo</li>
+                                <li>Comunicación efectiva</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="actividades" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Actividades de Aprendizaje</h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">Secuencia de actividades diseñadas para el aprendizaje progresivo</p>
+            </div>
+            <div class="activities-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h3>Exploración Inicial: ¿Qué sabemos del agua?</h3>
+                        <p>Actividad de diagnóstico para identificar conocimientos previos mediante lluvia de ideas y mapas conceptuales colaborativos.</p>
+                        <div class="activity-tags">
+                            <span class="tag">Diagnóstica</span>
+                            <span class="tag">Colaborativa</span>
+                            <span class="tag">30 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h3>Simulación Digital del Ciclo del Agua</h3>
+                        <p>Uso de simuladores interactivos para observar y manipular las variables del ciclo del agua, identificando cada proceso.</p>
+                        <div class="activity-tags">
+                            <span class="tag">Digital</span>
+                            <span class="tag">Interactiva</span>
+                            <span class="tag">45 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h3>Laboratorio Virtual: Estados del Agua</h3>
+                        <p>Experimentación virtual con cambios de estado, temperatura y presión para comprender las transformaciones del agua.</p>
+                        <div class="activity-tags">
+                            <span class="tag">Experimental</span>
+                            <span class="tag">Virtual</span>
+                            <span class="tag">60 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <h3>Investigación: Ecosistemas y Agua</h3>
+                        <p>Investigación guiada sobre diferentes ecosistemas y su relación con el agua, utilizando recursos digitales confiables.</p>
+                        <div class="activity-tags">
+                            <span class="tag">Investigación</span>
+                            <span class="tag">Autónoma</span>
+                            <span class="tag">90 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">5</div>
+                    <div class="timeline-content">
+                        <h3>Análisis de Casos: Contaminación Hídrica</h3>
+                        <p>Estudio de casos reales de contaminación del agua, análisis de causas, consecuencias y posibles soluciones.</p>
+                        <div class="activity-tags">
+                            <span class="tag">Análisis</span>
+                            <span class="tag">Crítica</span>
+                            <span class="tag">75 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">6</div>
+                    <div class="timeline-content">
+                        <h3>Proyecto: Plan de Conservación del Agua</h3>
+                        <p>Diseño colaborativo de un plan de conservación del agua para la institución educativa, con propuestas concretas y viables.</p>
+                        <div class="activity-tags">
+                            <span class="tag">Proyecto</span>
+                            <span class="tag">Aplicación</span>
+                            <span class="tag">120 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">7</div>
+                    <div class="timeline-content">
+                        <h3>Presentación y Debate</h3>
+                        <p>Presentación de los planes de conservación y debate sobre su viabilidad, impacto y posibilidades de implementación.</p>
+                        <div class="activity-tags">
+                            <span class="tag">Presentación</span>
+                            <span class="tag">Debate</span>
+                            <span class="tag">60 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">8</div>
+                    <div class="timeline-content">
+                        <h3>Evaluación Integral</h3>
+                        <p>Evaluación comprensiva que incluye quiz interactivo, análisis de casos y reflexión sobre el aprendizaje adquirido.</p>
+                        <div class="activity-tags">
+                            <span class="tag">Evaluación</span>
+                            <span class="tag">Integral</span>
+                            <span class="tag">90 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="evaluacion" class="section alt-bg">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Evaluación</h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">Sistema de evaluación integral y formativa</p>
+            </div>
+            
+            <div class="evaluation-types">
+                <div class="eval-type">
+                    <div class="eval-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Evaluación Diagnóstica</h3>
+                    <p>Identificación de conocimientos previos y concepciones alternativas sobre el ciclo del agua.</p>
+                    <ul>
+                        <li>Mapas conceptuales iniciales</li>
+                        <li>Cuestionarios de ideas previas</li>
+                        <li>Discusiones grupales</li>
+                    </ul>
+                </div>
+                
+                <div class="eval-type">
+                    <div class="eval-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Evaluación Formativa</h3>
+                    <p>Seguimiento continuo del proceso de aprendizaje con retroalimentación constante.</p>
+                    <ul>
+                        <li>Observación de actividades</li>
+                        <li>Autoevaluación y coevaluación</li>
+                        <li>Portafolio digital</li>
+                        <li>Rúbricas de seguimiento</li>
+                    </ul>
+                </div>
+                
+                <div class="eval-type">
+                    <div class="eval-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Evaluación Sumativa</h3>
+                    <p>Valoración final de los aprendizajes alcanzados al término de la unidad didáctica.</p>
+                    <ul>
+                        <li>Quiz interactivo digital</li>
+                        <li>Proyecto de conservación</li>
+                        <li>Presentación oral</li>
+                        <li>Reflexión metacognitiva</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="rubric-preview">
+                <h3>Rúbrica de Evaluación</h3>
+                <div class="criteria-grid">
+                    <div class="criterion">
+                        <h4>Comprensión del Ciclo del Agua</h4>
+                        <div class="criterion-levels">
+                            <span class="level excellent">Excelente (4)</span>
+                            <span class="level good">Bueno (3)</span>
+                            <span class="level satisfactory">Satisfactorio (2)</span>
+                            <span class="level needs-improvement">Necesita Mejorar (1)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="criterion">
+                        <h4>Análisis de Problemáticas Ambientales</h4>
+                        <div class="criterion-levels">
+                            <span class="level excellent">Excelente (4)</span>
+                            <span class="level good">Bueno (3)</span>
+                            <span class="level satisfactory">Satisfactorio (2)</span>
+                            <span class="level needs-improvement">Necesita Mejorar (1)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="criterion">
+                        <h4>Propuestas de Conservación</h4>
+                        <div class="criterion-levels">
+                            <span class="level excellent">Excelente (4)</span>
+                            <span class="level good">Bueno (3)</span>
+                            <span class="level satisfactory">Satisfactorio (2)</span>
+                            <span class="level needs-improvement">Necesita Mejorar (1)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="criterion">
+                        <h4>Trabajo Colaborativo</h4>
+                        <div class="criterion-levels">
+                            <span class="level excellent">Excelente (4)</span>
+                            <span class="level good">Bueno (3)</span>
+                            <span class="level satisfactory">Satisfactorio (2)</span>
+                            <span class="level needs-improvement">Necesita Mejorar (1)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de organización del espacio y del tiempo -->
+    <section id="organizacion" class="section alt-bg">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Organización del Espacio y del Tiempo</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="organization-content">
+                <p>
+                    Para el desarrollo de esta unidad se dispondrá de ocho sesiones con una duración total de ocho horas académicas. Las actividades alternarán espacios presenciales y virtuales: el aula de Ciencias Naturales servirá para las sesiones de exploración y debate; el laboratorio escolar permitirá experimentar con los estados del agua; la sala de informática facilitará el uso de simuladores y herramientas digitales; y una plataforma virtual de aprendizaje alojará recursos y actividades asincrónicas. La secuencia está diseñada para avanzar desde la exploración inicial hasta la elaboración y socialización de proyectos de conservación.
+                </p>
+                <ul>
+                    <li><strong>Ambientes:</strong> Aula, laboratorio de ciencias, sala de informática y plataforma virtual.</li>
+                    <li><strong>Agrupamientos:</strong> Trabajo individual, parejas, grupos pequeños y plenarias.</li>
+                    <li><strong>Temporización:</strong> Sesiones de entre 30 y 120 minutos, conforme a la secuencia de actividades propuesta.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="recursos" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Recursos</h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">Materiales y herramientas para el desarrollo de la unidad</p>
+            </div>
+            
+            <div class="resource-categories">
+                <div class="resource-category">
+                    <h3><i class="fas fa-laptop"></i> Recursos Digitales</h3>
+                    <ul>
+                        <li><a href="https://phet.colorado.edu/es/simulations/water-cycle" target="_blank" rel="noopener noreferrer">Simulador del ciclo del agua (PhET)</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=k3_52K_nB4E" target="_blank" rel="noopener noreferrer">Videos educativos sobre ecosistemas acuáticos</a></li>
+                        <li><a href="https://www.educaciontrespuntocero.com/recursos/laboratorios-virtuales/" target="_blank" rel="noopener noreferrer">Plataforma de laboratorios virtuales</a></li>
+                        <li><a href="https://www.canva.com/es_es/graficos/mapas-conceptuales/" target="_blank" rel="noopener noreferrer">Herramientas de mapas conceptuales digitales</a></li>
+                        <li><a href="https://www.sdg6data.org/" target="_blank" rel="noopener noreferrer">Base de datos de casos de contaminación hídrica</a></li>
+                    </ul>
+                </div>
+                
+                <div class="resource-category">
+                    <h3><i class="fas fa-book"></i> Recursos Bibliográficos</h3>
+                    <ul>
+                        <li><a href="https://contenidos.colombiaaprende.edu.co/grado-7/ciencias-naturales" target="_blank" rel="noopener noreferrer">Libros de texto de Ciencias Naturales grado 7°</a></li>
+                        <li><a href="https://kids.frontiersin.org/es/" target="_blank" rel="noopener noreferrer">Artículos científicos adaptados para estudiantes</a></li>
+                        <li><a href="http://repository.humboldt.org.co/" target="_blank" rel="noopener noreferrer">Guías de campo sobre ecosistemas locales</a></li>
+                        <li><a href="https://www.unep.org/es/resources" target="_blank" rel="noopener noreferrer">Informes ambientales de organizaciones internacionales</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=2xABli_gIas" target="_blank" rel="noopener noreferrer">Documentales sobre conservación del agua</a></li>
+                    </ul>
+                </div>
+                
+                <div class="resource-category">
+                    <h3><i class="fas fa-tools"></i> Recursos Técnicos</h3>
+                    <ul>
+                        <li>Computadores o tablets con acceso a internet</li>
+                        <li>Proyector o pantalla interactiva</li>
+                        <li><a href="https://www.canva.com/es_es/crear/presentaciones/" target="_blank" rel="noopener noreferrer">Software de presentaciones</a></li>
+                        <li><a href="https://classroom.google.com/" target="_blank" rel="noopener noreferrer">Plataforma educativa virtual</a></li>
+                        <li><a href="https://kahoot.com/" target="_blank" rel="noopener noreferrer">Herramientas de evaluación en línea</a></li>
+                    </ul>
+                </div>
+                
+                <div class="resource-category">
+                    <h3><i class="fas fa-users"></i> Recursos Humanos</h3>
+                    <ul>
+                        <li>Docente de Ciencias Naturales</li>
+                        <li>Especialista en educación ambiental (invitado)</li>
+                        <li>Técnico en sistemas (apoyo tecnológico)</li>
+                        <li>Bibliotecario (apoyo en investigación)</li>
+                        <li>Estudiantes como facilitadores pares</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="bibliography">
+                <h3>Referencias Bibliográficas</h3>
+                <div class="bibliography-list">
+                    <p>Ministerio de Educación Nacional. (2016). <em>Derechos Básicos de Aprendizaje en Ciencias Naturales</em>. Bogotá: MEN.</p>
+                    <p>UNESCO. (2019). <em>Informe Mundial de las Naciones Unidas sobre el Desarrollo de los Recursos Hídricos 2019</em>. París: UNESCO.</p>
+                    <p>Gleick, P. H. (2018). <em>The World's Water Volume 8: The Biennial Report on Freshwater Resources</em>. Island Press.</p>
+                    <p>National Geographic Society. (2020). <em>Water Cycle Interactive</em>. Recuperado de https://www.nationalgeographic.org</p>
+                    <p>PhET Interactive Simulations. (2021). <em>States of Matter</em>. University of Colorado Boulder.</p>
+                    <p>World Wildlife Fund. (2020). <em>Living Planet Report 2020</em>. Gland: WWF International.</p>
+                    <p>Organización Mundial de la Salud. (2019). <em>Agua, saneamiento e higiene en las escuelas</em>. Ginebra: OMS.</p>
+
+                    <!-- Bibliografía adicional recomendada y utilizada en el diseño de la unidad -->
+                    <p>Colombia Aprende. (s. f.). <em>Conoce las orientaciones para implementar la política: Evaluar para Avanzar</em>. Recuperado de <a href="https://colombiaaprende.edu.co/contenidos/coleccion/evaluar-para-avanzar">https://colombiaaprende.edu.co/contenidos/coleccion/evaluar-para-avanzar</a>.</p>
+                    <p>Jiménez, M., &amp; Faus, L. (2019). La programación didáctica, las unidades y sus elementos. En <em>Programar al revés: El diseño curricular desde los aprendizajes</em> (pp.&nbsp;65–77). Narcea.</p>
+                    <p>Pellicer Iborra, C. (2019). Un currículum para la vida. <em>Cuadernos de Pedagogía</em> (502), 3–26.</p>
+                    <p>Stapleton‑Corcoran, E. (2023). <em>Backward design</em>. Center for the Advancement of Teaching Excellence, University of Illinois Chicago. Recuperado de <a href="https://teaching.uic.edu/cate-teaching-guides/syllabus-course-design/backward-design/">https://teaching.uic.edu/cate-teaching-guides/syllabus-course-design/backward-design/</a>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Unidad Didáctica Digital</h3>
+                    <p><strong>Título:</strong> El Viaje del Agua: Un Recurso Vital</p>
+                    <p><strong>Área:</strong> Ciencias Naturales</p>
+                    <p><strong>Grado:</strong> Séptimo (7°)</p>
+                    <p><strong>Duración:</strong> 8 horas académicas</p>
+                </div>
+                <div class="footer-details">
+                    <p><strong>Institución educativa para ejecucion del recurso:</strong> I.E Leones</p>
+					 <p><strong>Universidad a quien se presenta la actividad:</strong> UNIMINUTO</p>
+                    <p><strong>Docente:</strong> Giovanny Gutierrez Vargas</p>
+                    <p><strong>Año:</strong> 2025</p>
+                    <p><strong>Modalidad:</strong> Virtual</p>
+                    <p><strong>Fecha:</strong> <span id="currentDate"></span></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Unidad Didáctica Cartilla Digital - El Viaje del Agua. Diseñado con tecnologías web modernas para el aprendizaje interactivo.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let waterParticles = [];
+        let cycleElements = [];
+        let animationId;
+
+        // DOM Content Loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loader after page loads (increased delay to allow reading the cover)
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }, 4000);
+
+            // Initialize components
+            initNavigation();
+            initWaterCanvas();
+            initCyclePreview();
+            initTabs();
+            initScrollAnimations();
+            setCurrentDate();
+        });
+
+        // Navigation functionality
+        function initNavigation() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            // Mobile menu toggle
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking on a link
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // Smooth scrolling for navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - 70;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Active navigation highlighting
+            window.addEventListener('scroll', () => {
+                const sections = document.querySelectorAll('section[id]');
+                const scrollPos = window.scrollY + 100;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            });
+        }
+
+        // Water Canvas Animation
+        function initWaterCanvas() {
+            const canvas = document.getElementById('waterCanvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            
+            function resizeCanvas() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+                initWaterParticles();
+            }
+
+            function initWaterParticles() {
+                waterParticles = [];
+                const particleCount = Math.floor((canvas.width * canvas.height) / 15000);
+                
+                for (let i = 0; i < particleCount; i++) {
+                    waterParticles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        radius: Math.random() * 3 + 1,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5,
+                        opacity: Math.random() * 0.5 + 0.2
+                    });
+                }
+            }
+
+            function animateWaterParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                waterParticles.forEach(particle => {
+                    // Update position
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    
+                    // Bounce off edges
+                    if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+                    if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+                    
+                    // Keep particles in bounds
+                    particle.x = Math.max(0, Math.min(canvas.width, particle.x));
+                    particle.y = Math.max(0, Math.min(canvas.height, particle.y));
+                    
+                    // Draw particle
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`;
+                    ctx.fill();
+                });
+                
+                // Draw connections
+                waterParticles.forEach((particle, i) => {
+                    waterParticles.slice(i + 1).forEach(otherParticle => {
+                        const dx = particle.x - otherParticle.x;
+                        const dy = particle.y - otherParticle.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 100) {
+                            ctx.beginPath();
+                            ctx.moveTo(particle.x, particle.y);
+                            ctx.lineTo(otherParticle.x, otherParticle.y);
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance / 100)})`;
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+                    });
+                });
+                
+                animationId = requestAnimationFrame(animateWaterParticles);
+            }
+
+            // Initialize and start animation
+            resizeCanvas();
+            animateWaterParticles();
+            
+            // Handle resize
+            window.addEventListener('resize', resizeCanvas);
+        }
+
+        // Water Cycle Preview Canvas
+        function initCyclePreview() {
+            const canvas = document.getElementById('cyclePreview');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            let animationFrame = 0;
+            
+            function resizeCycleCanvas() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+                initCycleElements();
+            }
+
+            function initCycleElements() {
+                cycleElements = [
+                    // Sun
+                    {
+                        type: 'sun',
+                        x: canvas.width * 0.8,
+                        y: canvas.height * 0.2,
+                        radius: 30,
+                        color: '#FFD700'
+                    },
+                    // Clouds
+                    {
+                        type: 'cloud',
+                        x: canvas.width * 0.3,
+                        y: canvas.height * 0.25,
+                        width: 80,
+                        height: 40,
+                        color: '#87CEEB'
+                    },
+                    // Water body
+                    {
+                        type: 'water',
+                        x: 0,
+                        y: canvas.height * 0.7,
+                        width: canvas.width,
+                        height: canvas.height * 0.3,
+                        color: '#4169E1'
+                    },
+                    // Mountains
+                    {
+                        type: 'mountain',
+                        x: canvas.width * 0.6,
+                        y: canvas.height * 0.4,
+                        width: 100,
+                        height: 120,
+                        color: '#8B4513'
+                    }
+                ];
+            }
+
+            function drawCycleElement(element) {
+                ctx.save();
+                
+                switch (element.type) {
+                    case 'sun':
+                        // Draw sun with rays
+                        ctx.fillStyle = element.color;
+                        ctx.beginPath();
+                        ctx.arc(element.x, element.y, element.radius, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        // Draw rays
+                        ctx.strokeStyle = element.color;
+                        ctx.lineWidth = 3;
+                        for (let i = 0; i < 8; i++) {
+                            const angle = (i * Math.PI * 2) / 8;
+                            const rayLength = 15;
+                            ctx.beginPath();
+                            ctx.moveTo(
+                                element.x + Math.cos(angle) * (element.radius + 5),
+                                element.y + Math.sin(angle) * (element.radius + 5)
+                            );
+                            ctx.lineTo(
+                                element.x + Math.cos(angle) * (element.radius + rayLength),
+                                element.y + Math.sin(angle) * (element.radius + rayLength)
+                            );
+                            ctx.stroke();
+                        }
+                        break;
+                        
+                    case 'cloud':
+                        ctx.fillStyle = element.color;
+                        ctx.beginPath();
+                        ctx.arc(element.x, element.y, 20, 0, Math.PI * 2);
+                        ctx.arc(element.x + 25, element.y, 25, 0, Math.PI * 2);
+                        ctx.arc(element.x + 50, element.y, 20, 0, Math.PI * 2);
+                        ctx.arc(element.x + 25, element.y - 15, 20, 0, Math.PI * 2);
+                        ctx.fill();
+                        break;
+                        
+                    case 'water':
+                        // Draw water with waves
+                        ctx.fillStyle = element.color;
+                        ctx.fillRect(element.x, element.y, element.width, element.height);
+                        
+                        // Draw waves
+                        ctx.strokeStyle = '#1E90FF';
+                        ctx.lineWidth = 2;
+                        ctx.beginPath();
+                        for (let x = 0; x < element.width; x += 20) {
+                            const waveY = element.y + Math.sin((x + animationFrame) * 0.02) * 5;
+                            if (x === 0) {
+                                ctx.moveTo(x, waveY);
+                            } else {
+                                ctx.lineTo(x, waveY);
+                            }
+                        }
+                        ctx.stroke();
+                        break;
+                        
+                    case 'mountain':
+                        ctx.fillStyle = element.color;
+                        ctx.beginPath();
+                        ctx.moveTo(element.x, element.y + element.height);
+                        ctx.lineTo(element.x + element.width / 2, element.y);
+                        ctx.lineTo(element.x + element.width, element.y + element.height);
+                        ctx.closePath();
+                        ctx.fill();
+                        break;
+                }
+                
+                ctx.restore();
+            }
+
+            function drawWaterCycleArrows() {
+                ctx.strokeStyle = '#4facfe';
+                ctx.lineWidth = 3;
+                ctx.setLineDash([5, 5]);
+                
+                // Evaporation arrow (water to cloud)
+                drawArrow(canvas.width * 0.2, canvas.height * 0.65, canvas.width * 0.25, canvas.height * 0.35);
+                
+                // Precipitation arrow (cloud to ground)
+                drawArrow(canvas.width * 0.35, canvas.height * 0.35, canvas.width * 0.4, canvas.height * 0.65);
+                
+                // Condensation arrow (around cloud)
+                ctx.beginPath();
+                ctx.arc(canvas.width * 0.3, canvas.height * 0.25, 50, 0, Math.PI);
+                ctx.stroke();
+                
+                ctx.setLineDash([]);
+            }
+
+            function drawArrow(fromX, fromY, toX, toY) {
+                const headLength = 10;
+                const angle = Math.atan2(toY - fromY, toX - fromX);
+                
+                ctx.beginPath();
+                ctx.moveTo(fromX, fromY);
+                ctx.lineTo(toX, toY);
+                ctx.stroke();
+                
+                // Arrow head
+                ctx.beginPath();
+                ctx.moveTo(toX, toY);
+                ctx.lineTo(toX - headLength * Math.cos(angle - Math.PI / 6), toY - headLength * Math.sin(angle - Math.PI / 6));
+                ctx.moveTo(toX, toY);
+                ctx.lineTo(toX - headLength * Math.cos(angle + Math.PI / 6), toY - headLength * Math.sin(angle + Math.PI / 6));
+                ctx.stroke();
+            }
+
+            function animateCyclePreview() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw background gradient
+                const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                gradient.addColorStop(0, '#87CEEB');
+                gradient.addColorStop(1, '#E0F6FF');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw cycle elements
+                cycleElements.forEach(element => {
+                    drawCycleElement(element);
+                });
+                
+                // Draw arrows
+                drawWaterCycleArrows();
+                
+                // Add labels
+                ctx.fillStyle = '#333';
+                ctx.font = '12px Poppins';
+                ctx.textAlign = 'center';
+                ctx.fillText('Evaporación', canvas.width * 0.15, canvas.height * 0.5);
+                ctx.fillText('Condensación', canvas.width * 0.3, canvas.height * 0.15);
+                ctx.fillText('Precipitación', canvas.width * 0.45, canvas.height * 0.5);
+                
+                animationFrame++;
+                requestAnimationFrame(animateCyclePreview);
+            }
+
+            // Initialize and start animation
+            resizeCycleCanvas();
+            animateCyclePreview();
+            
+            // Handle resize
+            window.addEventListener('resize', resizeCycleCanvas);
+        }
+
+        // Tab functionality
+        function initTabs() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding content
+                    button.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+        }
+
+        // Scroll animations
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe elements for animation
+            const animatedElements = document.querySelectorAll('.objective-item, .importance-card, .timeline-item, .eval-type');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        // Utility functions
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const offsetTop = section.offsetTop - 70;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function setCurrentDate() {
+            const dateElement = document.getElementById('currentDate');
+            if (dateElement) {
+                const now = new Date();
+                const options = { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                };
+                dateElement.textContent = now.toLocaleDateString('es-ES', options);
+            }
+        }
+    </script>
+</body>
+</html>
