@@ -67,6 +67,31 @@
             font-weight: 300;
         }
 
+        /* Portada (Cover) Styles */
+        .cover-content {
+            text-align: center;
+            color: white;
+            max-width: 90%;
+        }
+        .cover-content h1 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .cover-content .subtitle {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        .cover-content p {
+            font-size: 16px;
+            margin: 4px 0;
+        }
+        .uniminuto-logo {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+
         /* Navigation Styles */
         .navbar {
             position: fixed;
@@ -858,6 +883,18 @@
             padding-left: 20px;
             border-bottom: 1px solid #e2e8f0;
         }
+        
+        /* Style for links in resource list */
+        .resource-category li a {
+            text-decoration: none;
+            color: #3b82f6;
+            transition: color 0.3s ease;
+        }
+
+        .resource-category li a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
 
         .resource-category li:last-child {
             border-bottom: none;
@@ -1004,15 +1041,19 @@
     </style>
 </head>
 <body>
-    <!-- Loader -->
     <div id="loader" class="loader">
-        <div class="water-drop">
-            <div class="drop"></div>
+        <!-- Portada de presentación basada en la información del pie de página con formato APA -->
+        <div class="cover-content">
+            <img src="https://virtual-uniminuto.com/maestrias/media/img/logo.png" alt="Logo UNIMINUTO" class="uniminuto-logo">
+            <h1>El Viaje del Agua: Un Recurso Vital</h1>
+            <p class="subtitle">Unidad Didáctica Digital</p>
+            <p><strong>Institución educativa:</strong> I.E Leones</p>
+            <p><strong>Universidad:</strong> UNIMINUTO</p>
+            <p><strong>Docente:</strong> Giovanny Gutierrez Vargas</p>
+            <p><strong>Año:</strong> 2025 – <strong>Modalidad:</strong> Virtual</p>
         </div>
-        <p>Cargando...</p>
     </div>
 
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -1026,6 +1067,8 @@
                 <li><a href="#contenidos" class="nav-link">Contenidos</a></li>
                 <li><a href="#actividades" class="nav-link">Actividades</a></li>
                 <li><a href="#evaluacion" class="nav-link">Evaluación</a></li>
+                <!-- Nueva sección para detallar la organización espacial y temporal de la unidad -->
+                <li><a href="#organizacion" class="nav-link">Organización</a></li>
                 <li><a href="#recursos" class="nav-link">Recursos</a></li>
             </ul>
             <div class="hamburger">
@@ -1036,7 +1079,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="inicio" class="hero">
         <div class="hero-background">
             <canvas id="waterCanvas"></canvas>
@@ -1074,7 +1116,7 @@
         </div>
     </section>
 
-    <!-- Descripción Section -->
+
     <section id="descripcion" class="section">
         <div class="container">
             <div class="section-header">
@@ -1135,7 +1177,6 @@
         </div>
     </section>
 
-    <!-- Justificación Section -->
     <section id="justificacion" class="section alt-bg">
         <div class="container">
             <div class="section-header">
@@ -1174,12 +1215,21 @@
                             a las características de los nativos digitales.
                         </p>
                     </div>
+                <!-- Tarjeta adicional basada en la bibliografía recomendada -->
+                <div class="importance-card">
+                    <div class="card-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Planificación Basada en Evidencias</h3>
+                    <p>
+                        Esta unidad se fundamenta en las orientaciones de la política <em>Evaluar para Avanzar</em> del Ministerio de Educación Nacional, la cual concibe la evaluación como una herramienta para fortalecer los procesos de aprendizaje y desarrollo, reconociendo los ritmos y estilos de los estudiantes. Asimismo, adopta el enfoque de diseño inverso o “programar al revés”, en el que los objetivos de aprendizaje guían la selección de actividades y evaluaciones para garantizar la coherencia curricular. Finalmente, concibe el currículo como un elemento transformador que democratiza el acceso al aprendizaje continuo y demanda cambios profundos en la escuela para responder a los desafíos actuales.
+                    </p>
+                </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Objetivos Section -->
     <section id="objetivos" class="section">
         <div class="container">
             <div class="section-header">
@@ -1239,7 +1289,6 @@
         </div>
     </section>
 
-    <!-- Contenidos Section -->
     <section id="contenidos" class="section alt-bg">
         <div class="container">
             <div class="section-header">
@@ -1366,7 +1415,6 @@
         </div>
     </section>
 
-    <!-- Actividades Section -->
     <section id="actividades" class="section">
         <div class="container">
             <div class="section-header">
@@ -1482,7 +1530,6 @@
         </div>
     </section>
 
-    <!-- Evaluación Section -->
     <section id="evaluacion" class="section alt-bg">
         <div class="container">
             <div class="section-header">
@@ -1581,7 +1628,26 @@
         </div>
     </section>
 
-    <!-- Recursos Section -->
+    <!-- Sección de organización del espacio y del tiempo -->
+    <section id="organizacion" class="section alt-bg">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Organización del Espacio y del Tiempo</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="organization-content">
+                <p>
+                    Para el desarrollo de esta unidad se dispondrá de ocho sesiones con una duración total de ocho horas académicas. Las actividades alternarán espacios presenciales y virtuales: el aula de Ciencias Naturales servirá para las sesiones de exploración y debate; el laboratorio escolar permitirá experimentar con los estados del agua; la sala de informática facilitará el uso de simuladores y herramientas digitales; y una plataforma virtual de aprendizaje alojará recursos y actividades asincrónicas. La secuencia está diseñada para avanzar desde la exploración inicial hasta la elaboración y socialización de proyectos de conservación.
+                </p>
+                <ul>
+                    <li><strong>Ambientes:</strong> Aula, laboratorio de ciencias, sala de informática y plataforma virtual.</li>
+                    <li><strong>Agrupamientos:</strong> Trabajo individual, parejas, grupos pequeños y plenarias.</li>
+                    <li><strong>Temporización:</strong> Sesiones de entre 30 y 120 minutos, conforme a la secuencia de actividades propuesta.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
     <section id="recursos" class="section">
         <div class="container">
             <div class="section-header">
@@ -1594,22 +1660,22 @@
                 <div class="resource-category">
                     <h3><i class="fas fa-laptop"></i> Recursos Digitales</h3>
                     <ul>
-                        <li>Simulador del ciclo del agua (PhET Interactive Simulations)</li>
-                        <li>Videos educativos sobre ecosistemas acuáticos</li>
-                        <li>Plataforma de laboratorios virtuales</li>
-                        <li>Herramientas de mapas conceptuales digitales</li>
-                        <li>Base de datos de casos de contaminación hídrica</li>
+                        <li><a href="https://phet.colorado.edu/es/simulations/water-cycle" target="_blank" rel="noopener noreferrer">Simulador del ciclo del agua (PhET)</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=k3_52K_nB4E" target="_blank" rel="noopener noreferrer">Videos educativos sobre ecosistemas acuáticos</a></li>
+                        <li><a href="https://www.educaciontrespuntocero.com/recursos/laboratorios-virtuales/" target="_blank" rel="noopener noreferrer">Plataforma de laboratorios virtuales</a></li>
+                        <li><a href="https://www.canva.com/es_es/graficos/mapas-conceptuales/" target="_blank" rel="noopener noreferrer">Herramientas de mapas conceptuales digitales</a></li>
+                        <li><a href="https://www.sdg6data.org/" target="_blank" rel="noopener noreferrer">Base de datos de casos de contaminación hídrica</a></li>
                     </ul>
                 </div>
                 
                 <div class="resource-category">
                     <h3><i class="fas fa-book"></i> Recursos Bibliográficos</h3>
                     <ul>
-                        <li>Libros de texto de Ciencias Naturales grado 7°</li>
-                        <li>Artículos científicos adaptados para estudiantes</li>
-                        <li>Guías de campo sobre ecosistemas locales</li>
-                        <li>Informes ambientales de organizaciones internacionales</li>
-                        <li>Documentales sobre conservación del agua</li>
+                        <li><a href="https://contenidos.colombiaaprende.edu.co/grado-7/ciencias-naturales" target="_blank" rel="noopener noreferrer">Libros de texto de Ciencias Naturales grado 7°</a></li>
+                        <li><a href="https://kids.frontiersin.org/es/" target="_blank" rel="noopener noreferrer">Artículos científicos adaptados para estudiantes</a></li>
+                        <li><a href="http://repository.humboldt.org.co/" target="_blank" rel="noopener noreferrer">Guías de campo sobre ecosistemas locales</a></li>
+                        <li><a href="https://www.unep.org/es/resources" target="_blank" rel="noopener noreferrer">Informes ambientales de organizaciones internacionales</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=2xABli_gIas" target="_blank" rel="noopener noreferrer">Documentales sobre conservación del agua</a></li>
                     </ul>
                 </div>
                 
@@ -1618,9 +1684,9 @@
                     <ul>
                         <li>Computadores o tablets con acceso a internet</li>
                         <li>Proyector o pantalla interactiva</li>
-                        <li>Software de presentaciones</li>
-                        <li>Plataforma educativa virtual</li>
-                        <li>Herramientas de evaluación en línea</li>
+                        <li><a href="https://www.canva.com/es_es/crear/presentaciones/" target="_blank" rel="noopener noreferrer">Software de presentaciones</a></li>
+                        <li><a href="https://classroom.google.com/" target="_blank" rel="noopener noreferrer">Plataforma educativa virtual</a></li>
+                        <li><a href="https://kahoot.com/" target="_blank" rel="noopener noreferrer">Herramientas de evaluación en línea</a></li>
                     </ul>
                 </div>
                 
@@ -1646,12 +1712,17 @@
                     <p>PhET Interactive Simulations. (2021). <em>States of Matter</em>. University of Colorado Boulder.</p>
                     <p>World Wildlife Fund. (2020). <em>Living Planet Report 2020</em>. Gland: WWF International.</p>
                     <p>Organización Mundial de la Salud. (2019). <em>Agua, saneamiento e higiene en las escuelas</em>. Ginebra: OMS.</p>
+
+                    <!-- Bibliografía adicional recomendada y utilizada en el diseño de la unidad -->
+                    <p>Colombia Aprende. (s. f.). <em>Conoce las orientaciones para implementar la política: Evaluar para Avanzar</em>. Recuperado de <a href="https://colombiaaprende.edu.co/contenidos/coleccion/evaluar-para-avanzar">https://colombiaaprende.edu.co/contenidos/coleccion/evaluar-para-avanzar</a>.</p>
+                    <p>Jiménez, M., &amp; Faus, L. (2019). La programación didáctica, las unidades y sus elementos. En <em>Programar al revés: El diseño curricular desde los aprendizajes</em> (pp.&nbsp;65–77). Narcea.</p>
+                    <p>Pellicer Iborra, C. (2019). Un currículum para la vida. <em>Cuadernos de Pedagogía</em> (502), 3–26.</p>
+                    <p>Stapleton‑Corcoran, E. (2023). <em>Backward design</em>. Center for the Advancement of Teaching Excellence, University of Illinois Chicago. Recuperado de <a href="https://teaching.uic.edu/cate-teaching-guides/syllabus-course-design/backward-design/">https://teaching.uic.edu/cate-teaching-guides/syllabus-course-design/backward-design/</a>.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -1685,14 +1756,14 @@
 
         // DOM Content Loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // Hide loader after page loads
+            // Hide loader after page loads (increased delay to allow reading the cover)
             setTimeout(() => {
                 const loader = document.getElementById('loader');
                 loader.style.opacity = '0';
                 setTimeout(() => {
                     loader.style.display = 'none';
                 }, 500);
-            }, 2000);
+            }, 4000);
 
             // Initialize components
             initNavigation();
@@ -2119,4 +2190,3 @@
     </script>
 </body>
 </html>
-
