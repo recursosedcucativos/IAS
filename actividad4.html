@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos que Transforman: Guía para Aulas Inclusivas</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP (GreenSock Animation Platform) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Estilo base para la fuente y transiciones suaves */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .transition-all-smooth {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Estilos para el modo de alto contraste */
+        .high-contrast {
+            background-color: #000 !important;
+            color: #fff !important;
+        }
+        .high-contrast .bg-white, .high-contrast .bg-gray-50, .high-contrast .bg-slate-100, .high-contrast .bg-slate-200 {
+            background-color: #1a1a1a !important;
+            border: 1px solid #fff;
+        }
+        .high-contrast .text-gray-800, .high-contrast .text-slate-700, .high-contrast .text-gray-600 {
+            color: #fff !important;
+        }
+        .high-contrast .text-indigo-600 {
+            color: #ffff00 !important;
+        }
+        .high-contrast button {
+            border: 1px solid #fff;
+        }
+        /* Estilo para los enlaces de descarga */
+        .download-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #eef2ff;
+            color: #4338ca;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .download-link:hover {
+            background-color: #e0e7ff;
+            color: #3730a3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        /* Estilo para el contenedor del video responsivo */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 0.5rem;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-700 transition-all-smooth">
+
+    <!-- Contenedor principal de la aplicación -->
+    <div id="app-container" class="min-h-screen">
+
+        <!-- Encabezado -->
+        <header class="bg-white shadow-md sticky top-0 z-20">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-indigo-600 p-2 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                    </div>
+                    <h1 class="text-xl md:text-2xl font-bold text-gray-800">Proyectos que Transforman</h1>
+                </div>
+                <button id="contrast-toggle" title="Activar alto contraste" class="p-2 rounded-full hover:bg-gray-200 transition-all-smooth">
+                    <i data-lucide="contrast"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Contenido principal -->
+        <main class="container mx-auto px-6 py-12">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Guía para Aulas Inclusivas</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Un recurso para deconstruir conceptos y crear proyectos que transformen las estructuras de exclusión.</p>
+            </div>
+
+            <!-- Grid de Módulos -->
+            <div id="modules-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Los módulos se generarán aquí con JavaScript -->
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Modal para mostrar el detalle del módulo -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 hidden">
+        <div id="modal-content" class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 relative transform scale-95 opacity-0">
+            <button id="close-modal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-all-smooth">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+            <div id="modal-body">
+                <!-- El contenido del módulo se insertará aquí -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicializar iconos de Lucide
+            lucide.createIcons();
+
+            // --- DATOS DE LOS MÓDULOS ---
+            const modulesData = [
+                {
+                    id: 'poder',
+                    title: 'Poder: De la Imposición a la Participación',
+                    icon: 'users',
+                    color: 'text-red-500',
+                    description: 'Herramientas para diseñar proyectos donde los estudiantes participen activamente en la construcción del conocimiento.',
+                    content: `
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center"><i data-lucide="users" class="mr-3 w-8 h-8 text-red-500"></i>Poder y Participación</h3>
+                        <p class="text-gray-600 mb-6">Este módulo explora cómo transformar las dinámicas de poder tradicionales en el aula, pasando de un modelo jerárquico a uno colaborativo. La inclusión real comienza cuando se cede el control y se confía en la capacidad de los estudiantes para ser protagonistas de su propio aprendizaje.</p>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold text-lg text-gray-700 mb-2">Cápsula de Video: Relaciones de Poder en el Aula</h4>
+                                <div class="video-container">
+                                    <iframe src="https://www.youtube.com/embed/3l-JCijJNCk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                             <div>
+                                <h4 class="font-semibold text-lg text-gray-700 mb-2">Cápsula de Texto: El rol del docente como facilitador</h4>
+                                <p class="text-gray-600 p-4 bg-slate-100 rounded-lg">Ser un facilitador significa cambiar el foco de "enseñar" a "ayudar a aprender". En lugar de ser la única fuente de conocimiento, el docente diseña experiencias, provoca preguntas, ofrece recursos y acompaña al estudiante en su proceso de descubrimiento. Este rol fomenta la autonomía, la curiosidad y el pensamiento crítico, habilidades esenciales para una participación genuina.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg text-gray-700 mb-2">Banco de preguntas reflexivas:</h4>
+                                <p class="text-gray-600 italic p-4 bg-slate-200 rounded-lg">"¿En qué momentos de mi clase los estudiantes toman decisiones reales sobre su aprendizaje?"</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg text-gray-700 mb-2">Herramientas descargables:</h4>
+                                <a href="https://www.educa.jcyl.es/crol/es/recursos-educativos/modelos-plantillas-coevaluacion-trabajo-cooperativo.ficheros/1465143-Coevaluaci%C3%B3nCooperativo.pdf" target="_blank" rel="noopener noreferrer" class="download-link">
+                                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                                    <span>Plantilla de Co-evaluación</span>
+                                </a>
+                            </div>
+                        </div>
+                    `
+                },
+                {
+                    id: 'liderazgo',
+                    title: 'Liderazgo: Acompañar para Transformar',
+                    icon: 'navigation',
+                    color: 'text-blue-500',
+                    description: 'Estrategias para que el docente actúe como facilitador y gestor que moviliza y valora las capacidades de cada estudiante.',
+                    content: `
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center"><i data-lucide="navigation" class="mr-3 w-8 h-8 text-blue-500"></i>Liderazgo Transformador</h3>
+                        <p class="text-gray-600 mb-6">Un liderazgo inclusivo no impone, sino que inspira, acompaña y transforma. Se basa en la empatía, la confianza y la capacidad de ver el potencial en cada estudiante, creando un ambiente seguro para la experimentación y el crecimiento.</p>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold text-lg text-gray-700 mb-2">Caso de Estudio: "Guardianes del medio ambiente"</h4>
+                                <div class="video-container">
+                                    <iframe src="https://www.youtube.com/embed/ENARPBv951s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                                <p class="text-sm text-gray-500 mt-2">Esta canción es un excelente punto de partida para inspirar un proyecto donde los estudiantes se conviertan en líderes del cuidado ambiental.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg text-gray-700 mb-2">Técnica: Círculos de Diálogo</h4>
+                                <p class="text-gray-600 p-4 bg-slate-100 rounded-lg mb-4">Los Círculos de Diálogo son una práctica restaurativa que crea un espacio seguro para que todos los miembros del aula se expresen y escuchen. Se utilizan para tomar decisiones, resolver conflictos o simplemente construir comunidad. El docente actúa como facilitador, no como director, asegurando que cada voz sea escuchada y valorada.</p>
+                                <div class="video-container">
+                                     <iframe src="https://www.youtube.com/embed/WSLu3v1PO_s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                             <div>
+                                <h4 class="font-semibold text-lg text-gray-700 mb-2">Banco de preguntas reflexivas:</h4>
+                                <p class="text-gray-600 italic p-4 bg-slate-200 rounded-lg">"¿Cómo fomento la autonomía en lugar de la dependencia en mis estudiantes?"</p>
+                            </div>
+                        </div>
+                    `
+                },
+                {
+                    id: 'territorio',
+                    title: 'Territorio: Aprender desde el Contexto',
+                    icon: 'map-pin',
+                    color: 'text-green-500',
+                    description: 'Metodologías para integrar la historia, cultura y problemáticas locales en el currículo, fortaleciendo la identidad.',
+                    content: `
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center"><i data-lucide="map-pin" class="mr-3 w-8 h-8 text-green-500"></i>Territorio y Contexto</h3>
+                        <p class="text-gray-600 mb-6">La educación no ocurre en el vacío. Conectar el aprendizaje con el territorio —la comunidad, su historia, sus desafíos y sus riquezas— hace que el conocimiento sea relevante y significativo. Un proyecto inclusivo es un espejo de la vida que lo rodea.</p>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold text-lg text-gray-700 mb-2">Cápsula de Video: Cartografía Social como Recurso Didáctico</h4>
+                                <div class="video-container">
+                                    <iframe src="https://www.youtube.com/embed/_mh-jhSh73E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg text-gray-700 mb-2">Cápsula de Texto: Entrevistas a la comunidad</h4>
+                                <p class="text-gray-600 p-4 bg-slate-100 rounded-lg">Invitar a abuelos, líderes locales, artesanos o comerciantes a la escuela (o visitarlos) convierte a la comunidad en un libro de texto viviente. Los estudiantes aprenden a escuchar, valorar otras perspectivas y a entender que el conocimiento no reside solo en los libros. Estas entrevistas pueden ser el punto de partida para proyectos sobre historia local, economía, tradiciones o desafíos ambientales.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg text-gray-700 mb-2">Herramientas descargables:</h4>
+                                <a href="https://www.minedu.gob.bo/files/publicaciones/veaye/dgea/1.-Metodologia-del--Diagnostico-Comunitario-Participativo.pdf" target="_blank" rel="noopener noreferrer" class="download-link">
+                                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                                    <span>Guía de Diagnóstico Participativo</span>
+                                </a>
+                            </div>
+                        </div>
+                    `
+                },
+                {
+                    id: 'genero',
+                    title: 'Género: Equidad como Práctica Pedagógica',
+                    icon: 'swords',
+                    color: 'text-purple-500',
+                    description: 'Actividades y temas de reflexión para abordar la equidad, el respeto a la diferencia y romper con estereotipos.',
+                    content: `
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center"><i data-lucide="swords" class="mr-3 w-8 h-8 text-purple-500"></i>Género y Equidad</h3>
+                        <p class="text-gray-600 mb-6">La escuela puede ser un espacio de reproducción de desigualdades o un motor para la equidad de género. Este módulo ofrece recursos para cuestionar roles tradicionales, visibilizar la diversidad y construir un aula donde todas las identidades sean respetadas y valoradas.</p>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold text-lg text-gray-700 mb-2">Ejemplos prácticos:</h4>
+                                <ul class="list-disc list-inside text-gray-600 space-y-1">
+                                    <li>Análisis de personajes en cuentos infantiles desde una perspectiva de género.</li>
+                                    <li>Proyecto: "Mujeres que inspiran en nuestra comunidad".</li>
+                                </ul>
+                            </div>
+                             <div>
+                                <h4 class="font-semibold text-lg text-gray-700 mb-2">Banco de preguntas reflexivas:</h4>
+                                <p class="text-gray-600 italic p-4 bg-slate-200 rounded-lg">"¿Mi lenguaje y los materiales que uso en clase son inclusivos y libres de estereotipos?"</p>
+                            </div>
+                        </div>
+                    `
+                },
+                {
+                    id: 'gobernabilidad',
+                    title: 'Gobernabilidad: Democracia en el Aula',
+                    icon: 'landmark',
+                    color: 'text-yellow-500',
+                    description: 'Pautas para implementar procesos de toma de decisiones, negociación y autoevaluación colectiva en los proyectos.',
+                    content: `
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center"><i data-lucide="landmark" class="mr-3 w-8 h-8 text-yellow-500"></i>Gobernabilidad y Democracia</h3>
+                        <p class="text-gray-600 mb-6">La gobernabilidad en el aula no es sinónimo de control, sino de gestión democrática. Se trata de crear estructuras participativas donde los estudiantes aprenden a negociar, a lograr consensos y a ser corresponsables del bien común. El aula se convierte en un pequeño laboratorio de ciudadanía.</p>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-lg text-gray-700 mb-2">Herramientas descargables:</h4>
+                                <div class="flex flex-col sm:flex-row gap-4">
+                                    <a href="https://www.orientacionandujar.es/wp-content/uploads/2014/10/LA-CONSTITUCI%C3%93N-DE-LA-CLASE-normas-de-convivencia.pdf" target="_blank" rel="noopener noreferrer" class="download-link">
+                                        <i data-lucide="file-text" class="w-4 h-4"></i>
+                                        <span>Modelo de Constitución del Aula</span>
+                                    </a>
+                                    <a href="https://colegiohipatia.fuhem.es/phocadownload/Curso2020-21/convivencia/COMO%20HACER%20ASAMBLEAS%20DE%20AULA.pdf" target="_blank" rel="noopener noreferrer" class="download-link">
+                                        <i data-lucide="file-text" class="w-4 h-4"></i>
+                                        <span>Protocolo para Asambleas</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                },
+                {
+                    id: 'accesibilidad',
+                    title: 'Accesibilidad y DUA',
+                    icon: 'universal-circle',
+                    color: 'text-teal-500',
+                    description: 'Principios de Diseño Universal para el Aprendizaje (DUA) para crear un REA verdaderamente accesible para todos.',
+                    content: `
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center"><i data-lucide="universal-circle" class="mr-3 w-8 h-8 text-teal-500"></i>Accesibilidad Universal</h3>
+                        <p class="text-gray-600 mb-6">Un recurso inclusivo debe ser accesible para todos. Este módulo se centra en los principios del Diseño Universal para el Aprendizaje (DUA), asegurando que el contenido se presente en múltiples formatos y que todos los usuarios puedan interactuar y expresarse de diversas maneras.</p>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-lg text-gray-700 mb-2">Principios Clave:</h4>
+                                <ul class="list-disc list-inside text-gray-600 space-y-1">
+                                    <li><strong>Múltiples formas de representación:</strong> Opciones de alto contraste, texto alternativo, subtítulos.</li>
+                                    <li><strong>Múltiples formas de acción y expresión:</strong> Guías para el trabajo colaborativo con herramientas digitales.</li>
+                                    <li><strong>Múltiples formas de implicación:</strong> Flexibilidad en la navegación para que cada docente explore a su ritmo.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `
+                }
+            ];
+
+            // --- RENDERIZADO DE MÓDULOS ---
+            const modulesGrid = document.getElementById('modules-grid');
+            modulesData.forEach(module => {
+                const card = document.createElement('div');
+                card.className = 'module-card bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transform transition-all-smooth cursor-pointer';
+                card.dataset.moduleId = module.id;
+                card.innerHTML = `
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mb-5">
+                        <i data-lucide="${module.icon}" class="${module.color} w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">${module.title}</h3>
+                    <p class="text-gray-600">${module.description}</p>
+                `;
+                modulesGrid.appendChild(card);
+            });
+            lucide.createIcons(); // Re-render icons after adding them to the DOM
+
+            // --- LÓGICA DEL MODAL ---
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modal-content');
+            const modalBody = document.getElementById('modal-body');
+            const closeModalBtn = document.getElementById('close-modal');
+
+            const openModal = (moduleId) => {
+                const module = modulesData.find(m => m.id === moduleId);
+                if (!module) return;
+
+                modalBody.innerHTML = module.content;
+                lucide.createIcons(); // Re-render icons inside the modal
+                
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+
+                // Animación de entrada con GSAP
+                gsap.to(modalContent, { duration: 0.4, scale: 1, opacity: 1, ease: "elastic.out(1, 0.75)" });
+            };
+
+            const closeModal = () => {
+                 // Animación de salida con GSAP
+                gsap.to(modalContent, { 
+                    duration: 0.2, 
+                    scale: 0.95, 
+                    opacity: 0, 
+                    ease: "power2.in",
+                    onComplete: () => {
+                        modal.classList.add('hidden');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            };
+
+            modulesGrid.addEventListener('click', (e) => {
+                const card = e.target.closest('.module-card');
+                if (card) {
+                    openModal(card.dataset.moduleId);
+                }
+            });
+
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Cerrar con la tecla Escape
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+
+            // --- LÓGICA DE ACCESIBILIDAD (ALTO CONTRASTE) ---
+            const contrastToggle = document.getElementById('contrast-toggle');
+            const appContainer = document.getElementById('app-container');
+            
+            contrastToggle.addEventListener('click', () => {
+                appContainer.classList.toggle('high-contrast');
+                // Guardar preferencia en localStorage
+                if (appContainer.classList.contains('high-contrast')) {
+                    localStorage.setItem('highContrast', 'true');
+                } else {
+                    localStorage.removeItem('highContrast');
+                }
+            });
+
+            // Cargar preferencia al iniciar
+            if (localStorage.getItem('highContrast') === 'true') {
+                appContainer.classList.add('high-contrast');
+            }
+        });
+    </script>
+</body>
+</html>
