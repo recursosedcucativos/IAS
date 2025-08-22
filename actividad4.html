@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyectos que Transforman: Guía para Aulas Inclusivas</title>
     
-    <!-- Tailwind CSS -->
+    <meta name="author" content="MARIA YIRLEY MOSQUERA PALACIOS">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- GSAP (GreenSock Animation Platform) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -86,10 +84,8 @@
 </head>
 <body class="bg-slate-100 text-slate-700 transition-all-smooth">
 
-    <!-- Contenedor principal de la aplicación -->
     <div id="app-container" class="min-h-screen">
 
-        <!-- Encabezado -->
         <header class="bg-white shadow-md sticky top-0 z-20">
             <div class="container mx-auto px-6 py-4 flex justify-between items-center">
                 <div class="flex items-center space-x-3">
@@ -104,30 +100,26 @@
             </div>
         </header>
 
-        <!-- Contenido principal -->
         <main class="container mx-auto px-6 py-12">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Guía para Aulas Inclusivas</h2>
                 <p class="text-lg text-gray-600 max-w-3xl mx-auto">Un recurso para deconstruir conceptos y crear proyectos que transformen las estructuras de exclusión.</p>
+                <p class="text-sm text-gray-500 mt-2">Autoría: MARIA YIRLEY MOSQUERA PALACIOS</p>
             </div>
 
-            <!-- Grid de Módulos -->
             <div id="modules-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Los módulos se generarán aquí con JavaScript -->
-            </div>
+                </div>
         </main>
 
     </div>
 
-    <!-- Modal para mostrar el detalle del módulo -->
     <div id="modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 hidden">
         <div id="modal-content" class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-8 relative transform scale-95 opacity-0">
             <button id="close-modal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-all-smooth">
                 <i data-lucide="x" class="w-8 h-8"></i>
             </button>
             <div id="modal-body">
-                <!-- El contenido del módulo se insertará aquí -->
-            </div>
+                </div>
         </div>
     </div>
 
