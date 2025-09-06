@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Catálogo de IA: Chatbots, Asistentes y Herramientas</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Accede a las interfaces de las IA más famosas con un solo clic. ChatGPT, Claude, Gemini y más, categorizadas para facilitar tu búsqueda.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Accede a las interfaces de las IA más famosas con un solo clic. ChatGPT, Claude, Gemini y más, categorizadas para facilitar tu búsqueda." />
   <style>
     /* Reset básico */
     * {
@@ -47,7 +47,7 @@
       padding: 1rem;
     }
 
-    /* Header mejorado */
+    /* Header */
     header {
       text-align: center;
       margin: 2rem 0 3rem 0;
@@ -101,7 +101,7 @@
         box-shadow: 0 0 20px rgba(255,255,255,0.2);
     }
 
-    /* Canales de suscripción mejorados */
+    /* Canales de suscripción */
     .subscribe-channels-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -119,6 +119,7 @@
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
+      color: #fff;
     }
 
     .subscribe-container::before {
@@ -128,7 +129,7 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
       transition: left 0.5s;
     }
 
@@ -146,19 +147,18 @@
     .subscribe-container.telegram { background: linear-gradient(135deg, #0088CC, #005A7F); }
     .subscribe-container.spreaker { background: linear-gradient(135deg, #00a651, #007d3c); }
 
-
     .subscribe-container h2 {
       color: #fff;
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
       font-weight: 600;
     }
 
     .subscribe-container p {
       color: rgba(255,255,255,0.9);
       font-size: 0.95rem;
-      margin-bottom: 1.5rem;
-      line-height: 1.5;
+      margin-bottom: 1rem;
+      line-height: 1.4;
     }
 
     .subscribe-button {
@@ -167,34 +167,27 @@
       gap: 0.5rem;
       background: rgba(255,255,255,0.95);
       color: #333;
-      padding: 12px 24px;
-      border-radius: 50px;
-      font-size: 1rem;
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-size: 0.95rem;
       font-weight: 600;
       text-decoration: none;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       box-shadow: var(--shadow-light);
     }
-    
-    .subscribe-container.youtube .subscribe-button { color: #FF0000; }
-    .subscribe-container.whatsapp .subscribe-button { color: #25D366; }
-    .subscribe-container.telegram .subscribe-button { color: #0088CC; }
-    .subscribe-container.spreaker .subscribe-button { color: #00a651; }
 
     .subscribe-button:hover {
-      background: #fff;
-      transform: scale(1.05);
-      box-shadow: var(--shadow-medium);
+      transform: scale(1.04);
     }
 
-    /* Secciones de categorías */
+    /* Secciones */
     .category-section {
       margin-bottom: 3rem;
     }
 
     .category-section h2 {
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      margin-bottom: 2rem;
+      font-size: clamp(1.6rem, 3.5vw, 2rem);
+      margin-bottom: 1.5rem;
       text-align: center;
       position: relative;
       color: var(--text-primary);
@@ -213,7 +206,7 @@
       border-radius: 2px;
     }
 
-    /* Grid de tarjetas mejorado */
+    /* Grid de tarjetas */
     .container {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -228,8 +221,8 @@
       text-align: center;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(8px);
       position: relative;
       overflow: hidden;
       height: 100%;
@@ -249,15 +242,12 @@
       transform: translateY(-8px);
       background: var(--card-hover);
       box-shadow: var(--shadow-heavy);
-      border-color: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.12);
     }
 
-    .card > * {
-      position: relative;
-      z-index: 1;
-    }
+    .card > * { position: relative; z-index: 1; }
 
-    /* Iconos mejorados */
+    /* Iconos */
     .icon-circle {
       width: 80px;
       height: 80px;
@@ -274,7 +264,7 @@
     }
     
     .card:hover .icon-circle {
-      transform: scale(1.1) rotate(5deg);
+      transform: scale(1.06) rotate(4deg);
       box-shadow: var(--shadow-medium);
     }
 
@@ -302,11 +292,9 @@
     .icon-circle.minimax { background: linear-gradient(135deg, #333333, #555555); }
     .icon-circle.kimi { background: linear-gradient(135deg, #8a4dff, #6d28d9); }
     .icon-circle.convergence { background: linear-gradient(135deg, #3f51b5, #303f9f); }
+    .icon-circle.zai { background: linear-gradient(135deg, #4a00e0, #8e2de2); }
 
-
-    .icon-circle::before {
-        font-style: normal;
-    }
+    .icon-circle::before { font-style: normal; }
 
     .icon-circle.chatgpt::before { content: '💬'; }
     .icon-circle.claude::before { content: '🤖'; }
@@ -331,11 +319,11 @@
     .icon-circle.minimax::before { content: '👨‍💻'; }
     .icon-circle.kimi::before { content: '📚'; }
     .icon-circle.convergence::before { content: '🔄'; }
-
+    .icon-circle.zai::before { content: '⚡'; }
 
     .card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 0.75rem;
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
       color: var(--text-primary);
       font-weight: 600;
     }
@@ -347,13 +335,13 @@
       line-height: 1.5;
     }
 
-    /* Footer mejorado */
+    /* Footer */
     footer {
       margin-top: 4rem;
       padding: 2rem 0;
       text-align: center;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      background: rgba(0,0,0,0.2);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      background: rgba(0,0,0,0.12);
     }
 
     footer p {
@@ -363,57 +351,31 @@
 
     footer .author-info {
       font-size: 0.85rem;
-      opacity: 0.8;
+      opacity: 0.9;
     }
 
     /* Animaciones de entrada */
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     
     /* Responsividad */
     @media (max-width: 768px) {
-      .container-wrapper {
-        padding: 0.5rem;
-      }
-      .subscribe-channels-container {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-      .subscribe-container, .card {
-        padding: 1.5rem;
-      }
-      .container {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1rem;
-      }
-      .icon-circle {
-        width: 70px;
-        height: 70px;
-        font-size: 2rem;
-      }
+      .container-wrapper { padding: 0.5rem; }
+      .subscribe-channels-container { grid-template-columns: 1fr; gap: 1rem; }
+      .subscribe-container, .card { padding: 1.25rem; }
+      .container { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+      .icon-circle { width: 70px; height: 70px; font-size: 2rem; }
     }
 
     @media (max-width: 480px) {
-      .container {
-        grid-template-columns: 1fr;
-      }
-      .card, .subscribe-container {
-        padding: 1.25rem;
-      }
+      .container { grid-template-columns: 1fr; }
+      .card, .subscribe-container { padding: 1rem; }
     }
 
-    /* Estados de focus para accesibilidad */
-    .card:focus,
-    .subscribe-button:focus,
-    .search-box:focus {
+    /* Focus states */
+    .card:focus, .subscribe-button:focus, .search-box:focus {
       outline: 2px solid #64b5f6;
       outline-offset: 2px;
     }
@@ -434,33 +396,25 @@
       <div class="subscribe-container youtube">
         <h2>Comunidad TecnoEducaTics</h2>
         <p>Descubre tutoriales, cursos y contenido educativo para docentes y profesionales.</p>
-        <a href="https://www.youtube.com/@TecnoEducaTics?sub_confirmation=1" target="_blank" class="subscribe-button" rel="noopener">
-          🔔 YouTube
-        </a>
+        <a href="https://www.youtube.com/@TecnoEducaTics?sub_confirmation=1" target="_blank" class="subscribe-button" rel="noopener">🔔 YouTube</a>
       </div>
 
       <div class="subscribe-container whatsapp">
         <h2>Canal de WhatsApp</h2>
         <p>Recibe las últimas novedades y tips exclusivos directamente en tu WhatsApp.</p>
-        <a href="https://whatsapp.com/channel/0029Va6FP4C6hENyzxtO8d0e" target="_blank" class="subscribe-button" rel="noopener">
-          📱 Unirse
-        </a>
+        <a href="https://whatsapp.com/channel/0029Va6FP4C6hENyzxtO8d0e" target="_blank" class="subscribe-button" rel="noopener">📱 Unirse</a>
       </div>
 
       <div class="subscribe-container telegram">
         <h2>Canal de Telegram</h2>
         <p>Accede a material exclusivo, discusiones y anuncios de nuestra comunidad.</p>
-        <a href="https://t.me/cursoseducativos" target="_blank" class="subscribe-button" rel="noopener">
-          📢 Seguir
-        </a>
+        <a href="https://t.me/cursoseducativos" target="_blank" class="subscribe-button" rel="noopener">📢 Seguir</a>
       </div>
       
       <div class="subscribe-container spreaker">
         <h2>Podcast TecnoEducaTics</h2>
         <p>Escucha análisis, entrevistas y novedades sobre tecnología educativa y IA.</p>
-        <a href="https://www.spreaker.com/podcast/tecnoeducatics--6664603" target="_blank" class="subscribe-button" rel="noopener">
-          🎙️ Escuchar
-        </a>
+        <a href="https://www.spreaker.com/podcast/tecnoeducatics--6664603" target="_blank" class="subscribe-button" rel="noopener">🎙️ Escuchar</a>
       </div>
     </div>
 
@@ -529,7 +483,7 @@
         nombre: "Qwen",
         descripcion: "Chatbot avanzado de Alibaba Cloud con capacidades multilingües, multimodales y para tareas complejas.",
         iconClass: "qwen",
-        enlaceChat: "https://qwen.ai/",
+        enlaceChat: "https://chat.qwen.ai/",
         categoria: "Chatbots Conversacionales"
       },
       {
@@ -567,6 +521,17 @@
         enlaceChat: "https://chat.baidu.com/",
         categoria: "Chatbots Conversacionales"
       },
+
+      /* --- añadido: Z.ai --- */
+      {
+        nombre: "Z.ai",
+        descripcion: "Chatbot conversacional de última generación que ofrece respuestas rápidas y precisas en múltiples idiomas.",
+        iconClass: "zai",
+        enlaceChat: "https://chat.z.ai/",
+        categoria: "Chatbots Conversacionales"
+      },
+
+      /* Asistentes y Agentes */
       {
         nombre: "Luzia",
         descripcion: "Asistente personal de IA multifuncional en WhatsApp para tareas diarias, traducciones y transcripciones.",
@@ -588,14 +553,15 @@
         enlaceChat: "https://www.genspark.ai/",
         categoria: "Asistentes y Agentes de IA"
       },
+      /* Manus actualizado al link de invitación solicitado */
       {
         nombre: "Manus AI",
         descripcion: "Agente de IA autónomo para realizar tareas online complejas sin supervisión, incluyendo desarrollo y escritura.",
         iconClass: "manus",
-        enlaceChat: "https://manus.im/",
+        enlaceChat: "https://manus.im/invitation/DESPQDLDSEVMCQ",
         categoria: "Asistentes y Agentes de IA"
       },
-       {
+      {
         nombre: "Convergence AI",
         descripcion: "Asistente de IA que automatiza tareas diarias y flujos de trabajo a través de comandos de lenguaje natural, aprendiendo y adaptándose al usuario.",
         iconClass: "convergence",
@@ -616,6 +582,8 @@
         enlaceChat: "https://www.kimi.com/",
         categoria: "Asistentes y Agentes de IA"
       },
+
+      /* Herramientas y utilidades */
       {
         nombre: "Google AI Studio",
         descripcion: "Plataforma avanzada de Google para desarrolladores, permitiendo construir y experimentar con modelos de IA.",
