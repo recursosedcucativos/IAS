@@ -1,117 +1,269 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="theme-color" content="#4CAF50">
-  <title>Conversor a Base64 (data:)</title>
+  <meta charset="UTF-8">
+  <title>Convertidor Base64 — Standalone</title>
   <style>
     body {
+      font-family: Arial, sans-serif;
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem;
-      min-height: 100vh;
+      padding: 0;
+      background: #f4f4f4;
       color: #333;
     }
-    h1 {
-      color: #2e7d32;
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 1rem;
       text-align: center;
     }
-    .contenedor {
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
       background: white;
       padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-      width: 100%;
-      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    input[type="file"] {
-      width: 100%;
-      margin-top: 1rem;
-      padding: 0.5rem;
+    .drop-zone {
+      border: 2px dashed #4CAF50;
+      padding: 2rem;
+      text-align: center;
+      color: #777;
+      cursor: pointer;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      transition: background 0.2s;
+    }
+    .drop-zone.dragover {
+      background: #e8f5e9;
     }
     textarea {
       width: 100%;
       height: 200px;
       margin-top: 1rem;
       padding: 1rem;
-      font-size: 0.95rem;
-      border-radius: 12px;
+      border-radius: 6px;
       border: 1px solid #ccc;
+      font-family: monospace;
+      font-size: 14px;
       resize: vertical;
     }
-    .botones {
+    .buttons {
+      margin-top: 1rem;
       display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 1.5rem;
+      flex-wrap: wrap;
+      gap: 10px;
     }
     button {
-      padding: 1rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      background-color: #4CAF50;
+      background: #4CAF50;
       color: white;
-      transition: 0.3s ease;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
     }
     button:hover {
-      background-color: #43a047;
+      background: #45a049;
     }
-    @media (max-width: 480px) {
-      .botones {
-        flex-direction: column;
-      }
+    .preview {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .preview img,
+    .preview video,
+    .preview audio {
+      max-width: 100%;
+      margin-top: 1rem;
+    }
+    footer {
+      background: #111;
+      color: #fff;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+      text-align: center;
+    }
+    footer h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: #4CAF50;
+    }
+    footer p.subtitle {
+      font-size: 1rem;
+      color: #ddd;
+      margin-bottom: 1.5rem;
+    }
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .social-links a {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #222;
+      color: white;
+      padding: 0.8rem 1.2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.3s, background 0.3s;
+      animation: pulse 2.5s infinite;
+    }
+    .social-links a:hover {
+      transform: scale(1.08);
+      background: #4CAF50;
+    }
+    .social-links i {
+      font-size: 1.3rem;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.6); }
+      70% { box-shadow: 0 0 0 15px rgba(76, 175, 80, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+    }
+    /* Botón flotante */
+    .floating-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      font-size: 22px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: background 0.3s;
+      z-index: 1000;
+    }
+    .floating-button:hover {
+      background: #45a049;
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <h1>🔄 Convertidor a Base64 con data:</h1>
-  <div class="contenedor">
-    <p><strong>Selecciona una imagen, video, audio o gif:</strong></p>
-    <input type="file" id="archivo" accept="image/*,audio/*,video/*">
-    
-    <textarea id="resultado" placeholder="Aquí aparecerá el código base64 con data:"></textarea>
+  <header>
+    <h1>Convertidor Base64 — Imagen, Audio y Video</h1>
+  </header>
 
-    <div class="botones">
-      <button onclick="copiarResultado()">📋 Copiar al portapapeles</button>
-      <button onclick="descargarTexto()">💾 Descargar como .txt</button>
+  <main>
+    <div class="drop-zone" id="drop-zone">Arrastra y suelta un archivo aquí o haz clic para seleccionar</div>
+    <input type="file" id="file-input" hidden>
+
+    <textarea id="output" placeholder="Aquí aparecerá el código Base64..."></textarea>
+
+    <div class="buttons">
+      <button id="copy-btn">📋 Copiar código</button>
+      <button id="copy-base64-btn">📋 Copiar solo Base64</button>
+      <button id="clear-btn">🗑️ Limpiar</button>
+      <button id="download-btn">💾 Descargar .txt</button>
     </div>
-  </div>
+
+    <div class="preview" id="preview"></div>
+  </main>
+
+  <footer>
+    <h2>🚀 Potencia tu aprendizaje con IA</h2>
+    <p class="subtitle">Capacítate y aprende a crear contenido digital con Inteligencia Artificial. Únete a nuestra comunidad:</p>
+    <div class="social-links">
+      <a href="https://www.youtube.com/@TecnoEducaTics?sub_confirmation=1" target="_blank"><i class="fab fa-youtube" style="color:#ff0000"></i> YouTube</a>
+      <a href="https://whatsapp.com/channel/0029Va6FP4C6hENyzxtO8d0e" target="_blank"><i class="fab fa-whatsapp" style="color:#25d366"></i> WhatsApp</a>
+      <a href="https://t.me/cursoseducativos" target="_blank"><i class="fab fa-telegram" style="color:#0088cc"></i> Telegram</a>
+      <a href="https://www.spreaker.com/podcast/tecnoeducatics--6664603" target="_blank"><i class="fas fa-podcast" style="color:#f39c12"></i> Podcast</a>
+      <a href="https://www.facebook.com/ruben.carrascal" target="_blank"><i class="fab fa-facebook" style="color:#1877f2"></i> Facebook</a>
+      <a href="https://www.instagram.com/rufersic/" target="_blank"><i class="fab fa-instagram" style="color:#e1306c"></i> Instagram</a>
+      <a href="https://www.tiktok.com/@rubensierra85" target="_blank"><i class="fab fa-tiktok" style="color:#000"></i> TikTok</a>
+    </div>
+  </footer>
+
+  <button class="floating-button" id="scroll-top" title="Subir">⬆️</button>
 
   <script>
-    const archivoInput = document.getElementById('archivo');
-    const resultado = document.getElementById('resultado');
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const output = document.getElementById('output');
+    const preview = document.getElementById('preview');
 
-    archivoInput.addEventListener('change', function () {
-      const archivo = this.files[0];
-      if (!archivo) return;
+    dropZone.addEventListener('click', () => fileInput.click());
 
-      const lector = new FileReader();
-      lector.onload = function (e) {
-        resultado.value = e.target.result;
-      };
-      lector.readAsDataURL(archivo);
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
     });
 
-    function copiarResultado() {
-      resultado.select();
-      document.execCommand("copy");
-      alert("¡Código base64 copiado al portapapeles!");
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      handleFile(e.dataTransfer.files[0]);
+    });
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length > 0) {
+        handleFile(fileInput.files[0]);
+      }
+    });
+
+    function handleFile(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64 = reader.result;
+        output.value = base64;
+
+        preview.innerHTML = '';
+        if (file.type.startsWith('image/')) {
+          preview.innerHTML = `<img src="${base64}" alt="preview">`;
+        } else if (file.type.startsWith('audio/')) {
+          preview.innerHTML = `<audio controls src="${base64}"></audio>`;
+        } else if (file.type.startsWith('video/')) {
+          preview.innerHTML = `<video controls src="${base64}"></video>`;
+        }
+      };
+      reader.readAsDataURL(file);
     }
 
-    function descargarTexto() {
-      const blob = new Blob([resultado.value], { type: "text/plain" });
-      const link = document.createElement("a");
+    document.getElementById('copy-btn').addEventListener('click', () => {
+      output.select();
+      document.execCommand('copy');
+      alert('Código copiado al portapapeles');
+    });
+
+    document.getElementById('copy-base64-btn').addEventListener('click', () => {
+      const base64Only = output.value.split(',')[1] || output.value;
+      navigator.clipboard.writeText(base64Only);
+      alert('Base64 copiado al portapapeles');
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      output.value = '';
+      preview.innerHTML = '';
+    });
+
+    document.getElementById('download-btn').addEventListener('click', () => {
+      const blob = new Blob([output.value], { type: 'text/plain' });
+      const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = "base64_resultado.txt";
+      link.download = 'base64.txt';
       link.click();
-    }
+    });
+
+    // Botón flotante scroll-top
+    const scrollBtn = document.getElementById('scroll-top');
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   </script>
 </body>
 </html>
