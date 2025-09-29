@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safari Numérico - Actividad Evaluativa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #667eea;
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background 0.3s;
+            min-width: 150px;
+            font-family: Georgia, serif;
+        }
+
+        .nav-tab:hover {
+            background: #5568d3;
+        }
+
+        .nav-tab.active {
+            background: white;
+            color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: #764ba2;
+            font-size: 1.6em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .info-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+            line-height: 1.8;
+        }
+
+        .info-section p {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+
+        .info-section strong {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 1em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        table thead tr {
+            background: #667eea;
+            color: white;
+            text-align: left;
+        }
+
+        table th,
+        table td {
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+
+        table tbody tr {
+            background: #f8f9fa;
+        }
+
+        table tbody tr:nth-of-type(even) {
+            background: #e9ecef;
+        }
+
+        table tbody tr:hover {
+            background: #dee2e6;
+        }
+
+        .rubric-table {
+            margin-top: 30px;
+        }
+
+        .rubric-table th {
+            background: #764ba2;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+            line-height: 1.8;
+        }
+
+        ul li, ol li {
+            margin-bottom: 10px;
+        }
+
+        .game-container {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .game-title {
+            color: #667eea;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        .welcome-text {
+            text-align: center;
+            font-size: 1.3em;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .start-btn, .next-btn, .restart-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.5em;
+            border-radius: 50px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: bold;
+        }
+
+        .start-btn:hover, .next-btn:hover, .restart-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.6);
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            height: 100%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .question-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .question-text {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .animals-display {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            min-height: 200px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .animal {
+            font-size: 4em;
+            animation: animalPop 0.5s ease-out;
+            transition: transform 0.3s;
+        }
+
+        .animal:hover {
+            transform: scale(1.2);
+        }
+
+        @keyframes animalPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 4px solid #667eea;
+            color: #667eea;
+            font-size: 3em;
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .option-btn:hover {
+            transform: scale(1.1);
+            background: #667eea;
+            color: white;
+        }
+
+        .option-btn.correct {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+            animation: correctPulse 0.5s;
+        }
+
+        .option-btn.incorrect {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+            animation: shake 0.5s;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .feedback {
+            text-align: center;
+            font-size: 2em;
+            margin: 20px 0;
+            min-height: 60px;
+            font-weight: bold;
+        }
+
+        .feedback.correct {
+            color: #4CAF50;
+        }
+
+        .feedback.incorrect {
+            color: #f44336;
+        }
+
+        .results-container {
+            text-align: center;
+        }
+
+        .medal {
+            font-size: 8em;
+            margin: 20px 0;
+            animation: medalSpin 1s ease-out;
+        }
+
+        @keyframes medalSpin {
+            0% { transform: rotateY(0deg) scale(0); }
+            100% { transform: rotateY(720deg) scale(1); }
+        }
+
+        .score {
+            font-size: 2em;
+            color: #667eea;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .stats {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 2px solid #ddd;
+            font-size: 1.2em;
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .stat-value {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .references {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .references p {
+            margin-bottom: 10px;
+            text-indent: -30px;
+            padding-left: 30px;
+            line-height: 1.6;
+        }
+
+        @media print {
+            .nav-tabs {
+                display: none;
+            }
+            .tab-content {
+                display: block !important;
+                page-break-after: always;
+            }
+            body {
+                background: white;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tab-content {
+                padding: 20px;
+            }
+            
+            .nav-tab {
+                font-size: 0.9em;
+                padding: 15px 10px;
+            }
+            
+            .animal {
+                font-size: 3em;
+            }
+            
+            .option-btn {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Navegación por pestañas -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('descripcion')">Descripción</button>
+            <button class="nav-tab" onclick="showTab('objetivos')">Objetivos</button>
+            <button class="nav-tab" onclick="showTab('desarrollo')">Desarrollo</button>
+            <button class="nav-tab" onclick="showTab('rubrica')">Rúbrica</button>
+            <button class="nav-tab" onclick="showTab('juego')">🎮 Jugar</button>
+        </div>
+
+        <!-- Pestaña 1: Descripción del Juego -->
+        <div id="descripcion" class="tab-content active">
+            <h1>Safari Numérico: Contando Amigos Animales</h1>
+            
+            <div class="info-section">
+                <h2>📋 Tabla de Descripción de la Actividad</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">Aspecto</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Objetivo de evaluación</strong></td>
+                            <td>Evaluar la competencia matemática en conteo de números del 1 al 10, asociando cantidad con numeral, en el contexto de animales de la granja y salvajes.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tipo de evaluación</strong></td>
+                            <td>Esta evaluación está encaminada principalmente a medir <strong>aptitudes y habilidades matemáticas</strong> específicas del pensamiento lógico-matemático. Se centra en la capacidad del niño para realizar conteo correcto, discriminación visual, correspondencia número-cantidad y velocidad de procesamiento numérico. Secundariamente, evalúa <strong>actitudes</strong> como la perseverancia ante el error y la autonomía en el uso de herramientas digitales.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nombre del juego</strong></td>
+                            <td><strong>"Safari Numérico: Contando Amigos Animales"</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Número de participantes</strong></td>
+                            <td>Individual (1 niño por sesión), aunque puede jugarse de forma rotativa en grupo.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Desarrollo del juego</strong></td>
+                            <td>El juego presenta 10 niveles progresivos donde aparecen diferentes cantidades de animales (entre 1 y 10) en escenarios visuales atractivos. El niño debe contar los animales visibles y seleccionar el número correcto entre 3 opciones presentadas. Cada acierto genera retroalimentación positiva visual y sonora mediante animaciones, mientras que los errores ofrecen una segunda oportunidad inmediata para autocorrección. El sistema registra automáticamente: aciertos totales, tiempo por pregunta, número de intentos necesarios y patrón de errores. Al finalizar, se genera un reporte visual con medallas según el desempeño (🥇 oro: 9-10 correctas en primer intento, 🥈 plata: 7-8, 🥉 bronce: 5-6, ⭐ estrella: menos de 5).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-section">
+                <h2>🎯 Fundamentación Pedagógica</h2>
+                <p>El juego se fundamenta en los principios del aprendizaje significativo propuestos por Ausubel, conectando los conceptos matemáticos abstractos (números) con elementos concretos y motivadores del entorno del niño (animales). Según Alsina (2007), el uso de contextos lúdicos y visuales favorece la construcción del pensamiento lógico-matemático en edades tempranas.</p>
+                
+                <p>La temática de animales fue seleccionada estratégicamente porque los niños de 6 años muestran gran interés natural por los seres vivos, lo que aumenta la motivación intrínseca (Muñiz-Rodríguez et al., 2014). Además, la variedad de animales permite mantener la atención y evitar la monotonía durante las 10 preguntas.</p>
+                
+                <p>El diseño autocontenido del juego (sin necesidad de internet) responde a las necesidades de accesibilidad y equidad educativa, permitiendo su uso en cualquier contexto escolar independientemente de la conectividad disponible.</p>
+            </div>
+
+            <div class="info-section">
+                <h2>💻 Características Técnicas</h2>
+                <ul>
+                    <li><strong>Formato:</strong> Aplicación web HTML autocontenida (un solo archivo)</li>
+                    <li><strong>Compatibilidad:</strong> Funciona en tablets, ordenadores y dispositivos móviles</li>
+                    <li><strong>Requisitos:</strong> Navegador web moderno (Chrome, Firefox, Safari, Edge)</li>
+                    <li><strong>Conexión a internet:</strong> No necesaria (funciona offline)</li>
+                    <li><strong>Instalación:</strong> No requiere instalación, solo abrir el archivo HTML</li>
+                    <li><strong>Almacenamiento de datos:</strong> Los resultados se muestran al finalizar cada sesión (no se guardan permanentemente por limitaciones de seguridad del navegador)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Pestaña 2: Objetivos y Competencias -->
+        <div id="objetivos" class="tab-content">
+            <h1>Objetivos y Competencias</h1>
+
+            <div class="info-section">
+                <h2>🎓 Objetivos de Aprendizaje</h2>
+                
+                <h3>Objetivo General:</h3>
+                <p>Desarrollar y evaluar la competencia matemática de conteo en niños de 6 años mediante una actividad lúdica digital que establezca la correspondencia entre cantidades concretas y números abstractos del 1 al 10.</p>
+                
+                <h3>Objetivos Específicos:</h3>
+                <ol>
+                    <li><strong>Cognitivos:</strong>
+                        <ul>
+                            <li>Contar colecciones de objetos hasta 10 elementos de manera precisa</li>
+                            <li>Asociar correctamente la cantidad de objetos con su representación numérica</li>
+                            <li>Discriminar visualmente entre diferentes cantidades</li>
+                            <li>Desarrollar estrategias de conteo sistemático</li>
+                        </ul>
+                    </li>
+                    <li><strong>Procedimentales:</strong>
+                        <ul>
+                            <li>Utilizar de forma autónoma herramientas digitales educativas</li>
+                            <li>Aplicar el conteo en situaciones contextualizadas</li>
+                            <li>Verificar y autocorregir respuestas mediante feedback inmediato</li>
+                        </ul>
+                    </li>
+                    <li><strong>Actitudinales:</strong>
+                        <ul>
+                            <li>Mostrar perseverancia ante los errores y buscar la autocorrección</li>
+                            <li>Desarrollar confianza en las propias capacidades matemáticas</li>
+                            <li>Disfrutar del aprendizaje matemático a través del juego</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="info-section">
+                <h2>📚 Competencias Clave (LOMCE/LOMLOE)</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Competencia</th>
+                            <th>Desarrollo en la Actividad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Competencia Matemática y Competencias Básicas en Ciencia y Tecnología (CMCT)</strong></td>
+                            <td>Desarrollo del razonamiento lógico-matemático mediante el conteo, la clasificación y la correspondencia número-cantidad.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Competencia Digital (CD)</strong></td>
+                            <td>Uso autónomo de tecnología educativa, interacción con interfaces digitales y comprensión de feedback visual.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aprender a Aprender (AA)</strong></td>
+                            <td>Autorregulación del aprendizaje mediante la autocorrección, reflexión sobre errores y persistencia en la tarea.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sentido de Iniciativa y Espíritu Emprendedor (SIEE)</strong></td>
+                            <td>Toma de decisiones autónoma, gestión del tiempo y superación de desafíos individuales.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-section">
+                <h2>📖 Estándares de Aprendizaje Evaluables</h2>
+                <p>Según el Real Decreto 1630/2006 del currículo de Educación Infantil:</p>
+                <ul>
+                    <li>Realiza conteos hasta el número 10 con precisión</li>
+                    <li>Asocia la grafía numérica con la cantidad correspondiente</li>
+                    <li>Utiliza el conteo como estrategia de cuantificación</li>
+                    <li>Reconoce y discrimina cantidades en representaciones gráficas</li>
+                    <li>Muestra interés por las actividades matemáticas</li>
+                    <li>Utiliza recursos tecnológicos de forma apropiada a su edad</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Pestaña 3: Desarrollo y Metodología -->
+        <div id="desarrollo" class="tab-content">
+            <h1>Desarrollo y Metodología</h1>
+
+            <div class="info-section">
+                <h2>🎮 Mecánica del Juego</h2>
+                
+                <h3>Estructura de la Sesión (20-25 minutos):</h3>
+                <ol>
+                    <li><strong>Introducción (2-3 min):</strong> El docente explica brevemente que van a jugar a contar animales en una aventura safari.</li>
+                    <li><strong>Desarrollo del juego (15-18 min):</strong> 
+                        <ul>
+                            <li>El niño inicia el juego de forma autónoma en la tablet</li>
+                            <li>Completa 10 preguntas de conteo progresivo</li>
+                            <li>Cada pregunta muestra entre 1 y 10 animales aleatorios</li>
+                            <li>El niño selecciona la respuesta correcta entre 3 opciones</li>
+                            <li>Recibe feedback inmediato visual</li>
+                            <li>Si se equivoca, puede intentarlo de nuevo</li>
+                        </ul>
+                    </li>
+                    <li><strong>Cierre (3-4 min):</strong> Visualización de resultados y conversación breve sobre la experiencia.</li>
+                </ol>
+            </div>
+
+            <div class="info-section">
+                <h2>🏆 Sistema de Feedback y Recompensas</h2>
+                <p>El juego implementa un sistema de feedback multinivel basado en principios del condicionamiento operante y la motivación intrínseca:</p>
+                
+                <h3>Feedback Inmediato:</h3>
+                <ul>
+                    <li><strong>Respuesta correcta:</strong> Animación de celebración, mensaje "¡Muy bien! 🌟" y color verde</li>
+                    <li><strong>Respuesta incorrecta:</strong> Animación suave de vibración, mensaje "¡Inténtalo otra vez! 💪" y color rojo</li>
+                    <li>Se resalta visualmente la respuesta correcta para promover el aprendizaje</li>
+                </ul>
+
+                <h3>Sistema de Medallas:</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Medalla</th>
+                            <th>Criterio</th>
+                            <th>Evaluación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🥇 Oro</td>
+                            <td>9-10 respuestas correctas en primer intento</td>
+                            <td>Excelente</td>
+                        </tr>
+                        <tr>
+                            <td>🥈 Plata</td>
+                            <td>7-8 respuestas correctas en primer intento</td>
+                            <td>Muy Bueno</td>
+                        </tr>
+                        <tr>
+                            <td>🥉 Bronce</td>
+                            <td>5-6 respuestas correctas en primer intento</td>
+                            <td>Bueno</td>
+                        </tr>
+                        <tr>
+                            <td>⭐ Estrella</td>
+                            <td>Menos de 5 correctas en primer intento</td>
+                            <td>En Desarrollo</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-section">
+                <h2>📊 Datos Registrados para Evaluación</h2>
+                <p>El juego registra automáticamente los siguientes datos que permiten una evaluación formativa completa:</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicador</th>
+                            <th>Qué mide</th>
+                            <th>Uso pedagógico</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Respuestas correctas totales</td>
+                            <td>Precisión general en el conteo</td>
+                            <td>Nivel de dominio de la habilidad</td>
+                        </tr>
+                        <tr>
+                            <td>Respuestas correctas en primer intento</td>
+                            <td>Seguridad y automatización del conteo</td>
+                            <td>Grado de consolidación del aprendizaje</td>
+                        </tr>
+                        <tr>
+                            <td>Tiempo promedio por pregunta</td>
+                            <td>Fluidez en el procesamiento numérico</td>
+                            <td>Velocidad de razonamiento matemático</td>
+                        </tr>
+                        <tr>
+                            <td>Porcentaje de precisión</td>
+                            <td>Consistencia en el desempeño</td>
+                            <td>Evaluación global del dominio</td>
+                        </tr>
+                        <tr>
+                            <td>Número de intentos por pregunta</td>
+                            <td>Perseverancia y autocorrección</td>
+                            <td>Actitud ante el error y autonomía</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-section">
+                <h2>♿ Adaptaciones para la Diversidad</h2>
+                
+                <h3>Para estudiantes con necesidades específicas de apoyo educativo:</h3>
+                <ul>
+                    <li><strong>Visual:</strong> Los animales son grandes (emojis de 4em) y hay alto contraste de colores</li>
+                    <li><strong>Cognitivo:</strong> Se permite múltiples intentos sin penalización, favoreciendo el aprendizaje por ensayo-error</li>
+                    <li><strong>Motor:</strong> Botones grandes (100x100px) fáciles de presionar en pantallas táctiles</li>
+                    <li><strong>Atención:</strong> Una sola pregunta visible a la vez, sin distractores innecesarios</li>
+                    <li><strong>Tiempo:</strong> Sin límite de tiempo, cada niño avanza a su ritmo</li>
+                </ul>
+
+                <h3>Para estudiantes con altas capacidades:</h3>
+                <ul>
+                    <li>Proponer desafíos adicionales: "¿Cuántos animales son si agrupamos de dos en dos?"</li>
+                    <li>Registrar y comparar tiempos para promover la superación personal</li>
+                    <li>Pedir que expliquen sus estrategias de conteo a otros compañeros</li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h2>👨‍🏫 Rol del Docente</h2>
+                <ul>
+                    <li><strong>Facilitador:</strong> Presenta la actividad y asegura comprensión de las instrucciones</li>
+                    <li><strong>Observador:</strong> Registra comportamientos relevantes (frustración, estrategias, persistencia)</li>
+                    <li><strong>Apoyo:</strong> Interviene solo cuando hay dificultades técnicas o emocionales</li>
+                    <li><strong>Evaluador:</strong> Analiza los resultados junto con las observaciones cualitativas</li>
+                    <li><strong>Retroalimentador:</strong> Conversa con el niño sobre su experiencia y aprendizajes</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Pestaña 4: Rúbrica de Evaluación -->
+        <div id="rubrica" class="tab-content">
+            <h1>Rúbrica de Evaluación</h1>
+
+            <div class="info-section">
+                <h2>📋 Indicadores de Evaluación del Juego</h2>
+                <p>Esta rúbrica evalúa el desempeño del niño durante el juego "Safari Numérico" en cinco dimensiones clave:</p>
+            </div>
+
+            <table class="rubric-table">
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Indicador</th>
+                        <th style="width: 20%;">Excelente (4)</th>
+                        <th style="width: 20%;">Bueno (3)</th>
+                        <th style="width: 20%;">En Desarrollo (2)</th>
+                        <th style="width: 20%;">Necesita Apoyo (1)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Precisión en el conteo</strong><br><em>(Porcentaje de respuestas correctas en primer intento)</em></td>
+                        <td>90-100% de respuestas correctas en el primer intento (9-10 preguntas). Demuestra dominio completo del conteo hasta 10.</td>
+                        <td>70-89% de respuestas correctas en el primer intento (7-8 preguntas). Demuestra buen dominio con errores ocasionales.</td>
+                        <td>50-69% de respuestas correctas en el primer intento (5-6 preguntas). Está desarrollando la habilidad pero comete errores frecuentes.</td>
+                        <td>Menos del 50% de respuestas correctas en el primer intento (menos de 5 preguntas). Necesita refuerzo significativo.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Correspondencia número-cantidad</strong><br><em>(Capacidad de asociar numeral con cantidad)</em></td>
+                        <td>Asocia correctamente y de forma inmediata el numeral con la cantidad de objetos en todas las situaciones. No muestra dudas.</td>
+                        <td>Asocia correctamente el numeral con la cantidad en la mayoría de situaciones. Puede dudar brevemente.</td>
+                        <td>Asocia el numeral con la cantidad con dificultad. Necesita contar varias veces o muestra confusión entre números cercanos.</td>
+                        <td>No logra establecer la correspondencia número-cantidad de forma consistente. Selecciona respuestas al azar.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Autonomía digital</strong><br><em>(Independencia en el uso de la interfaz)</em></td>
+                        <td>Utiliza la aplicación de forma completamente autónoma, sin necesitar ayuda. Navega con confianza y comprende todos los elementos.</td>
+                        <td>Utiliza la aplicación con mínima ayuda inicial. Después del primer intento, continúa de forma autónoma.</td>
+                        <td>Necesita ayuda frecuente para usar la aplicación. Requiere recordatorios sobre cómo seleccionar respuestas.</td>
+                        <td>No puede usar la aplicación sin asistencia constante del docente. Muestra confusión ante la interfaz digital.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Perseverancia</strong><br><em>(Actitud ante errores y finalización)</em></td>
+                        <td>Ante errores, busca activamente la respuesta correcta. Completa todas las preguntas con actitud positiva. No se frustra.</td>
+                        <td>Ante errores, intenta nuevamente con leve apoyo verbal. Completa el juego aunque puede mostrar frustración leve.</td>
+                        <td>Se frustra ante errores y necesita motivación para continuar. Puede querer abandonar pero completa con apoyo.</td>
+                        <td>Se rinde fácilmente ante errores. Requiere apoyo emocional constante. Puede no completar el juego.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5. Velocidad de procesamiento</strong><br><em>(Tiempo promedio por pregunta)</em></td>
+                        <td>Responde en menos de 15 segundos por pregunta. Muestra automatización del conteo y rapidez en la toma de decisiones.</td>
+                        <td>Responde entre 15-30 segundos por pregunta. Tiempo adecuado que indica procesamiento reflexivo sin lentitud excesiva.</td>
+                        <td>Responde entre 31-60 segundos por pregunta. Necesita tiempo considerable para contar y decidir.</td>
+                        <td>Responde en más de 60 segundos por pregunta o necesita recordatorios para continuar. Muestra dificultad en el procesamiento.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-section">
+                <h2>📊 Sistema de Calificación Global</h2>
+                <p>La puntuación final se calcula sumando los puntos de cada indicador (máximo 20 puntos):</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Puntuación Total</th>
+                            <th>Calificación</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>18-20 puntos</td>
+                            <td><strong>Sobresaliente</strong></td>
+                            <td>Dominio excelente de la competencia matemática evaluada. Cumple todos los objetivos con precisión y autonomía.</td>
+                        </tr>
+                        <tr>
+                            <td>14-17 puntos</td>
+                            <td><strong>Notable</strong></td>
+                            <td>Buen dominio de la competencia. Cumple los objetivos con alguna dificultad menor ocasional.</td>
+                        </tr>
+                        <tr>
+                            <td>10-13 puntos</td>
+                            <td><strong>Aprobado</strong></td>
+                            <td>Nivel básico de competencia alcanzado. Necesita consolidar algunos aspectos con práctica adicional.</td>
+                        </tr>
+                        <tr>
+                            <td>5-9 puntos</td>
+                            <td><strong>Insuficiente</strong></td>
+                            <td>No alcanza el nivel mínimo esperado. Requiere intervención específica y refuerzo personalizado.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-section">
+                <h2>📝 Observaciones Cualitativas Complementarias</h2>
+                <p>Además de los indicadores cuantitativos del juego, el docente debe registrar:</p>
+                <ul>
+                    <li><strong>Estrategias de conteo observadas:</strong> ¿Cuenta de uno en uno? ¿Agrupa? ¿Usa los dedos?</li>
+                    <li><strong>Reacciones emocionales:</strong> ¿Muestra entusiasmo? ¿Ansiedad? ¿Frustración?</li>
+                    <li><strong>Comentarios verbales:</strong> ¿Verbaliza su proceso? ¿Pide ayuda? ¿Expresa seguridad/inseguridad?</li>
+                    <li><strong>Patrones de error:</strong> ¿Los errores son aleatorios o sistemáticos? ¿Confunde números específicos?</li>
+                    <li><strong>Comportamiento general:</strong> ¿Se distrae? ¿Mantiene la atención? ¿Juega responsablemente con la tablet?</li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h2>🎯 Criterios de Evaluación de la Actividad (Profesor)</h2>
+                <p>Rúbrica para evaluar este trabajo como estudiante de Educación Infantil:</p>
+                
+                <table class="rubric-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">Criterio</th>
+                            <th style="width: 50%;">Descripción</th>
+                            <th style="width: 10%;">Puntuación</th>
+                            <th style="width: 10%;">Peso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Criterio 1: Puntualidad</strong></td>
+                            <td>Entrega del trabajo en la fecha y formato solicitado</td>
+                            <td>1 punto</td>
+                            <td>10%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Criterio 2: Formato y referencias</strong></td>
+                            <td>Uso de normas APA, extensión adecuada, fuente Georgia 11, interlineado 1,5</td>
+                            <td>2 puntos</td>
+                            <td>20%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Criterio 3: Originalidad y creatividad</strong></td>
+                            <td>El juego presenta elementos innovadores, atractivos y motivadores para los niños</td>
+                            <td>2 puntos</td>
+                            <td>20%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Criterio 4: Adecuación a la etapa</strong></td>
+                            <td>El juego es apropiado para niños de 6 años en contenido, dificultad y metodología</td>
+                            <td>2 puntos</td>
+                            <td>20%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Criterio 5: Descripción y desarrollo</strong></td>
+                            <td>Descripción clara, completa y fundamentada del juego con todos los elementos requeridos</td>
+                            <td>3 puntos</td>
+                            <td>30%</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>TOTAL</strong></td>
+                            <td><strong>10 puntos</strong></td>
+                            <td><strong>100%</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="references">
+                <h2>📚 Referencias Bibliográficas</h2>
+                <p>Alsina, Á. (2007). El aprendizaje realista: una contribución de la investigación en Educación Matemática a la formación del profesorado. En J. M. Goñi (Coord.), <em>Matemáticas e interculturalidad</em> (pp. 119-137). Graó.</p>
+                
+                <p>Arteaga, M. T., & Macías, L. (2016). Diseño de una unidad didáctica inclusiva para la enseñanza de las matemáticas en Educación Infantil. <em>Edma 0-6: Educación Matemática en la Infancia</em>, 5(1), 56-79.</p>
+                
+                <p>Corbalán, F., & Deulofeu, J. (1996). <em>Juegos manipulativos en la enseñanza de las matemáticas</em>. UNO: Revista de Didáctica de las Matemáticas, 7, 71-80.</p>
+                
+                <p>Ministerio de Educación y Ciencia. (2006). Ley Orgánica 2/2006, de 3 de mayo, de Educación. <em>Boletín Oficial del Estado</em>, 106, 17158-17207.</p>
+                
+                <p>Muñiz-Rodríguez, L., Alonso, P., & Rodríguez-Muñiz, L. J. (2014). El uso de los juegos como recurso didáctico para la enseñanza y aprendizaje de las Matemáticas: estudio de una experiencia innovadora. <em>Revista Iberoamericana de Educación Matemática</em>, 39, 19-33.</p>
+                
+                <p>Real Decreto 1630/2006, de 29 de diciembre, por el que se establecen las enseñanzas mínimas del segundo ciclo de Educación Infantil. <em>Boletín Oficial del Estado</em>, 4, 474-482.</p>
+            </div>
+        </div>
+
+        <!-- Pestaña 5: Juego Interactivo -->
+        <div id="juego" class="tab-content">
+            <div class="game-container">
+                <!-- Pantalla de Bienvenida -->
+                <div id="welcomeScreen" class="screen active">
+                    <h1 class="game-title">🦁 Safari Numérico 🐘</h1>
+                    <div class="welcome-text">
+                        <p>¡Bienvenido, pequeño explorador! 🌟</p>
+                        <p>Vamos a contar animales juntos.</p>
+                        <p>¿Estás listo para la aventura?</p>
+                    </div>
+                    <button class="start-btn" onclick="startGame()">¡Comenzar! 🚀</button>
+                </div>
+
+                <!-- Pantalla de Juego -->
+                <div id="gameScreen" class="screen">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressBar">
+                            Pregunta <span id="currentQuestion">1</span> de 10
+                        </div>
+                    </div>
+                    
+                    <div class="question-container">
+                        <div class="question-text" id="questionText">¿Cuántos animales ves?</div>
+                        <div class="animals-display" id="animalsDisplay"></div>
+                        <div class="feedback" id="feedback"></div>
+                        <div class="options" id="optionsContainer"></div>
+                    </div>
+                </div>
+
+                <!-- Pantalla de Resultados -->
+                <div id="resultsScreen" class="screen">
+                    <h1 class="game-title">¡Juego Completado! 🎉</h1>
+                    <div class="medal" id="medal"></div>
+                    <div class="score" id="finalScore"></div>
+                    
+                    <div class="stats">
+                        <h2 style="text-align: center; color: #667eea; margin-bottom: 20px;">📊 Reporte de Evaluación</h2>
+                        <div class="stat-item">
+                            <span class="stat-label">Respuestas Correctas:</span>
+                            <span class="stat-value" id="correctAnswers"></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Primer Intento:</span>
+                            <span class="stat-value" id="firstAttempt"></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Tiempo Promedio:</span>
+                            <span class="stat-value" id="avgTime"></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Precisión:</span>
+                            <span class="stat-value" id="accuracy"></span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Evaluación:</span>
+                            <span class="stat-value" id="evaluation"></span>
+                        </div>
+                    </div>
+                    
+                    <button class="restart-btn" onclick="restartGame()">Jugar de Nuevo 🔄</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para cambiar de pestaña
+        function showTab(tabId) {
+            // Ocultar todas las pestañas
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Desactivar todos los botones
+            const buttons = document.querySelectorAll('.nav-tab');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Mostrar la pestaña seleccionada
+            document.getElementById(tabId).classList.add('active');
+            
+            // Activar el botón correspondiente
+            event.target.classList.add('active');
+        }
+
+        // Código del juego
+        const animals = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🐔', '🐧', '🐦', '🐤', '🦆', '🦅', '🦉', '🦇', '🐺', '🐗', '🐴', '🦄', '🐝', '🐛', '🦋', '🐌', '🐞', '🐢', '🐍', '🦎', '🐙', '🦑', '🦐', '🦀', '🐡', '🐠', '🐟', '🐬', '🐳', '🐋', '🦈', '🐊', '🐅', '🐆', '🦓', '🦍', '🦧', '🐘', '🦛', '🦏', '🐪', '🐫', '🦒', '🦘', '🦬', '🐃', '🐂', '🐄', '🐎', '🐖', '🐏', '🐑', '🦙', '🐐', '🦌', '🐕', '🐩', '🦮', '🐈', '🐓', '🦃', '🦚', '🦜', '🦢', '🦩'];
+
+        let gameData = {
+            currentQuestion: 0,
+            totalQuestions: 10,
+            correctAnswers: 0,
+            firstAttemptCorrect: 0,
+            attempts: [],
+            times: [],
+            startTime: 0,
+            questionStartTime: 0
+        };
+
+        let questions = [];
+
+        function generateQuestions() {
+            questions = [];
+            for (let i = 0; i < gameData.totalQuestions; i++) {
+                const count = Math.floor(Math.random() * 10) + 1;
+                const animal = animals[Math.floor(Math.random() * animals.length)];
+                questions.push({ count, animal });
+            }
+        }
+
+        function startGame() {
+            generateQuestions();
+            gameData = {
+                currentQuestion: 0,
+                totalQuestions: 10,
+                correctAnswers: 0,
+                firstAttemptCorrect: 0,
+                attempts: [],
+                times: [],
+                startTime: Date.now(),
+                questionStartTime: Date.now()
+            };
+            
+            showGameScreen('gameScreen');
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const question = questions[gameData.currentQuestion];
+            const animalsDisplay = document.getElementById('animalsDisplay');
+            const optionsContainer = document.getElementById('optionsContainer');
+            const feedback = document.getElementById('feedback');
+            
+            feedback.textContent = '';
+            feedback.className = 'feedback';
+            
+            // Actualizar barra de progreso
+            const progress = ((gameData.currentQuestion + 1) / gameData.totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('currentQuestion').textContent = gameData.currentQuestion + 1;
+            
+            // Mostrar animales
+            animalsDisplay.innerHTML = '';
+            for (let i = 0; i < question.count; i++) {
+                const animalSpan = document.createElement('span');
+                animalSpan.className = 'animal';
+                animalSpan.textContent = question.animal;
+                animalSpan.style.animationDelay = (i * 0.1) + 's';
+                animalsDisplay.appendChild(animalSpan);
+            }
+            
+            // Generar opciones
+            const options = generateOptions(question.count);
+            optionsContainer.innerHTML = '';
+            
+            options.forEach(option => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(option, question.count);
+                optionsContainer.appendChild(btn);
+            });
+            
+            gameData.questionStartTime = Date.now();
+        }
+
+        function generateOptions(correct) {
+            const options = new Set([correct]);
+            while (options.size < 3) {
+                const option = Math.floor(Math.random() * 10) + 1;
+                options.add(option);
+            }
+            return Array.from(options).sort(() => Math.random() - 0.5);
+        }
+
+        function checkAnswer(selected, correct) {
+            const timeSpent = (Date.now() - gameData.questionStartTime) / 1000;
+            gameData.times.push(timeSpent);
+            
+            const feedback = document.getElementById('feedback');
+            const buttons = document.querySelectorAll('.option-btn');
+            
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if (parseInt(btn.textContent) === correct) {
+                    btn.classList.add('correct');
+                } else if (parseInt(btn.textContent) === selected) {
+                    btn.classList.add('incorrect');
+                }
+            });
+            
+            if (selected === correct) {
+                gameData.correctAnswers++;
+                if (gameData.attempts[gameData.currentQuestion] === undefined) {
+                    gameData.firstAttemptCorrect++;
+                    gameData.attempts[gameData.currentQuestion] = 1;
+                }
+                feedback.textContent = '¡Muy bien! 🌟';
+                feedback.className = 'feedback correct';
+                
+                setTimeout(() => {
+                    gameData.currentQuestion++;
+                    if (gameData.currentQuestion < gameData.totalQuestions) {
+                        displayQuestion();
+                    } else {
+                        showResults();
+                    }
+                }, 2000);
+            } else {
+                if (gameData.attempts[gameData.currentQuestion] === undefined) {
+                    gameData.attempts[gameData.currentQuestion] = 1;
+                } else {
+                    gameData.attempts[gameData.currentQuestion]++;
+                }
+                
+                feedback.textContent = '¡Inténtalo otra vez! 💪';
+                feedback.className = 'feedback incorrect';
+                
+                setTimeout(() => {
+                    buttons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('incorrect');
+                    });
+                    feedback.textContent = '';
+                }, 1500);
+            }
+        }
+
+        function showResults() {
+            const avgTime = gameData.times.reduce((a, b) => a + b, 0) / gameData.times.length;
+            const accuracy = (gameData.firstAttemptCorrect / gameData.totalQuestions) * 100;
+            
+            document.getElementById('correctAnswers').textContent = 
+                `${gameData.correctAnswers} de ${gameData.totalQuestions}`;
+            document.getElementById('firstAttempt').textContent = 
+                `${gameData.firstAttemptCorrect} de ${gameData.totalQuestions}`;
+            document.getElementById('avgTime').textContent = 
+                `${avgTime.toFixed(1)} segundos`;
+            document.getElementById('accuracy').textContent = 
+                `${accuracy.toFixed(0)}%`;
+            
+            let medal = '';
+            let evaluation = '';
+            
+            if (gameData.firstAttemptCorrect >= 9) {
+                medal = '🥇';
+                evaluation = 'Excelente';
+            } else if (gameData.firstAttemptCorrect >= 7) {
+                medal = '🥈';
+                evaluation = 'Muy Bueno';
+            } else if (gameData.firstAttemptCorrect >= 5) {
+                medal = '🥉';
+                evaluation = 'Bueno';
+            } else {
+                medal = '⭐';
+                evaluation = 'En Desarrollo';
+            }
+            
+            document.getElementById('medal').textContent = medal;
+            document.getElementById('evaluation').textContent = evaluation;
+            document.getElementById('finalScore').textContent = 
+                `¡Conseguiste ${gameData.firstAttemptCorrect} respuestas correctas en el primer intento!`;
+            
+            showGameScreen('resultsScreen');
+        }
+
+        function showGameScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function restartGame() {
+            showGameScreen('welcomeScreen');
+        }
+    </script>
+</body>
+</html>
