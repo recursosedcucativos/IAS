@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infografía: Pedagogía Crítica</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      min-height: 100vh;
+    }
+    
+    .infografia-container {
+      background: white;
+      max-width: 1400px;
+      margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Header con diseño impactante */
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .header h1 {
+      font-size: 4em;
+      font-weight: 900;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .header p {
+      font-size: 1.5em;
+      font-weight: 300;
+      opacity: 0.95;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Sección de introducción */
+    .intro-section {
+      background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+      padding: 50px 40px;
+      text-align: center;
+    }
+    
+    .intro-box {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .intro-box h2 {
+      color: #667eea;
+      font-size: 2.2em;
+      margin-bottom: 20px;
+    }
+    
+    .intro-box p {
+      font-size: 1.2em;
+      color: #555;
+      line-height: 1.8;
+    }
+    
+    /* Grid de características */
+    .features-section {
+      padding: 60px 40px;
+      background: #f8f9fa;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2.5em;
+      color: #667eea;
+      margin-bottom: 50px;
+      font-weight: 800;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .feature-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-top: 5px solid;
+    }
+    
+    .feature-card:nth-child(1) { border-top-color: #ff6b6b; }
+    .feature-card:nth-child(2) { border-top-color: #4ecdc4; }
+    .feature-card:nth-child(3) { border-top-color: #feca57; }
+    .feature-card:nth-child(4) { border-top-color: #a29bfe; }
+    
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+    
+    .icon {
+      font-size: 3em;
+      margin-bottom: 20px;
+      display: block;
+    }
+    
+    .feature-card h3 {
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      color: #2d3436;
+    }
+    
+    .feature-card ul {
+      list-style: none;
+    }
+    
+    .feature-card li {
+      padding: 10px 0;
+      padding-left: 30px;
+      position: relative;
+      color: #555;
+      line-height: 1.6;
+    }
+    
+    .feature-card li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #667eea;
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+    
+    /* Sección de Educación Popular */
+    .highlight-section {
+      background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+      padding: 60px 40px;
+    }
+    
+    .highlight-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .highlight-text h2 {
+      font-size: 2.5em;
+      color: #2d3436;
+      margin-bottom: 25px;
+    }
+    
+    .highlight-text p {
+      font-size: 1.2em;
+      color: #2d3436;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+    
+    .highlight-badge {
+      background: white;
+      padding: 15px 25px;
+      border-radius: 50px;
+      display: inline-block;
+      font-weight: bold;
+      color: #f39c12;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    
+    /* Timeline vertical */
+    .timeline-section {
+      padding: 60px 40px;
+      background: white;
+    }
+    
+    .timeline {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      padding-left: 50px;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      background: #f8f9fa;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -38px;
+      top: 25px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #667eea;
+      border: 4px solid white;
+      box-shadow: 0 0 0 4px #667eea;
+    }
+    
+    .timeline-item h3 {
+      color: #667eea;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+    
+    .timeline-item p {
+      color: #555;
+      line-height: 1.6;
+    }
+    
+    /* Sección de Paulo Freire */
+    .author-section {
+      background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+      padding: 60px 40px;
+      color: white;
+      text-align: center;
+    }
+    
+    .author-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .author-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 8px solid white;
+      margin: 0 auto 30px;
+      display: block;
+      object-fit: cover;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    
+    .author-content h2 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+    
+    .author-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      margin-top: 30px;
+    }
+    
+    .author-card h3 {
+      font-size: 2.2em;
+      color: #ffeaa7;
+      margin-bottom: 15px;
+    }
+    
+    .author-card p {
+      font-size: 1.2em;
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+    
+    .quote {
+      font-style: italic;
+      font-size: 1.3em;
+      margin-top: 25px;
+      padding: 20px;
+      background: rgba(255,255,255,0.1);
+      border-left: 4px solid #ffeaa7;
+      border-radius: 10px;
+    }
+    
+    /* Footer */
+    .footer {
+      background: #2d3436;
+      color: white;
+      text-align: center;
+      padding: 30px;
+      font-size: 1.1em;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header h1 { font-size: 2.5em; }
+      .header p { font-size: 1.2em; }
+      .highlight-content { grid-template-columns: 1fr; }
+      .timeline { padding-left: 30px; }
+      .features-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="infografia-container">
+    <!-- Header -->
+    <div class="header">
+      <h1>PEDAGOGÍA CRÍTICA</h1>
+      <p>Una Mirada Transformadora de la Educación</p>
+    </div>
+
+    <!-- Introducción -->
+    <div class="intro-section">
+      <div class="intro-box">
+        <h2>¿Qué es la Pedagogía Crítica?</h2>
+        <p>Es una corriente educativa que cuestiona los modelos tradicionales y propone una educación liberadora, fundamentada en el diálogo y la construcción colectiva del conocimiento. Busca desarrollar la conciencia crítica en los estudiantes para transformar la realidad social.</p>
+      </div>
+    </div>
+
+    <!-- Características principales -->
+    <div class="features-section">
+      <h2 class="section-title">Características Principales</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="icon">🎓</span>
+          <h3>Educación Liberadora</h3>
+          <ul>
+            <li>Cuestiona la educación bancaria</li>
+            <li>Promueve el pensamiento crítico</li>
+            <li>Empodera a los estudiantes</li>
+          </ul>
+        </div>
+        
+        <div class="feature-card">
+          <span class="icon">💬</span>
+          <h3>Diálogo Horizontal</h3>
+          <ul>
+            <li>Relación democrática maestro-alumno</li>
+            <li>Construcción colectiva del saber</li>
+            <li>Respeto a los saberes previos</li>
+          </ul>
+        </div>
+        
+        <div class="feature-card">
+          <span class="icon">🌍</span>
+          <h3>Contextualización</h3>
+          <ul>
+            <li>Vinculada a realidades locales</li>
+            <li>Perspectiva global e integradora</li>
+            <li>Análisis de problemáticas sociales</li>
+          </ul>
+        </div>
+        
+        <div class="feature-card">
+          <span class="icon">⚡</span>
+          <h3>Praxis Transformadora</h3>
+          <ul>
+            <li>Ciclo acción-reflexión-acción</li>
+            <li>Compromiso con el cambio social</li>
+            <li>Teoría y práctica integradas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Educación Popular -->
+    <div class="highlight-section">
+      <div class="highlight-content">
+        <div class="highlight-text">
+          <h2>📚 Educación Popular</h2>
+          <p><strong>Marco práctico de la Pedagogía Crítica</strong></p>
+          <p>Proceso político y pedagógico emancipador que se desarrolla en movimientos sociales y comunidades, integrando acción y reflexión permanente.</p>
+          <div class="highlight-badge">🎯 Objetivo: Transformación Social</div>
+        </div>
+        <div>
+          <span style="font-size: 15em; opacity: 0.3;">📖</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline metodológico -->
+    <div class="timeline-section">
+      <h2 class="section-title">Proceso Metodológico: La Praxis</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3>1. ACCIÓN</h3>
+          <p>Intervención en la realidad concreta. Práctica educativa situada en contextos específicos con problemas reales.</p>
+        </div>
+        
+        <div class="timeline-item">
+          <h3>2. REFLEXIÓN</h3>
+          <p>Análisis crítico de la experiencia. Diálogo colectivo sobre la práctica y sus implicaciones sociales y políticas.</p>
+        </div>
+        
+        <div class="timeline-item">
+          <h3>3. ACCIÓN TRANSFORMADA</h3>
+          <p>Nueva práctica enriquecida por la reflexión. Aplicación consciente de aprendizajes para generar cambio social.</p>
+        </div>
+        
+        <div class="timeline-item">
+          <h3>♻️ CICLO CONTINUO</h3>
+          <p>El proceso se repite constantemente, profundizando la conciencia crítica y fortaleciendo la capacidad transformadora.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vertiente Latinoamericana -->
+    <div class="features-section" style="background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);">
+      <h2 class="section-title">🌎 Vertiente Latinoamericana</h2>
+      <div class="features-grid" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="feature-card">
+          <span class="icon">💡</span>
+          <h3>Origen y Contexto</h3>
+          <ul>
+            <li>Surge en contextos de desigualdad</li>
+            <li>Respuesta a la opresión histórica</li>
+            <li>Vinculada a movimientos sociales</li>
+            <li>Educación como práctica política</li>
+          </ul>
+        </div>
+        
+        <div class="feature-card">
+          <span class="icon">🎯</span>
+          <h3>Visión Transformadora</h3>
+          <ul>
+            <li>Liberación de pueblos oprimidos</li>
+            <li>Construcción de "otros mundos posibles"</li>
+            <li>Justicia social y equidad</li>
+            <li>Protagonismo de los sectores populares</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paulo Freire -->
+    <div class="author-section">
+      <div class="author-content">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Paulo_Freire_1977.jpg/400px-Paulo_Freire_1977.jpg" alt="Paulo Freire" class="author-image">
+        
+        <h2>🌟 Exponente Clave</h2>
+        
+        <div class="author-card">
+          <h3>Paulo Freire</h3>
+          <p><strong>Educador y Filósofo Brasileño (1921–1997)</strong></p>
+          <p>📘 Autor de "Pedagogía del Oprimido"</p>
+          <p>🎓 Fundador de la Pedagogía Crítica</p>
+          <p>✊ Impulsor de la Educación Popular</p>
+          <p>🌍 Reconocido mundialmente como uno de los pensadores más influyentes del siglo XX</p>
+          
+          <div class="quote">
+            "La educación no cambia el mundo, cambia a las personas que van a cambiar el mundo"
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Infografía: Pedagogía Crítica | Educación Transformadora para un Mundo Mejor</p>
+    </div>
+  </div>
+</body>
+</html>
