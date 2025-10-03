@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Políticas, Inclusión y Rol Docente</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #F8F9FA;
+            color: #1c3d5a;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 50vh;
+            max-height: 450px;
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+            padding-left: 2.5rem;
+            border-left: 2px solid #3E92CC;
+        }
+        .timeline-item:last-child {
+            border-left: 2px solid transparent;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.7rem;
+            top: 0;
+            height: 1.25rem;
+            width: 1.25rem;
+            background-color: #3E92CC;
+            border-radius: 9999px;
+            border: 4px solid #F8F9FA;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-black text-[#0B2D48] tracking-tight">Tejiendo Redes de Inclusión</h1>
+            <p class="mt-4 text-lg md:text-xl text-[#3E92CC] max-w-3xl mx-auto">Un análisis sobre Políticas, Ética y la Práctica Docente en la Educación del Siglo XXI.</p>
+        </header>
+
+        <main>
+            <section id="conceptos-clave" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-12 text-[#0B2D48]">Conceptos Fundamentales</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4">📜</div>
+                        <h3 class="text-2xl font-bold text-[#0B2D48] mb-2">Políticas Educativas</h3>
+                        <p class="text-gray-600 mb-4">Conjunto de leyes y directrices que regulan el sistema educativo para garantizar el derecho a la educación, estableciendo sus fines y organización.</p>
+                        <p class="text-sm text-gray-500"><strong class="text-gray-700">Reto:</strong> Superar la brecha entre la ley y la implementación real en el aula por falta de recursos y formación.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4">🚫</div>
+                        <h3 class="text-2xl font-bold text-[#0B2D48] mb-2">Discriminación</h3>
+                        <p class="text-gray-600 mb-4">Trato desigual o de desprecio hacia una persona o grupo, basado en prejuicios sobre su origen, género, discapacidad, etc.</p>
+                        <p class="text-sm text-gray-500"><strong class="text-gray-700">Reto:</strong> Desmontar estereotipos culturales arraigados mediante sensibilización y formación constante.</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4">🚧</div>
+                        <h3 class="text-2xl font-bold text-[#0B2D48] mb-2">Exclusión Educativa</h3>
+                        <p class="text-gray-600 mb-4">Resultado de barreras físicas, curriculares o sociales que impiden el acceso, la participación y el aprendizaje de ciertos estudiantes.</p>
+                        <p class="text-sm text-gray-500"><strong class="text-gray-700">Reto:</strong> Transformar la cultura escolar, rediseñando espacios y currículos para que la diversidad sea una oportunidad.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4">🤝</div>
+                        <h3 class="text-2xl font-bold text-[#0B2D48] mb-2">Inclusión Educativa</h3>
+                        <p class="text-gray-600 mb-4">Proceso que garantiza que todos los estudiantes, sin excepción, puedan aprender juntos, eliminando barreras y valorando la diversidad.</p>
+                        <p class="text-sm text-gray-500"><strong class="text-gray-700">Reto:</strong> Requiere una formación docente continua y un cambio profundo del modelo de enseñanza homogéneo a uno flexible.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-5xl mb-4">❤️‍🩹</div>
+                        <h3 class="text-2xl font-bold text-[#0B2D48] mb-2">Ética del Cuidado</h3>
+                        <p class="text-gray-600 mb-4">Perspectiva que centra la acción educativa en la empatía, la responsabilidad y el compromiso con el bienestar integral del estudiante.</p>
+                        <p class="text-sm text-gray-500"><strong class="text-gray-700">Reto:</strong> Equilibrar el cuidado del otro con el autocuidado docente para evitar el agotamiento profesional.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300 flex flex-col justify-center items-center text-center">
+                        <div class="text-5xl mb-4">💡</div>
+                        <h3 class="text-2xl font-bold text-[#0B2D48] mb-2">Reflexión Clave</h3>
+                        <p class="text-gray-600">La inclusión no es una estrategia, sino una filosofía que redefine la educación. Comienza al reconocer la exclusión y la discriminación, se apoya en políticas sólidas y se materializa a través de la ética del cuidado en la práctica diaria.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="recorrido-historico" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-12 text-[#0B2D48]">Evolución de las Políticas Educativas</h2>
+                <div class="max-w-2xl mx-auto">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold text-xl text-[#0B2D48]">Hasta mediados s. XX: Asimilación/Segregación</h4>
+                        <p class="text-gray-600">Se esperaba que las minorías se adaptaran a la cultura dominante o eran educadas en centros especiales, separadas del resto.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold text-xl text-[#0B2D48]">Años 70-90: Integración</h4>
+                        <p class="text-gray-600">Se "integra" a estudiantes con necesidades especiales en escuelas regulares, pero esperando que ellos se adapten al sistema existente.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold text-xl text-[#0B2D48]">Finales s. XX - Actualidad: Inclusión</h4>
+                        <p class="text-gray-600">El sistema educativo se transforma para acoger y valorar la diversidad. Ya no es el estudiante quien debe adaptarse, sino la escuela.</p>
+                    </div>
+                </div>
+            </section>
+
+             <section id="rol-docente-chart" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-4 text-[#0B2D48]">Visualizando el Rol Docente</h2>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">Esta gráfica compara el rol ideal del docente en un entorno inclusivo con la realidad percibida, marcada por desafíos sistémicos. La brecha entre ambas líneas resalta las áreas críticas que requieren mayor apoyo y desarrollo profesional.</p>
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg">
+                    <div class="chart-container">
+                        <canvas id="rolDocenteChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="rol-docente-definicion" class="mb-12">
+                 <h2 class="text-3xl font-bold text-center mb-12 text-[#0B2D48]">El Docente como Agente de Cambio</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-[#3E92CC] text-white p-6 rounded-lg shadow-md">
+                        <strong class="font-black text-lg block">1. Facilitador de Entornos Seguros</strong>
+                        <p class="text-sm opacity-90">Crea un clima de aula basado en el respeto, la empatía y la valoración de las diferencias.</p>
+                    </div>
+                    <div class="bg-[#3E92CC] text-white p-6 rounded-lg shadow-md">
+                        <strong class="font-black text-lg block">2. Diseñador de Experiencias Flexibles</strong>
+                        <p class="text-sm opacity-90">Planifica actividades y evaluaciones diversificadas (DUA) para el éxito de cada estudiante.</p>
+                    </div>
+                    <div class="bg-[#3E92CC] text-white p-6 rounded-lg shadow-md">
+                        <strong class="font-black text-lg block">3. Mediador y Promotor de Convivencia</strong>
+                        <p class="text-sm opacity-90">Enseña a resolver conflictos y a rechazar activamente cualquier forma de discriminación.</p>
+                    </div>
+                    <div class="bg-[#3E92CC] text-white p-6 rounded-lg shadow-md">
+                        <strong class="font-black text-lg block">4. Investigador de su Práctica</strong>
+                        <p class="text-sm opacity-90">Reflexiona constantemente sobre sus métodos para identificar y eliminar barreras al aprendizaje.</p>
+                    </div>
+                    <div class="bg-[#3E92CC] text-white p-6 rounded-lg shadow-md">
+                        <strong class="font-black text-lg block">5. Colaborador Activo</strong>
+                        <p class="text-sm opacity-90">Trabaja en equipo con colegas, familias y profesionales para construir una comunidad inclusiva.</p>
+                    </div>
+                     <div class="bg-[#3E92CC] text-white p-6 rounded-lg shadow-md">
+                        <strong class="font-black text-lg block">6. Defensor de Derechos</strong>
+                        <p class="text-sm opacity-90">Conoce y aplica las políticas de inclusión, garantizando una educación de calidad para todos.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="text-center mt-16 pt-8 border-t border-gray-200">
+            <p class="text-sm text-gray-500">Infografía creada con base en los recursos bibliográficos de la unidad, incluyendo los trabajos de Nussbaum, Sen, y Skliar. <br> Este es un recurso educativo para visualizar conceptos complejos sobre educación inclusiva.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('rolDocenteChart').getContext('2d');
+
+            const wrapText = (label) => {
+                const maxLength = 16;
+                if (label.length <= maxLength) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + word).length > maxLength) {
+                        lines.push(currentLine.trim());
+                        currentLine = '';
+                    }
+                    currentLine += word + ' ';
+                });
+                lines.push(currentLine.trim());
+                return lines;
+            };
+
+            const chartLabels = [
+                'Facilitador de Entornos Seguros',
+                'Diseñador de Experiencias',
+                'Mediador de Conflictos',
+                'Investigador de su Práctica',
+                'Colaborador Activo',
+                'Defensor de Derechos'
+            ];
+            
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: chartLabels.map(label => wrapText(label)),
+                    datasets: [{
+                        label: 'Rol Ideal',
+                        data: [5, 5, 5, 5, 5, 5],
+                        fill: true,
+                        backgroundColor: 'rgba(42, 157, 143, 0.2)',
+                        borderColor: 'rgb(42, 157, 143)',
+                        pointBackgroundColor: 'rgb(42, 157, 143)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(42, 157, 143)'
+                    }, {
+                        label: 'Realidad Percibida',
+                        data: [4, 3, 4, 2, 3, 3],
+                        fill: true,
+                        backgroundColor: 'rgba(231, 111, 81, 0.2)',
+                        borderColor: 'rgb(231, 111, 81)',
+                        pointBackgroundColor: 'rgb(231, 111, 81)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(231, 111, 81)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 11,
+                                    weight: 'bold'
+                                },
+                                color: '#0B2D48'
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(255, 255, 255, 0.75)',
+                                color: '#6b7280',
+                                stepSize: 1,
+                                max: 5,
+                                min: 0
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                },
+                                color: '#0B2D48'
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                      return label.join(' ');
+                                    } else {
+                                      return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
