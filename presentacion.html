@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Infografía Interactiva – Inclusión y Ética del Cuidado</title>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <style>
+    body{margin:0;font-family:'Segoe UI',sans-serif;background:#0b1020;color:#e6eefc;line-height:1.6}
+    h1,h2,h3,h4{margin:0 0 15px}
+    .portada{min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+      text-align:center;background:linear-gradient(135deg,#1e3a8a,#312e81);padding:40px 20px}
+    .portada h1{font-size:3em;margin-bottom:20px;text-shadow:2px 2px 4px rgba(0,0,0,0.3)}
+    .portada .subtitle{font-size:1.3em;margin:10px 0;opacity:0.9}
+    .hero{padding:30px 20px;text-align:center;background:#121936;border-bottom:3px solid #a78bfa}
+    .container{max-width:1200px;margin:auto;padding:30px 20px}
+    .section{margin-bottom:50px;padding:30px;background:#1a1f3a;border-radius:16px}
+    .grid{display:grid;gap:25px}
+    .cols-2{grid-template-columns:repeat(2,1fr)}
+    .cols-3{grid-template-columns:repeat(3,1fr)}
+    @media(max-width:900px){.cols-2,.cols-3{grid-template-columns:1fr}}
+    .card{background:#1e2747;padding:25px;border-radius:14px;border-left:4px solid #a78bfa;
+      transition:transform 0.2s,box-shadow 0.2s}
+    .card:hover{transform:translateY(-5px);box-shadow:0 8px 20px rgba(167,139,250,0.3)}
+    .card h3{color:#a78bfa;margin-bottom:12px}
+    .card h4{color:#7dd3fc;font-size:0.95em;margin:15px 0 8px;text-transform:uppercase}
+    .img-slot{border:2px dashed rgba(255,255,255,.3);border-radius:10px;min-height:150px;
+      display:grid;place-items:center;background:rgba(255,255,255,.05);position:relative;overflow:hidden;margin:15px 0}
+    .img-slot img{max-width:100%;max-height:220px;display:block;border-radius:8px}
+    #graph{width:100%;height:450px}
+    table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.95em}
+    th,td{border:1px solid rgba(255,255,255,.25);padding:12px;text-align:left}
+    th{background:#2d3561;font-weight:bold;color:#a78bfa}
+    tr:hover{background:rgba(167,139,250,0.1)}
+    .timeline{position:relative;padding-left:40px;border-left:3px solid #a78bfa;margin:20px 0}
+    .timeline-item{margin-bottom:25px;position:relative}
+    .timeline-item:before{content:'';position:absolute;left:-47px;top:5px;width:15px;height:15px;
+      background:#7dd3fc;border-radius:50%;border:3px solid #0b1020}
+    .timeline-item strong{color:#a78bfa;display:block;margin-bottom:5px}
+    .reto{background:rgba(239,68,68,0.15);border-left:4px solid #ef4444;padding:15px;border-radius:8px;margin-top:12px}
+    .reto strong{color:#fca5a5}
+    .ejemplo{background:rgba(34,197,94,0.15);border-left:4px solid #22c55e;padding:15px;border-radius:8px;margin-top:12px}
+    .ejemplo strong{color:#86efac}
+    .node-label{fill:#fff;font-size:12px;font-weight:bold;pointer-events:none}
+    .node-bg{fill:#333;opacity:0.7;rx:6;ry:6}
+    .caso-header{background:#a78bfa;color:#0b1020;padding:15px;border-radius:8px 8px 0 0;font-weight:bold;font-size:1.1em}
+    footer{ text-align:center;padding:30px 20px;opacity:.7;border-top:1px solid rgba(255,255,255,.2);margin-top:30px }
+  </style>
+</head>
+<body>
+  <!-- PORTADA (sin mención a ninguna institución) -->
+  <section class="portada">
+    <h1>POLÍTICAS, INCLUSIÓN Y ÉTICA DEL CUIDADO</h1>
+    <p class="subtitle">Una mirada crítica a la educación inclusiva</p>
+    <p class="subtitle">Discriminación, Exclusión y Prácticas Transformadoras</p>
+  </section>
+
+  <header class="hero">
+    <h1>Infografía Interactiva</h1>
+    <p>Políticas • Discriminación • Exclusión • Inclusión • Ética del Cuidado</p>
+  </header>
+
+  <main class="container">
+    
+    <!-- MAPA DE RELACIONES -->
+    <section class="section">
+      <h2>🔗 Mapa de Relaciones Conceptuales</h2>
+      <svg id="graph"></svg>
+      <p style="text-align:center;margin-top:20px;opacity:0.8;font-style:italic">
+        Interactivo: Arrastra los nodos para explorar las relaciones entre conceptos
+      </p>
+    </section>
+
+    <!-- RECORRIDO HISTÓRICO -->
+    <section class="section">
+      <h2>📜 Recorrido Histórico de las Políticas Poblacionales</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <strong>1948 - Declaración Universal de los Derechos Humanos</strong>
+          <p>Establece el derecho universal a la educación sin discriminación (Art. 26).</p>
+        </div>
+        <div class="timeline-item">
+          <strong>1960 - Convención contra la Discriminación en la Educación (UNESCO)</strong>
+          <p>Primer instrumento internacional que prohíbe la discriminación educativa.</p>
+        </div>
+        <div class="timeline-item">
+          <strong>1990 - Declaración de Jomtien (Educación para Todos)</strong>
+          <p>Compromiso global para garantizar educación básica universal.</p>
+        </div>
+        <div class="timeline-item">
+          <strong>1994 - Declaración de Salamanca</strong>
+          <p>Marca el inicio del movimiento de educación inclusiva: “escuelas para todos”.</p>
+        </div>
+        <div class="timeline-item">
+          <strong>2006 - Convención sobre Derechos de Personas con Discapacidad (ONU)</strong>
+          <p>Establece la educación inclusiva como derecho humano fundamental (Art. 24).</p>
+        </div>
+        <div class="timeline-item">
+          <strong>2015 - Agenda 2030 (ODS 4)</strong>
+          <p>“Garantizar una educación inclusiva, equitativa y de calidad” para todos.</p>
+        </div>
+        <div class="timeline-item">
+          <strong>2020-2025 - Enfoque de Capacidades</strong>
+          <p>Integra desarrollo de capacidades humanas y justicia social en la educación.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONCEPTOS CLAVE CON EJEMPLOS Y RETOS -->
+    <section class="section">
+      <h2>🎯 Conceptos Clave: Definición, Ejemplos y Desafíos</h2>
+      <div class="grid cols-2">
+        
+        <div class="card">
+          <h3>1. Políticas Educativas</h3>
+          <p><strong>Definición:</strong> Normas y directrices institucionales que garantizan acceso, permanencia y aprendizaje de calidad.</p>
+          <div class="img-slot">
+            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=500" alt="Políticas">
+          </div>
+          <div class="ejemplo">
+            <strong>📌 Ejemplo:</strong>
+            <p>Lineamientos que exigen ajustes razonables y apoyos pedagógicos para estudiantes con NEE.</p>
+          </div>
+          <div class="reto">
+            <strong>⚠️ Retos:</strong>
+            <ul>
+              <li>Brecha entre norma y práctica</li>
+              <li>Financiación y formación docente</li>
+              <li>Cambio cultural institucional</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>2. Discriminación</h3>
+          <p><strong>Definición:</strong> Acciones u omisiones que limitan derechos por prejuicio o estereotipo.</p>
+          <div class="img-slot">
+            <img src="https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?w=500" alt="Discriminación">
+          </div>
+          <div class="ejemplo">
+            <strong>📌 Ejemplo:</strong>
+            <p>Menores expectativas hacia ciertos estudiantes por su origen, género o discapacidad.</p>
+          </div>
+          <div class="reto">
+            <strong>⚠️ Retos:</strong>
+            <ul>
+              <li>Sesgos implícitos difíciles de detectar</li>
+              <li>Naturalización de prácticas excluyentes</li>
+              <li>Falta de rutas claras de atención</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>3. Exclusión</h3>
+          <p><strong>Definición:</strong> Sacar o marginar a estudiantes del aprendizaje y la participación.</p>
+          <div class="img-slot">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500" alt="Exclusión">
+          </div>
+          <div class="ejemplo">
+            <strong>📌 Ejemplo:</strong>
+            <p>Derivar a “aulas especiales” sin interacción con pares.</p>
+          </div>
+          <div class="reto">
+            <strong>⚠️ Retos:</strong>
+            <ul>
+              <li>Barreras arquitectónicas</li>
+              <li>Currículos rígidos</li>
+              <li>Escasez de apoyos y materiales accesibles</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>4. Inclusión</h3>
+          <p><strong>Definición:</strong> Valorar la diversidad y eliminar barreras para la participación plena.</p>
+          <div class="img-slot">
+            <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=500" alt="Inclusión">
+          </div>
+          <div class="ejemplo">
+            <strong>📌 Ejemplo:</strong>
+            <p>DUA: múltiples formas de representar, actuar y expresar el aprendizaje.</p>
+          </div>
+          <div class="reto">
+            <strong>⚠️ Retos:</strong>
+            <ul>
+              <li>Confundir inclusión con integración</li>
+              <li>Sobrecarga docente sin equipo de apoyo</li>
+              <li>Transformación cultural sostenida</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>5. Ética del Cuidado</h3>
+          <p><strong>Definición:</strong> Proteger, acompañar y promover el bienestar integral del estudiante.</p>
+          <div class="img-slot">
+            <img src="https://images.unsplash.com/photo-1532619187608-e5375cab36aa?w=500" alt="Ética del Cuidado">
+          </div>
+          <div class="ejemplo">
+            <strong>📌 Ejemplo:</strong>
+            <p>Activar rutas de protección ante señales de vulneración de derechos.</p>
+          </div>
+          <div class="reto">
+            <strong>⚠️ Retos:</strong>
+            <ul>
+              <li>Evitar la sobreprotección</li>
+              <li>Formación socioemocional docente</li>
+              <li>Condiciones para el acompañamiento cercano</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>6. Enfoque de Capacidades</h3>
+          <p><strong>Definición:</strong> Desarrollar capacidades humanas (razonamiento, afiliación, agencia) como fin de la educación.</p>
+          <div class="img-slot">
+            <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?w=500" alt="Capacidades">
+          </div>
+          <div class="ejemplo">
+            <strong>📌 Ejemplo:</strong>
+            <p>Diálogo y pensamiento crítico más allá de la memorización.</p>
+          </div>
+          <div class="reto">
+            <strong>⚠️ Retos:</strong>
+            <ul>
+              <li>Sistemas centrados en resultados</li>
+              <li>Evaluación de capacidades complejas</li>
+              <li>Formación pedagógica y humanista</li>
+            </ul>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- ESTUDIOS DE CASO -->
+    <section class="section">
+      <h2>📋 Estudios de Caso Comparativos</h2>
+      
+      <div style="margin-bottom:40px">
+        <div class="caso-header">CASO 1: Modelo Inclusivo</div>
+        <div class="card">
+          <h4>Descripción</h4>
+          <p>Escuela pública urbana con 18% de estudiantes con NEE y población migrante. Implementa educación inclusiva desde 2018.</p>
+          
+          <h4>Caracterización</h4>
+          <ul>
+            <li><strong>Política:</strong> Inclusión con DUA y enfoque de capacidades</li>
+            <li><strong>Prácticas:</strong> Aprendizaje cooperativo y adaptaciones</li>
+            <li><strong>Recursos:</strong> Equipo interdisciplinario y aulas flexibles</li>
+            <li><strong>Cultura:</strong> Participación familiar y formación docente</li>
+            <li><strong>Cuidado:</strong> Protocolos de bienestar y escucha activa</li>
+          </ul>
+          
+          <h4>Términos aplicados</h4>
+          <p><span style="background:#22c55e;padding:4px 10px;border-radius:5px;margin:3px;display:inline-block">✓ Inclusión</span>
+          <span style="background:#22c55e;padding:4px 10px;border-radius:5px;margin:3px;display:inline-block">✓ Ética del cuidado</span>
+          <span style="background:#22c55e;padding:4px 10px;border-radius:5px;margin:3px;display:inline-block">✓ Políticas equitativas</span></p>
+          
+          <div class="img-slot">
+            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500" alt="Caso 1 Inclusión">
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:40px">
+        <div class="caso-header">CASO 2: Modelo Segregador</div>
+        <div class="card">
+          <h4>Descripción</h4>
+          <p>Colegio privado tradicional con enfoque selectivo y disciplinario. Rechaza matrícula de estudiantes con discapacidad o dificultades de aprendizaje.</p>
+          
+          <h4>Caracterización</h4>
+          <ul>
+            <li><strong>Política:</strong> Segregación y autoritarismo</li>
+            <li><strong>Prácticas:</strong> Clases magistrales y evaluación estandarizada</li>
+            <li><strong>Recursos:</strong> Sin apoyos especializados, infraestructura inaccesible</li>
+            <li><strong>Cultura:</strong> Competencia y meritocracia excluyente</li>
+            <li><strong>Protección:</strong> Control punitivo, poca escucha individual</li>
+          </ul>
+          
+          <h4>Términos aplicados</h4>
+          <p><span style="background:#ef4444;padding:4px 10px;border-radius:5px;margin:3px;display:inline-block">✗ Segregación</span>
+          <span style="background:#ef4444;padding:4px 10px;border-radius:5px;margin:3px;display:inline-block">✗ Autoritarismo</span>
+          <span style="background:#ef4444;padding:4px 10px;border-radius:5px;margin:3px;display:inline-block">✗ Discriminación</span>
+          <span style="background:#ef4444;padding:4px 10px;border-radius:5px;margin:3px;display:inline-block">✗ Exclusión</span></p>
+          
+          <div class="img-slot">
+            <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=500" alt="Caso 2 Segregación">
+          </div>
+        </div>
+      </div>
+
+      <!-- MATRIZ COMPARATIVA -->
+      <h3 style="margin-top:30px">📊 Matriz Comparativa de Casos</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Criterio</th>
+            <th>Caso 1 (Inclusivo)</th>
+            <th>Caso 2 (Segregador)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Acceso</strong></td><td>Universal</td><td>Selectivo</td></tr>
+          <tr><td><strong>Currículo</strong></td><td>Flexible / DUA</td><td>Rígido</td></tr>
+          <tr><td><strong>Metodología</strong></td><td>Cooperativa</td><td>Transmisiva</td></tr>
+          <tr><td><strong>Evaluación</strong></td><td>Formativa</td><td>Estandarizada</td></tr>
+          <tr><td><strong>Rol docente</strong></td><td>Mediador y cuidador</td><td>Autoridad y control</td></tr>
+          <tr><td><strong>Discapacidad</strong></td><td>Apoyos en aula regular</td><td>Derivación o exclusión</td></tr>
+          <tr><td><strong>Diversidad cultural</strong></td><td>Valorada</td><td>Negada</td></tr>
+          <tr><td><strong>Participación familiar</strong></td><td>Activa</td><td>Limitada</td></tr>
+          <tr><td><strong>Infraestructura</strong></td><td>Accesible</td><td>Con barreras</td></tr>
+          <tr><td><strong>Ética predominante</strong></td><td>Cuidado y reconocimiento</td><td>Protección / control</td></tr>
+          <tr><td><strong>Resultados sociales</strong></td><td>Cohesión y empatía</td><td>Segregación y competencia</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ROL DEL DOCENTE -->
+    <section class="section">
+      <h2>👨‍🏫 Rol del Docente en la Educación Inclusiva</h2>
+      <p style="margin-bottom:25px;font-size:1.05em">
+        El docente trasciende la transmisión de contenidos y actúa como agente de transformación social y cuidado integral.
+      </p>
+      
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>1. Promotor de Inclusión</h3>
+          <ul>
+            <li>Diseña experiencias accesibles (DUA)</li>
+            <li>Elimina barreras para la participación</li>
+            <li>Adapta currículo, metodología y evaluación</li>
+            <li>Fomenta trabajo entre pares</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>2. Agente de Cuidado</h3>
+          <ul>
+            <li>Previene discriminación y acoso</li>
+            <li>Promueve bienestar socioemocional</li>
+            <li>Escucha activa y confianza</li>
+            <li>Activa rutas de protección</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>3. Mediador Cultural</h3>
+          <ul>
+            <li>Diálogo intercultural y resolución de conflictos</li>
+            <li>Reconoce saberes previos</li>
+            <li>Conecta currículo con contextos</li>
+            <li>Promueve ciudadanía activa</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>4. Investigador Reflexivo</h3>
+          <ul>
+            <li>Evalúa y mejora su práctica</li>
+            <li>Indaga necesidades de estudiantes</li>
+            <li>Documenta experiencias</li>
+            <li>Se actualiza de forma continua</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>5. Colaborador Interdisciplinario</h3>
+          <ul>
+            <li>Trabaja con equipos de apoyo</li>
+            <li>Cogestiona con familias</li>
+            <li>Redes de aprendizaje docente</li>
+            <li>Construye comunidad inclusiva</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>6. Promotor de Capacidades</h3>
+          <ul>
+            <li>Desarrolla pensamiento crítico</li>
+            <li>Fomenta afiliación y pertenencia</li>
+            <li>Impulsa agencia personal</li>
+            <li>Estimula imaginación y empatía</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- (Eliminadas: Referencias bibliográficas e Integrantes) -->
+
+    <footer>
+      <p>© 2025 — Infografía educativa (versión interactiva)</p>
+    </footer>
+  </main>
+
+  <script>
+    // --- Grafo interactivo con labels de fondo (badge) ---
+    const nodes=[
+      {id:'Políticas'},
+      {id:'Inclusión'},
+      {id:'Ética del Cuidado'},
+      {id:'Discriminación'},
+      {id:'Exclusión'},
+      {id:'Capacidades'}
+    ];
+    
+    const links=[
+      {source:'Políticas',target:'Inclusión'},
+      {source:'Inclusión',target:'Ética del Cuidado'},
+      {source:'Discriminación',target:'Exclusión'},
+      {source:'Políticas',target:'Discriminación'},
+      {source:'Inclusión',target:'Capacidades'},
+      {source:'Ética del Cuidado',target:'Capacidades'}
+    ];
+    
+    const svg=d3.select('#graph');
+    const width=svg.node().clientWidth;
+    const height=svg.node().clientHeight;
+    const g=svg.append('g');
+
+    const link=g.selectAll('line').data(links).enter().append('line')
+      .attr('stroke','#7dd3fc').attr('stroke-width',2);
+
+    const node=g.selectAll('g').data(nodes).enter().append('g')
+      .call(d3.drag().on('start',dragstarted).on('drag',dragged).on('end',dragended));
+
+    node.append('circle').attr('r',30).attr('fill','#a78bfa');
+
+    // Texto con rectángulo de fondo calculado por bbox
+    node.each(function(d){
+      const grp=d3.select(this);
+      const text=grp.append('text')
+        .text(d.id)
+        .attr('class','node-label')
+        .attr('text-anchor','middle')
+        .attr('dy','0.35em');
+      const bbox=text.node().getBBox();
+      grp.insert('rect','text')
+        .attr('class','node-bg')
+        .attr('x',bbox.x-6).attr('y',bbox.y-2)
+        .attr('width',bbox.width+12).attr('height',bbox.height+4);
+    });
+
+    const sim=d3.forceSimulation(nodes)
+      .force('link',d3.forceLink(links).id(d=>d.id).distance(150))
+      .force('charge',d3.forceManyBody().strength(-300))
+      .force('center',d3.forceCenter(width/2,height/2))
+      .force('collision',d3.forceCollide().radius(50))
+      .on('tick',ticked);
+
+    function ticked(){
+      link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+          .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+      node.attr('transform',d=>`translate(${d.x},${d.y})`);
+    }
+    
+    function dragstarted(event,d){
+      if(!event.active) sim.alphaTarget(0.3).restart();
+      d.fx=d.x; d.fy=d.y;
+    }
+    function dragged(event,d){ d.fx=event.x; d.fy=event.y; }
+    function dragended(event,d){
+      if(!event.active) sim.alphaTarget(0);
+      d.fx=null; d.fy=null;
+    }
+  </script>
+</body>
+</html>
