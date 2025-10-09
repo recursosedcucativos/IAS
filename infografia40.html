@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Ruta de la Pedagogía Crítica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#003F5C', // Deep Blue
+                        'secondary': '#7A578D', // Purple
+                        'accent': '#BC5090', // Magenta
+                        'highlight': '#FF6361', // Coral
+                        'cta': '#FFA600', // Orange/Yellow
+                        'light-bg': '#EFF1F3',
+                        'dark-text': '#2C3A47',
+                    }
+                },
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'],
+                },
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
+        }
+        .path-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #d1d5db;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+        .path-dot {
+            position: absolute;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: white;
+            border: 4px solid #d1d5db;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-light-bg text-dark-text">
+
+    <header class="bg-primary text-white text-center py-16 px-4">
+        <h1 class="text-4xl md:text-6xl font-black tracking-tight">El Camino hacia la Pedagogía Crítica</h1>
+        <p class="text-xl md:text-2xl font-bold mt-2 opacity-80 max-w-3xl mx-auto">Una ruta visual para transformar la educación desde el aula.</p>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="origen" class="my-12">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="text-center md:text-left">
+                         <h2 class="text-3xl md:text-4xl font-bold text-secondary mb-4">Punto de Origen: El Aula Tradicional</h2>
+                         <p class="text-lg text-gray-600">
+                           Partimos de un modelo centrado en la repetición, donde el conocimiento es unidireccional y la participación activa es mínima. Este desequilibrio limita el desarrollo del pensamiento crítico y la conexión con la realidad del estudiante.
+                         </p>
+                    </div>
+                    <div>
+                        <div class="chart-container h-64 md:h-80">
+                             <canvas id="aulaTradicionalChart"></canvas>
+                        </div>
+                        <p class="text-center font-semibold mt-2 text-gray-700">Distribución del Tiempo Pedagógico</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="camino" class="my-20 relative">
+            <div class="path-line hidden md:block"></div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center text-primary mb-16">La Ruta de la Transformación</h2>
+            
+            <div class="relative md:grid md:grid-cols-2 md:gap-x-12">
+                
+                <div class="md:col-start-1 md:text-right">
+                    <div class="path-dot hidden md:block" style="top: 0;"></div>
+                    <div class="bg-white rounded-2xl shadow-xl p-8 mb-12 md:mb-0">
+                        <h3 class="text-2xl font-bold text-accent mb-3">Estación 1: Diálogo de Saberes</h3>
+                        <p class="text-gray-600 mb-4">Reemplazamos el monólogo por una conversación polifónica. La voz del estudiante y la sabiduría de la comunidad se vuelven tan cruciales como el texto académico.</p>
+                        <div class="chart-container h-80">
+                            <canvas id="dialogoChart"></canvas>
+                        </div>
+                        <p class="text-center font-semibold mt-2 text-gray-700">Fuentes de Conocimiento Valoradas</p>
+                    </div>
+                </div>
+
+                <div class="md:col-start-2 md:mt-48">
+                    <div class="path-dot hidden md:block" style="top: 12rem;"></div>
+                    <div class="bg-white rounded-2xl shadow-xl p-8 mb-12 md:mb-0">
+                        <h3 class="text-2xl font-bold text-highlight mb-3">Estación 2: Investigación como Praxis</h3>
+                        <p class="text-gray-600 mb-4">El aula se convierte en un laboratorio social. Los estudiantes investigan su entorno, generando conocimiento relevante y conectando la teoría con la vida cotidiana.</p>
+                        <div class="chart-container h-80">
+                            <canvas id="praxisChart"></canvas>
+                        </div>
+                        <p class="text-center font-semibold mt-2 text-gray-700">Impacto y Relevancia de Proyectos</p>
+                    </div>
+                </div>
+                
+                <div class="md:col-start-1 md:text-right md:mt-48">
+                    <div class="path-dot hidden md:block" style="top: 36rem;"></div>
+                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                        <h3 class="text-2xl font-bold text-secondary mb-3">Estación 3: Lectura Crítica del Mundo</h3>
+                        <p class="text-gray-600 mb-4">Desarrollamos la capacidad de "leer entre líneas" los mensajes de los medios y los discursos de poder, entendiendo sus intenciones e implicaciones.</p>
+                        <div class="chart-container h-80">
+                            <canvas id="lecturaChart"></canvas>
+                        </div>
+                        <p class="text-center font-semibold mt-2 text-gray-700">Profundidad del Análisis Mediático</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="destino" class="my-16 bg-white rounded-2xl shadow-xl p-8">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center text-primary mb-4">Destino: La Ciudadanía Crítica</h2>
+            <p class="text-center text-lg max-w-3xl mx-auto mb-8 text-gray-600">El resultado de este viaje es un estudiante transformado: un ciudadano activo, reflexivo y capacitado para participar en la construcción de una sociedad más equitativa y justa.</p>
+            <div class="chart-container h-96 md:h-[500px]">
+                 <canvas id="destinoChart"></canvas>
+            </div>
+            <p class="text-center text-xl font-bold italic mt-8 bg-cta/20 text-dark-text py-3 px-5 rounded-lg max-w-3xl mx-auto">"La educación no cambia el mundo, cambia a las personas que van a cambiar el mundo." - Paulo Freire</p>
+        </section>
+        
+        <footer class="text-center my-12 p-8 bg-primary rounded-2xl shadow-xl text-white">
+            <h2 class="text-4xl font-black text-white">Inicia tu Propio Camino</h2>
+            <p class="text-xl mt-2 mb-8 max-w-2xl mx-auto opacity-80">Este no es un manual, es una invitación a la acción. El proceso es claro:</p>
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
+                <div class="text-center p-6 bg-white/20 rounded-lg w-60">
+                    <div class="text-5xl mb-2">🤔</div>
+                    <h3 class="text-2xl font-bold">Cuestiona</h3>
+                    <p class="opacity-80">Tu práctica actual</p>
+                </div>
+                <div class="text-3xl font-bold text-cta">&rarr;</div>
+                <div class="text-center p-6 bg-white/20 rounded-lg w-60">
+                    <div class="text-5xl mb-2">💬</div>
+                    <h3 class="text-2xl font-bold">Dialoga</h3>
+                    <p class="opacity-80">Con tu comunidad</p>
+                </div>
+                <div class="text-3xl font-bold text-cta">&rarr;</div>
+                <div class="text-center p-6 bg-white/20 rounded-lg w-60">
+                    <div class="text-5xl mb-2">🛠️</div>
+                    <h3 class="text-2xl font-bold">Construye</h3>
+                    <p class="opacity-80">Nuevas pedagogías</p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chartTooltipCallback = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) { return label.join(' '); }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            };
+
+            const processLabels = (labels) => {
+                return labels.map(label => {
+                    if (label.length > 16) {
+                        const words = label.split(' ');
+                        const newLabel = [];
+                        let line = '';
+                        words.forEach(word => {
+                            if ((line + word).length > 16) {
+                                newLabel.push(line.trim());
+                                line = '';
+                            }
+                            line += word + ' ';
+                        });
+                        newLabel.push(line.trim());
+                        return newLabel;
+                    }
+                    return label;
+                });
+            };
+
+            const globalChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { ...chartTooltipCallback.plugins, legend: { position: 'bottom' } }
+            };
+
+            const aulaTradicionalCtx = document.getElementById('aulaTradicionalChart').getContext('2d');
+            new Chart(aulaTradicionalCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Enfoque Pedagógico'],
+                    datasets: [
+                        { label: 'Exposición del Docente', data: [65], backgroundColor: '#003F5C' },
+                        { label: 'Memorización del Estudiante', data: [25], backgroundColor: '#7A578D' },
+                        { label: 'Análisis y Creación', data: [10], backgroundColor: '#FFA600' }
+                    ]
+                },
+                options: { ...globalChartOptions, indexAxis: 'y', scales: { x: { stacked: true }, y: { stacked: true } } }
+            });
+
+            const dialogoCtx = document.getElementById('dialogoChart').getContext('2d');
+            new Chart(dialogoCtx, {
+                type: 'polarArea',
+                data: {
+                    labels: processLabels(['Voz del Estudiante', 'Saberes Comunitarios', 'Texto Guía', 'Voz del Docente']),
+                    datasets: [{
+                        data: [10, 9, 6, 7],
+                        backgroundColor: ['#BC5090', '#FF6361', '#7A578D', '#003F5C']
+                    }]
+                },
+                options: { ...globalChartOptions }
+            });
+
+            const praxisCtx = document.getElementById('praxisChart').getContext('2d');
+            new Chart(praxisCtx, {
+                type: 'bubble',
+                data: {
+                    datasets: [
+                        { label: 'Historia Local', data: [{x: 8, y: 9, r: 20}], backgroundColor: '#FF6361' },
+                        { label: 'Entrevistas a la Comunidad', data: [{x: 9, y: 8, r: 25}], backgroundColor: '#BC5090'},
+                        { label: 'Teoría Abstracta', data: [{x: 4, y: 3, r: 10}], backgroundColor: '#7A578D' },
+                        { label: 'Repetir Texto', data: [{x: 2, y: 2, r: 8}], backgroundColor: '#003F5C' }
+                    ]
+                },
+                options: { ...globalChartOptions, scales: { x: { title: { display: true, text: 'Relevancia' } }, y: { title: { display: true, text: 'Impacto' } } } }
+            });
+
+            const lecturaCtx = document.getElementById('lecturaChart').getContext('2d');
+            new Chart(lecturaCtx, {
+                type: 'bar',
+                data: {
+                    labels: processLabels(['Análisis de Intención', 'Identificar Sesgos', 'Verificar Fuentes', 'Lectura Superficial']),
+                    datasets: [
+                        { label: 'Enfoque Crítico', data: [95, 90, 85, 10], backgroundColor: '#7A578D' },
+                        { label: 'Enfoque Tradicional', data: [15, 20, 10, 90], backgroundColor: '#D1D5DB' }
+                    ]
+                },
+                options: { ...globalChartOptions }
+            });
+            
+            const destinoCtx = document.getElementById('destinoChart').getContext('2d');
+            new Chart(destinoCtx, {
+                type: 'radar',
+                data: {
+                    labels: processLabels(['Pensamiento Crítico', 'Acción Comunitaria', 'Diálogo Intercultural', 'Resolución de Problemas', 'Memorización', 'Empatía']),
+                    datasets: [
+                        {
+                            label: 'Perfil Estudiante Tradicional',
+                            data: [3, 2, 2, 4, 9, 4],
+                            backgroundColor: 'rgba(255, 99, 97, 0.4)',
+                            borderColor: '#FF6361',
+                            pointBackgroundColor: '#FF6361'
+                        },
+                        {
+                            label: 'Perfil Ciudadano Crítico',
+                            data: [9, 8, 9, 8, 4, 9],
+                            backgroundColor: 'rgba(0, 63, 92, 0.4)',
+                            borderColor: '#003F5C',
+                            pointBackgroundColor: '#003F5C'
+                        }
+                    ]
+                },
+                options: { ...globalChartOptions, scales: { r: { suggestedMin: 0, suggestedMax: 10 } } }
+            });
+        });
+    </script>
+</body>
+</html>
