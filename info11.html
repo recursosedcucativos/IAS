@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Pedagogía Crítica y Educación Popular</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F8F9FA;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flowchart-step {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            min-height: 80px;
+        }
+        .flowchart-arrow {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4ECDC4;
+        }
+    </style>
+    <!-- 
+    Plan de Narrative y Estructura:
+    1.  Título y Gancho: Presentar el tema principal con el título y la introducción del material de origen.
+    2.  Sección 1 - Las Raíces del Saber (Epistemología): Visualizar los dos conceptos clave: la no neutralidad del conocimiento y el diálogo de saberes. Se busca mostrar la base teórica del enfoque.
+    3.  Sección 2 - El Saber en Acción (Práctica): Ilustrar las dos aplicaciones prácticas: el ciclo de la praxis y la diferencia en la evaluación. El objetivo es mostrar cómo la teoría se lleva a la práctica.
+    4.  Conclusión: Cerrar con la meta final del modelo educativo, reforzando el mensaje transformador.
+
+    Selección y Justificación de Visualizaciones:
+    * Dato: No Neutralidad del Conocimiento -> Meta: Comparar -> Visualización: Gráfico Radar (Chart.js) -> Justificación: Compara efectivamente múltiples factores (poder, cultura, contexto) que influyen en el conocimiento, contrastándolo con un ideal "puro". Confirma NO SVG.
+    * Dato: Diálogo de Saberes -> Meta: Comparar (Composición) -> Visualización: Gráfico de Donut (Chart.js) -> Justificación: Muestra cómo diferentes tipos de saberes (popular, ancestral, científico) componen un todo colectivo. Confirma NO SVG.
+    * Dato: Ciclo de la Praxis -> Meta: Organizar (Proceso) -> Visualización: Diagrama de Flujo (HTML/CSS) -> Justificación: Representa claramente el proceso cíclico de reflexión-acción-transformación. Confirma NO SVG, NO Mermaid JS.
+    * Dato: Comparación de Evaluaciones -> Meta: Comparar -> Visualización: Gráfico de Barras Agrupadas (Chart.js) -> Justificación: Contrasta directamente los enfoques de la evaluación tradicional versus la formativa, haciendo las diferencias inmediatamente evidentes. Confirma NO SVG.
+
+    Paleta de Colores Seleccionada: Energetic & Playful (#FF6B6B, #4ECDC4, #45B7D1, #FED766)
+    
+    Confirmación explícita: NI Mermaid JS NI SVG fueron utilizados en la generación de este archivo. Toda la renderización de gráficos se realiza mediante la etiqueta Canvas con Chart.js, y los diagramas se construyen con HTML y CSS (Tailwind).
+    -->
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-2">Pedagogía Crítica y Educación Popular</h1>
+            <h2 class="text-xl md:text-2xl font-bold" style="color: #FF6B6B;">Claves para una Educación que Transforma</h2>
+            <p class="max-w-3xl mx-auto mt-4 text-lg text-gray-600">
+                Un enfoque que rompe los muros del aula para construir conocimiento <strong class="font-bold">desde y para la comunidad</strong>, buscando un cambio social real y consciente.
+            </p>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <section class="md:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-2xl font-bold text-center mb-4 text-gray-900">Sección 1: Las Raíces del Saber (Concreciones Epistemológicas)</h3>
+                <p class="text-center text-gray-600 mb-8">Esta sección explora los fundamentos filosóficos que sustentan la pedagogía crítica, enfocándose en cómo se concibe y se construye el conocimiento.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h4 class="text-xl font-bold text-center mb-2" style="color: #4ECDC4;">1. El Conocimiento NO es Neutral</h4>
+                        <p class="text-center text-gray-600 mb-4">Se desafía la idea de que el saber es objetivo. Este gráfico muestra cómo el conocimiento "real" está siempre influenciado por factores externos, en contraste con un ideal "puro". Educar es un acto político.</p>
+                        <div class="chart-container">
+                            <canvas id="neutralityChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h4 class="text-xl font-bold text-center mb-2" style="color: #45B7D1;">2. Diálogo Horizontal de Saberes</h4>
+                        <p class="text-center text-gray-600 mb-4">Se valora la diversidad de conocimientos. La construcción colectiva de significados se nutre de un intercambio intercultural, donde ningún saber se impone sobre otro, como se ve en la composición de los "Saberes Colectivos".</p>
+                        <div class="chart-container">
+                            <canvas id="dialogueChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="md:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-2xl font-bold text-center mb-4 text-gray-900">Sección 2: El Saber en Acción (Concreciones Prácticas)</h3>
+                 <p class="text-center text-gray-600 mb-8">Aquí vemos cómo los principios teóricos se traducen en acciones concretas dentro del proceso educativo, transformando la realidad del aula y la comunidad.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                     <div class="bg-gray-50 rounded-lg p-6">
+                        <h4 class="text-xl font-bold text-center mb-4" style="color: #FED766;">3. La Praxis como Motor del Cambio</h4>
+                        <p class="text-center text-gray-600 mb-6">La teoría y la práctica son inseparables. Este diagrama ilustra el ciclo continuo donde la reflexión sobre la realidad impulsa una acción para transformarla, generando nuevo aprendizaje.</p>
+                        <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+                            <div class="flowchart-step bg-white w-full md:w-1/4" style="border-left: 4px solid #FED766;"><strong>Reflexión Crítica</strong></div>
+                            <div class="flowchart-arrow">→</div>
+                            <div class="flowchart-step bg-white w-full md:w-1/4" style="border-left: 4px solid #FED766;"><strong>Acción Transformadora</strong></div>
+                             <div class="flowchart-arrow">→</div>
+                             <div class="flowchart-step bg-white w-full md:w-1/4" style="border-left: 4px solid #FED766;"><strong>Nueva Realidad</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h4 class="text-xl font-bold text-center mb-2" style="color: #FF6B6B;">4. Evaluar para Crecer, no para Castigar</h4>
+                        <p class="text-center text-gray-600 mb-4">La evaluación se redefine. En lugar de un método punitivo, se convierte en un proceso formativo y participativo que acompaña el aprendizaje. El gráfico compara el enfoque de ambos modelos.</p>
+                        <div class="chart-container">
+                            <canvas id="evaluationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <footer class="md:col-span-2 bg-white rounded-lg shadow-md p-8 text-center" style="background-color: #2D3748; color: #F8F9FA;">
+                <h3 class="text-2xl font-black mb-3" style="color: #4ECDC4;">El Objetivo Final: Una Educación que Libera</h3>
+                <p class="text-lg max-w-3xl mx-auto text-gray-200">
+                    Formar sujetos críticos, participativos y comprometidos con la justicia social y la transformación de su propio entorno.
+                </p>
+                <div class="mt-6 text-sm text-gray-400">
+                    <p>Síntesis para la Actividad 6</p>
+                    <p>Basado en el marco de la pedagogía crítica latinoamericana</p>
+                </div>
+            </footer>
+
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const wrapLabel = (label) => {
+        if (label.length <= 16) {
+            return label;
+        }
+        const words = label.split(' ');
+        const lines = [];
+        let currentLine = '';
+        words.forEach(word => {
+            if ((currentLine + word).length > 16) {
+                lines.push(currentLine.trim());
+                currentLine = '';
+            }
+            currentLine += word + ' ';
+        });
+        lines.push(currentLine.trim());
+        return lines;
+    };
+
+    const tooltipTitleCallback = {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                          return label.join(' ');
+                        } else {
+                          return label;
+                        }
+                    }
+                }
+            }
+        }
+    };
+    
+    const colors = {
+        red: '#FF6B6B',
+        teal: '#4ECDC4',
+        blue: '#45B7D1',
+        yellow: '#FED766',
+        darkGray: '#2D3748',
+        lightGray: '#A0AEC0'
+    };
+
+    new Chart(document.getElementById('neutralityChart'), {
+        type: 'radar',
+        data: {
+            labels: ['Poder', 'Cultura', 'Contexto Social', 'Intereses', 'Historia'],
+            datasets: [{
+                label: 'Conocimiento Real',
+                data: [9, 7, 8, 6, 7],
+                backgroundColor: 'rgba(78, 205, 196, 0.2)',
+                borderColor: colors.teal,
+                pointBackgroundColor: colors.teal,
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: colors.teal
+            }, {
+                label: 'Conocimiento "Puro" (Ideal)',
+                data: [3, 2, 2, 3, 2],
+                backgroundColor: 'rgba(160, 174, 192, 0.2)',
+                borderColor: colors.lightGray,
+                pointBackgroundColor: colors.lightGray,
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: colors.lightGray
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                    grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                    pointLabels: { font: { size: 12 } },
+                    suggestedMin: 0,
+                    suggestedMax: 10
+                }
+            },
+            ...tooltipTitleCallback
+        }
+    });
+
+    new Chart(document.getElementById('dialogueChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Saber Popular', 'Saber Ancestral', 'Saber Científico'],
+            datasets: [{
+                label: 'Composición de Saberes Colectivos',
+                data: [40, 30, 30],
+                backgroundColor: [colors.blue, colors.yellow, colors.teal],
+                borderColor: '#fff',
+                borderWidth: 4,
+                hoverOffset: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '60%',
+            ...tooltipTitleCallback
+        }
+    });
+
+    new Chart(document.getElementById('evaluationChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Enfoque Punitivo', wrapLabel('Basado en Proceso'), wrapLabel('Participación Comunitaria'), 'Reflexivo'],
+            datasets: [{
+                label: 'Evaluación Tradicional',
+                data: [9, 2, 1, 2],
+                backgroundColor: colors.lightGray,
+                borderColor: colors.darkGray,
+                borderWidth: 1
+            }, {
+                label: 'Evaluación Formativa',
+                data: [1, 9, 8, 9],
+                backgroundColor: colors.red,
+                borderColor: '#c0392b',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 10,
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    }
+                },
+                x: {
+                   grid: {
+                        display: false
+                    }
+                }
+            },
+            ...tooltipTitleCallback
+        }
+    });
+});
+</script>
+
+</body>
+</html>
