@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Conceptual: Mentoring</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Calibri, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-export {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-export:hover {
+            background: #2980b9;
+        }
+
+        .btn-reset {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #c0392b;
+        }
+
+        .btn-toggle {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .btn-toggle:hover {
+            background: #27ae60;
+        }
+
+        #canvas-container {
+            position: relative;
+            width: 100%;
+            height: 800px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .node {
+            position: absolute;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: move;
+            user-select: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            min-width: 150px;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.5;
+            z-index: 10;
+            transition: transform 0.2s;
+        }
+
+        .node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .node.active {
+            border: 3px solid #f39c12;
+        }
+
+        .node-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .node-content {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .node-citation {
+            font-size: 10px;
+            margin-top: 5px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .connector-line {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .connector-text {
+            position: absolute;
+            background: #fff;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #2c3e50;
+            border: 1px solid #3498db;
+            z-index: 5;
+            white-space: nowrap;
+        }
+
+        .references {
+            margin-top: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .references h2 {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+
+        .references p {
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        .instructions {
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            border-left: 4px solid #ffc107;
+        }
+
+        @media print {
+            .controls, .instructions {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Mapa Conceptual: Mentoring</h1>
+        <p style="font-size: 14px; color: #7f8c8d; margin-top: 5px;">Herramienta interactiva - Arrastra los nodos para reorganizar</p>
+    </div>
+
+    <div class="instructions">
+        <strong>Instrucciones:</strong> Haz clic y arrastra los nodos para reorganizar el mapa. Usa el botón "Exportar como Imagen" para guardar tu diseño.
+    </div>
+
+    <div class="controls">
+        <button class="btn btn-export" onclick="exportAsImage()">📷 Exportar como Imagen</button>
+        <button class="btn btn-reset" onclick="resetPositions()">🔄 Restablecer Posiciones</button>
+        <button class="btn btn-toggle" onclick="toggleReferences()">📚 Mostrar/Ocultar Referencias</button>
+    </div>
+
+    <div id="canvas-container">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="references" id="references">
+        <h2>Referencias Bibliográficas</h2>
+        <p>Ambrosetti, A., & Dekkers, J. (2010). The interconnectedness of the roles of mentors and mentees in pre-service teacher education mentoring relationships. <em>Australian Journal of Teacher Education, 35</em>(6), 42-55. https://doi.org/10.14221/ajte.2010v35n6.3</p>
+        
+        <p>Clutterbuck, D. (2014). <em>Everyone needs a mentor</em> (5th ed.). Chartered Institute of Personnel and Development.</p>
+        
+        <p>Kram, K. E. (1985). <em>Mentoring at work: Developmental relationships in organizational life</em>. Scott Foresman.</p>
+        
+        <p>Ragins, B. R., & Kram, K. E. (2007). <em>The handbook of mentoring at work: Theory, research, and practice</em>. Sage Publications. https://doi.org/10.4135/9781412976619</p>
+        
+        <p>Zachary, L. J. (2012). <em>The mentor's guide: Facilitating effective learning relationships</em> (2nd ed.). Jossey-Bass.</p>
+    </div>
+
+    <script>
+        // Configuración del canvas
+        const container = document.getElementById('canvas-container');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Definición de nodos con información académica
+        const nodes = [
+            {
+                id: 'mentoring',
+                title: 'MENTORING',
+                content: 'Relación de desarrollo profesional entre mentor y mentee',
+                citation: '(Kram, 1985)',
+                x: 400,
+                y: 50,
+                color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+            },
+            {
+                id: 'definicion',
+                title: 'Definición',
+                content: 'Proceso de acompañamiento para el desarrollo de competencias',
+                citation: '(Clutterbuck, 2014)',
+                x: 150,
+                y: 200,
+                color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
+            },
+            {
+                id: 'mentor',
+                title: 'Mentor',
+                content: 'Profesional experimentado que guía y comparte conocimiento',
+                citation: '(Zachary, 2012)',
+                x: 400,
+                y: 200,
+                color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+            },
+            {
+                id: 'mentee',
+                title: 'Mentee',
+                content: 'Aprendiz que recibe orientación para su desarrollo',
+                citation: '(Ambrosetti & Dekkers, 2010)',
+                x: 650,
+                y: 200,
+                color: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
+            },
+            {
+                id: 'funciones',
+                title: 'Funciones',
+                content: 'Carrera, psicosocial y modelo a seguir',
+                citation: '(Kram, 1985)',
+                x: 100,
+                y: 380,
+                color: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+            },
+            {
+                id: 'beneficios',
+                title: 'Beneficios',
+                content: 'Desarrollo de habilidades, networking y confianza',
+                citation: '(Ragins & Kram, 2007)',
+                x: 300,
+                y: 380,
+                color: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)'
+            },
+            {
+                id: 'proceso',
+                title: 'Proceso',
+                content: 'Iniciación, desarrollo y finalización',
+                citation: '(Zachary, 2012)',
+                x: 500,
+                y: 380,
+                color: 'linear-gradient(135deg, #56ab2f 0%, #a8e063 100%)'
+            },
+            {
+                id: 'competencias',
+                title: 'Competencias Clave',
+                content: 'Escucha activa, empatía y retroalimentación',
+                citation: '(Clutterbuck, 2014)',
+                x: 700,
+                y: 380,
+                color: 'linear-gradient(135deg, #fc4a1a 0%, #f7b733 100%)'
+            },
+            {
+                id: 'contextos',
+                title: 'Contextos',
+                content: 'Organizacional, educativo y profesional',
+                citation: '(Ragins & Kram, 2007)',
+                x: 250,
+                y: 560,
+                color: 'linear-gradient(135deg, #8e44ad 0%, #c39bd3 100%)'
+            },
+            {
+                id: 'resultados',
+                title: 'Resultados',
+                content: 'Mejora del desempeño y desarrollo de carrera',
+                citation: '(Ambrosetti & Dekkers, 2010)',
+                x: 550,
+                y: 560,
+                color: 'linear-gradient(135deg, #e91e63 0%, #ab47bc 100%)'
+            }
+        ];
+
+        // Definición de conexiones con conectores
+        const connections = [
+            { from: 'mentoring', to: 'definicion', label: 'se caracteriza por' },
+            { from: 'mentoring', to: 'mentor', label: 'involucra a' },
+            { from: 'mentoring', to: 'mentee', label: 'incluye a' },
+            { from: 'definicion', to: 'funciones', label: 'cumple' },
+            { from: 'definicion', to: 'beneficios', label: 'genera' },
+            { from: 'mentor', to: 'proceso', label: 'facilita el' },
+            { from: 'mentor', to: 'competencias', label: 'requiere' },
+            { from: 'mentee', to: 'competencias', label: 'desarrolla' },
+            { from: 'funciones', to: 'contextos', label: 'se aplican en' },
+            { from: 'beneficios', to: 'resultados', label: 'producen' },
+            { from: 'proceso', to: 'resultados', label: 'conduce a' }
+        ];
+
+        // Configurar canvas
+        function resizeCanvas() {
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            drawConnections();
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Crear nodos en el DOM
+        nodes.forEach(node => {
+            const nodeElement = document.createElement('div');
+            nodeElement.className = 'node';
+            nodeElement.id = node.id;
+            nodeElement.style.left = node.x + 'px';
+            nodeElement.style.top = node.y + 'px';
+            nodeElement.style.background = node.color;
+            nodeElement.innerHTML = `
+                <div class="node-title">${node.title}</div>
+                <div class="node-content">${node.content}</div>
+                <div class="node-citation">${node.citation}</div>
+            `;
+            container.appendChild(nodeElement);
+            
+            makeDraggable(nodeElement);
+        });
+
+        // Sistema de arrastre
+        let draggedElement = null;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        function makeDraggable(element) {
+            element.addEventListener('mousedown', startDrag);
+            element.addEventListener('touchstart', startDrag);
+        }
+
+        function startDrag(e) {
+            draggedElement = e.target.closest('.node');
+            if (!draggedElement) return;
+
+            const rect = draggedElement.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+            
+            if (e.type === 'mousedown') {
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+            } else {
+                offsetX = e.touches[0].clientX - rect.left;
+                offsetY = e.touches[0].clientY - rect.top;
+            }
+
+            draggedElement.classList.add('active');
+            
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag);
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchend', stopDrag);
+        }
+
+        function drag(e) {
+            if (!draggedElement) return;
+            
+            e.preventDefault();
+            const containerRect = container.getBoundingClientRect();
+            
+            let clientX, clientY;
+            if (e.type === 'mousemove') {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            } else {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            }
+            
+            let x = clientX - containerRect.left - offsetX;
+            let y = clientY - containerRect.top - offsetY;
+            
+            // Límites del contenedor
+            x = Math.max(0, Math.min(x, container.offsetWidth - draggedElement.offsetWidth));
+            y = Math.max(0, Math.min(y, container.offsetHeight - draggedElement.offsetHeight));
+            
+            draggedElement.style.left = x + 'px';
+            draggedElement.style.top = y + 'px';
+            
+            drawConnections();
+        }
+
+        function stopDrag() {
+            if (draggedElement) {
+                draggedElement.classList.remove('active');
+                draggedElement = null;
+            }
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('touchmove', drag);
+            document.removeEventListener('mouseup', stopDrag);
+            document.removeEventListener('touchend', stopDrag);
+        }
+
+        // Dibujar conexiones
+        function drawConnections() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Limpiar textos de conectores anteriores
+            document.querySelectorAll('.connector-text').forEach(el => el.remove());
+            
+            connections.forEach(conn => {
+                const fromNode = document.getElementById(conn.from);
+                const toNode = document.getElementById(conn.to);
+                
+                if (!fromNode || !toNode) return;
+                
+                const fromRect = fromNode.getBoundingClientRect();
+                const toRect = toNode.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                
+                const fromX = fromRect.left + fromRect.width / 2 - containerRect.left;
+                const fromY = fromRect.top + fromRect.height / 2 - containerRect.top;
+                const toX = toRect.left + toRect.width / 2 - containerRect.left;
+                const toY = toRect.top + toRect.height / 2 - containerRect.top;
+                
+                // Dibujar línea
+                ctx.beginPath();
+                ctx.moveTo(fromX, fromY);
+                ctx.lineTo(toX, toY);
+                ctx.strokeStyle = '#3498db';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // Dibujar flecha
+                const angle = Math.atan2(toY - fromY, toX - fromX);
+                const arrowLength = 15;
+                ctx.beginPath();
+                ctx.moveTo(toX, toY);
+                ctx.lineTo(
+                    toX - arrowLength * Math.cos(angle - Math.PI / 6),
+                    toY - arrowLength * Math.sin(angle - Math.PI / 6)
+                );
+                ctx.moveTo(toX, toY);
+                ctx.lineTo(
+                    toX - arrowLength * Math.cos(angle + Math.PI / 6),
+                    toY - arrowLength * Math.sin(angle + Math.PI / 6)
+                );
+                ctx.strokeStyle = '#3498db';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // Crear texto del conector
+                const midX = (fromX + toX) / 2;
+                const midY = (fromY + toY) / 2;
+                
+                const connectorText = document.createElement('div');
+                connectorText.className = 'connector-text';
+                connectorText.textContent = conn.label;
+                connectorText.style.left = midX + 'px';
+                connectorText.style.top = midY + 'px';
+                connectorText.style.transform = 'translate(-50%, -50%)';
+                container.appendChild(connectorText);
+            });
+        }
+
+        // Funciones de utilidad
+        function exportAsImage() {
+            // Crear un canvas temporal con todo el contenido
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = container.offsetWidth;
+            tempCanvas.height = container.offsetHeight;
+            const tempCtx = tempCanvas.getContext('2d');
+            
+            // Fondo blanco
+            tempCtx.fillStyle = 'white';
+            tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+            
+            // Dibujar conexiones
+            tempCtx.drawImage(canvas, 0, 0);
+            
+            // Dibujar nodos
+            nodes.forEach(node => {
+                const nodeElement = document.getElementById(node.id);
+                const rect = nodeElement.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                const x = rect.left - containerRect.left;
+                const y = rect.top - containerRect.top;
+                
+                // Crear gradiente
+                const gradient = tempCtx.createLinearGradient(x, y, x + rect.width, y + rect.height);
+                gradient.addColorStop(0, '#667eea');
+                gradient.addColorStop(1, '#764ba2');
+                
+                // Dibujar nodo
+                tempCtx.fillStyle = gradient;
+                tempCtx.roundRect(x, y, rect.width, rect.height, 10);
+                tempCtx.fill();
+                
+                // Texto
+                tempCtx.fillStyle = 'white';
+                tempCtx.font = 'bold 16px Calibri';
+                tempCtx.textAlign = 'center';
+                tempCtx.fillText(node.title, x + rect.width / 2, y + 25);
+                
+                tempCtx.font = '13px Calibri';
+                const words = node.content.split(' ');
+                let line = '';
+                let lineY = y + 50;
+                words.forEach(word => {
+                    const testLine = line + word + ' ';
+                    if (tempCtx.measureText(testLine).width > rect.width - 20) {
+                        tempCtx.fillText(line, x + rect.width / 2, lineY);
+                        line = word + ' ';
+                        lineY += 18;
+                    } else {
+                        line = testLine;
+                    }
+                });
+                tempCtx.fillText(line, x + rect.width / 2, lineY);
+                
+                tempCtx.font = 'italic 10px Calibri';
+                tempCtx.fillText(node.citation, x + rect.width / 2, lineY + 20);
+            });
+            
+            // Dibujar textos de conectores
+            document.querySelectorAll('.connector-text').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                const x = rect.left - containerRect.left + rect.width / 2;
+                const y = rect.top - containerRect.top + rect.height / 2;
+                
+                tempCtx.fillStyle = 'white';
+                tempCtx.fillRect(x - 40, y - 12, 80, 24);
+                tempCtx.strokeStyle = '#3498db';
+                tempCtx.lineWidth = 1;
+                tempCtx.strokeRect(x - 40, y - 12, 80, 24);
+                
+                tempCtx.fillStyle = '#2c3e50';
+                tempCtx.font = 'bold 11px Calibri';
+                tempCtx.textAlign = 'center';
+                tempCtx.fillText(el.textContent, x, y + 4);
+            });
+            
+            // Descargar
+            const link = document.createElement('a');
+            link.download = 'mapa_conceptual_mentoring.png';
+            link.href = tempCanvas.toDataURL();
+            link.click();
+        }
+
+        function resetPositions() {
+            const originalPositions = {
+                'mentoring': { x: 400, y: 50 },
+                'definicion': { x: 150, y: 200 },
+                'mentor': { x: 400, y: 200 },
+                'mentee': { x: 650, y: 200 },
+                'funciones': { x: 100, y: 380 },
+                'beneficios': { x: 300, y: 380 },
+                'proceso': { x: 500, y: 380 },
+                'competencias': { x: 700, y: 380 },
+                'contextos': { x: 250, y: 560 },
+                'resultados': { x: 550, y: 560 }
+            };
+            
+            Object.keys(originalPositions).forEach(id => {
+                const node = document.getElementById(id);
+                if (node) {
+                    node.style.left = originalPositions[id].x + 'px';
+                    node.style.top = originalPositions[id].y + 'px';
+                }
+            });
+            
+            drawConnections();
+        }
+
+        function toggleReferences() {
+            const refs = document.getElementById('references');
+            refs.style.display = refs.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Polyfill para roundRect
+        if (!CanvasRenderingContext2D.prototype.roundRect) {
+            CanvasRenderingContext2D.prototype.roundRect = function(x, y, width, height, radius) {
+                this.beginPath();
+                this.moveTo(x + radius, y);
+                this.lineTo(x + width - radius, y);
+                this.quadraticCurveTo(x + width, y, x + width, y + radius);
+                this.lineTo(x + width, y + height - radius);
+                this.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+                this.lineTo(x + radius, y + height);
+                this.quadraticCurveTo(x, y + height, x, y + height - radius);
+                this.lineTo(x, y + radius);
+                this.quadraticCurveTo(x, y, x + radius, y);
+                this.closePath();
+            };
+        }
+
+        // Dibujar conexiones iniciales
+        drawConnections();
+    </script>
+</body>
+</html>
