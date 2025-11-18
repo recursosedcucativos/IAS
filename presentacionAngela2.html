@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escuela Viva Hekokatúva - Presentación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #2d2d2d;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .toolbar {
+            background: linear-gradient(180deg, #f3f3f3 0%, #e1e1e1 100%);
+            padding: 8px 15px;
+            border-bottom: 1px solid #c1c1c1;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .toolbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #d35230;
+            font-size: 14px;
+        }
+
+        .toolbar-brand svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .toolbar-tabs {
+            display: flex;
+            gap: 5px;
+        }
+
+        .toolbar-tab {
+            padding: 6px 12px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            color: #444;
+            border-radius: 3px;
+        }
+
+        .toolbar-tab:hover {
+            background: rgba(0,0,0,0.05);
+        }
+
+        .toolbar-tab.active {
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            background: #2d2d2d;
+            overflow: hidden;
+        }
+
+        .slides-panel {
+            width: 200px;
+            background: #3d3d3d;
+            padding: 10px;
+            overflow-y: auto;
+            border-right: 1px solid #555;
+        }
+
+        .slide-thumb {
+            background: #fff;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .slide-thumb:hover {
+            border-color: #666;
+        }
+
+        .slide-thumb.active {
+            border-color: #d35230;
+        }
+
+        .slide-thumb-number {
+            font-size: 10px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .slide-thumb-preview {
+            font-size: 8px;
+            color: #333;
+            line-height: 1.3;
+            height: 60px;
+            overflow: hidden;
+        }
+
+        .slide-viewer {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .slide {
+            width: 100%;
+            max-width: 960px;
+            aspect-ratio: 16/9;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        /* Slide Styles */
+        .slide-title {
+            background: linear-gradient(135deg, #1e5799 0%, #207cca 50%, #2989d8 100%);
+            color: white;
+            padding: 40px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide-title h1 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .slide-title h2 {
+            font-size: 1.4em;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .slide-title .author {
+            margin-top: 40px;
+            font-size: 1.1em;
+            opacity: 0.8;
+        }
+
+        .slide-title .institution {
+            font-size: 0.9em;
+            opacity: 0.7;
+            margin-top: 10px;
+        }
+
+        .slide-content {
+            padding: 30px 40px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-content h2 {
+            color: #1e5799;
+            font-size: 1.6em;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2989d8;
+        }
+
+        .slide-content .content-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .content-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .content-icon {
+            width: 28px;
+            height: 28px;
+            background: #2989d8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .content-text {
+            flex: 1;
+        }
+
+        .content-text strong {
+            color: #1e5799;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .column h3 {
+            color: #2989d8;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #e8f4fc 0%, #d4e9f7 100%);
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2989d8;
+            margin: 10px 0;
+        }
+
+        .keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .keyword {
+            background: #2989d8;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+        }
+
+        .references {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            margin-top: auto;
+        }
+
+        .references h4 {
+            color: #1e5799;
+            margin-bottom: 8px;
+        }
+
+        .references p {
+            margin-bottom: 5px;
+            text-indent: -20px;
+            padding-left: 20px;
+        }
+
+        .slide-footer {
+            padding: 8px 40px;
+            background: #f5f5f5;
+            font-size: 0.75em;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* Navigation */
+        .nav-controls {
+            background: #3d3d3d;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: #555;
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: #666;
+        }
+
+        .nav-btn:disabled {
+            background: #444;
+            color: #777;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .fullscreen-btn {
+            background: #d35230;
+        }
+
+        .fullscreen-btn:hover {
+            background: #e56342;
+        }
+
+        /* Fullscreen mode */
+        .presentation-container.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+        }
+
+        .presentation-container.fullscreen .toolbar,
+        .presentation-container.fullscreen .slides-panel {
+            display: none;
+        }
+
+        .presentation-container.fullscreen .slide-viewer {
+            background: #000;
+        }
+
+        .presentation-container.fullscreen .slide {
+            max-width: 1200px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slides-panel {
+                display: none;
+            }
+            
+            .slide-content {
+                padding: 20px;
+            }
+            
+            .slide-content h2 {
+                font-size: 1.2em;
+            }
+            
+            .content-body {
+                font-size: 0.85em;
+            }
+            
+            .two-columns {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .toolbar, .slides-panel, .nav-controls, .audio-float {
+                display: none !important;
+            }
+            
+            .slide {
+                display: flex !important;
+                page-break-after: always;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            .main-area {
+                display: block;
+                background: white;
+            }
+            
+            .slide-viewer {
+                padding: 0;
+            }
+        }
+
+        /* Floating audio button */
+        .audio-float {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .audio-toggle-btn {
+            background: #d35230;
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+
+        .audio-toggle-btn:hover {
+            background: #e56342;
+            transform: scale(1.1);
+        }
+
+        .audio-toggle-btn.playing {
+            background: #28a745;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+        }
+
+        .audio-panel {
+            display: none;
+            position: absolute;
+            bottom: 60px;
+            right: 0;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+            width: 280px;
+        }
+
+        .audio-panel.active {
+            display: block;
+        }
+
+        .audio-panel h4 {
+            margin: 0 0 10px 0;
+            color: #1e5799;
+            font-size: 14px;
+        }
+
+        .audio-panel audio {
+            width: 100%;
+        }
+
+        /* Start presentation overlay */
+        .start-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+        }
+
+        .start-overlay.hidden {
+            display: none;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #d35230 0%, #e56342 100%);
+            border: none;
+            color: white;
+            padding: 20px 50px;
+            font-size: 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(211, 82, 48, 0.5);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(211, 82, 48, 0.6);
+        }
+
+        .start-overlay h2 {
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        .start-overlay p {
+            color: #ccc;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        /* Progress bar for audio */
+        .audio-progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(0,0,0,0.2);
+            z-index: 1001;
+        }
+
+        .audio-progress-bar {
+            height: 100%;
+            background: #d35230;
+            width: 0%;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container" id="presentationContainer">
+        <!-- Start Overlay -->
+        <div class="start-overlay" id="startOverlay">
+            <h2>🏫 Escuela Viva Hekokatúva</h2>
+            <button class="start-btn" onclick="startPresentation()">
+                ▶ Iniciar Presentación
+            </button>
+            <p>El audio comenzará automáticamente</p>
+        </div>
+
+        <!-- Audio Progress Bar -->
+        <div class="audio-progress-container">
+            <div class="audio-progress-bar" id="audioProgress"></div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="toolbar-brand">
+                <svg viewBox="0 0 24 24" fill="#d35230">
+                    <path d="M6 2h12a2 2 0 012 2v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2zm0 2v16h12V4H6zm2 3h8v2H8V7zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/>
+                </svg>
+                PowerPoint
+            </div>
+            <div class="toolbar-tabs">
+                <button class="toolbar-tab active">Inicio</button>
+                <button class="toolbar-tab">Insertar</button>
+                <button class="toolbar-tab">Diseño</button>
+                <button class="toolbar-tab">Transiciones</button>
+                <button class="toolbar-tab">Presentación</button>
+            </div>
+        </div>
+
+        <!-- Main Area -->
+        <div class="main-area">
+            <!-- Slides Panel -->
+            <div class="slides-panel">
+                <div class="slide-thumb active" onclick="goToSlide(0)">
+                    <div class="slide-thumb-number">1</div>
+                    <div class="slide-thumb-preview">Escuela Viva Hekokatúva - Portada</div>
+                </div>
+                <div class="slide-thumb" onclick="goToSlide(1)">
+                    <div class="slide-thumb-number">2</div>
+                    <div class="slide-thumb-preview">Agentes Socioeducativos</div>
+                </div>
+                <div class="slide-thumb" onclick="goToSlide(2)">
+                    <div class="slide-thumb-number">3</div>
+                    <div class="slide-thumb-preview">Conceptos Inclusivos</div>
+                </div>
+                <div class="slide-thumb" onclick="goToSlide(3)">
+                    <div class="slide-thumb-number">4</div>
+                    <div class="slide-thumb-preview">Gestión Educativa</div>
+                </div>
+                <div class="slide-thumb" onclick="goToSlide(4)">
+                    <div class="slide-thumb-number">5</div>
+                    <div class="slide-thumb-preview">Línea Curricular</div>
+                </div>
+                <div class="slide-thumb" onclick="goToSlide(5)">
+                    <div class="slide-thumb-number">6</div>
+                    <div class="slide-thumb-preview">Organización del Centro</div>
+                </div>
+                <div class="slide-thumb" onclick="goToSlide(6)">
+                    <div class="slide-thumb-number">7</div>
+                    <div class="slide-thumb-preview">Referencias</div>
+                </div>
+            </div>
+
+            <!-- Slide Viewer -->
+            <div class="slide-viewer">
+                <!-- Slide 1: Title -->
+                <div class="slide active">
+                    <div class="slide-title">
+                        <h1>🏫 Escuela Viva Hekokatúva</h1>
+                        <h2>Organización de Centros Educativos Inclusivos e Interculturales</h2>
+                        <div class="author">Angela Patricia Corredor Torres</div>
+                        <div class="institution">Actividad 1. La Escuela Viva Hekokatúva</div>
+                    </div>
+                </div>
+
+                <!-- Slide 2: Agentes Socioeducativos -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <h2>👥 Agentes Socioeducativos</h2>
+                        <div class="content-body">
+                            <div class="two-columns">
+                                <div class="column">
+                                    <h3>🎓 Agentes Internos</h3>
+                                    <div class="content-item">
+                                        <div class="content-icon">1</div>
+                                        <div class="content-text"><strong>Docentes:</strong> Facilitadores del aprendizaje intercultural, adaptan metodologías a la diversidad lingüística y cultural.</div>
+                                    </div>
+                                    <div class="content-item">
+                                        <div class="content-icon">2</div>
+                                        <div class="content-text"><strong>Directivos:</strong> Lideran la gestión inclusiva, coordinan recursos y establecen políticas de equidad.</div>
+                                    </div>
+                                    <div class="content-item">
+                                        <div class="content-icon">3</div>
+                                        <div class="content-text"><strong>Estudiantes:</strong> Protagonistas del proceso, constructores activos de su aprendizaje.</div>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <h3>🌍 Agentes Externos</h3>
+                                    <div class="content-item">
+                                        <div class="content-icon">4</div>
+                                        <div class="content-text"><strong>Familias:</strong> Transmisores de saberes culturales, aliados en el proceso educativo bilingüe.</div>
+                                    </div>
+                                    <div class="content-item">
+                                        <div class="content-icon">5</div>
+                                        <div class="content-text"><strong>Comunidad:</strong> Aporta conocimientos ancestrales y contexto sociocultural.</div>
+                                    </div>
+                                    <div class="content-item">
+                                        <div class="content-icon">6</div>
+                                        <div class="content-text"><strong>Instituciones:</strong> MEC, ONG, entidades que brindan apoyo técnico y recursos.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="keywords">
+                                <span class="keyword">Participación</span>
+                                <span class="keyword">Colaboración</span>
+                                <span class="keyword">Comunidad educativa</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Escuela Viva Hekokatúva</span>
+                        <span>Angela P. Corredor</span>
+                    </div>
+                </div>
+
+                <!-- Slide 3: Conceptos Fundamentales -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <h2>📚 Conceptos del Enfoque Inclusivo e Intercultural</h2>
+                        <div class="content-body">
+                            <div class="content-item">
+                                <div class="content-icon">🔄</div>
+                                <div class="content-text"><strong>Educación Intercultural Bilingüe (EIB):</strong> Modelo que integra la lengua guaraní y castellano, valorando ambas culturas como igualmente importantes en el proceso de aprendizaje.</div>
+                            </div>
+                            <div class="content-item">
+                                <div class="content-icon">🤝</div>
+                                <div class="content-text"><strong>Inclusión Educativa:</strong> Garantiza el acceso, permanencia y éxito de todos los estudiantes, eliminando barreras de aprendizaje y participación (Vargas Castro et al., 2024).</div>
+                            </div>
+                            <div class="content-item">
+                                <div class="content-icon">⚖️</div>
+                                <div class="content-text"><strong>Equidad:</strong> Distribución diferenciada de recursos según las necesidades específicas de cada estudiante para alcanzar resultados equivalentes.</div>
+                            </div>
+                            <div class="content-item">
+                                <div class="content-icon">🌱</div>
+                                <div class="content-text"><strong>Pertinencia Cultural:</strong> Curriculo contextualizado que respeta y potencia la identidad cultural de la comunidad paraguaya.</div>
+                            </div>
+                            <div class="keywords">
+                                <span class="keyword">EIB</span>
+                                <span class="keyword">Inclusión</span>
+                                <span class="keyword">Equidad</span>
+                                <span class="keyword">Diversidad</span>
+                                <span class="keyword">Pertinencia</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Escuela Viva Hekokatúva</span>
+                        <span>Angela P. Corredor</span>
+                    </div>
+                </div>
+
+                <!-- Slide 4: Gestión Educativa -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <h2>📋 Línea de Acción: Gestión Educativa</h2>
+                        <div class="content-body">
+                            <div class="highlight-box">
+                                <strong>Propuesta:</strong> Implementación de Comunidades Profesionales de Aprendizaje (CPA) para el fortalecimiento de prácticas inclusivas e interculturales.
+                            </div>
+                            <div class="content-item">
+                                <div class="content-icon">✓</div>
+                                <div class="content-text"><strong>Formación continua:</strong> Capacitación docente en estrategias de enseñanza bilingüe y atención a la diversidad.</div>
+                            </div>
+                            <div class="content-item">
+                                <div class="content-icon">✓</div>
+                                <div class="content-text"><strong>Trabajo colaborativo:</strong> Reuniones semanales para análisis de casos, intercambio de experiencias y planificación conjunta.</div>
+                            </div>
+                            <div class="content-item">
+                                <div class="content-icon">✓</div>
+                                <div class="content-text"><strong>Monitoreo y evaluación:</strong> Indicadores de inclusión para medir avances en equidad y calidad educativa.</div>
+                            </div>
+                            <div class="highlight-box">
+                                <strong>Justificación:</strong> La inclusión educativa intercultural requiere transformar la cultura escolar, las políticas educativas y las prácticas pedagógicas de manera integral (Mondaca-Rojas & Aguirre-Munizaga, 2022).
+                            </div>
+                            <div class="keywords">
+                                <span class="keyword">CPA</span>
+                                <span class="keyword">Formación docente</span>
+                                <span class="keyword">Liderazgo distribuido</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Escuela Viva Hekokatúva</span>
+                        <span>Angela P. Corredor</span>
+                    </div>
+                </div>
+
+                <!-- Slide 5: Línea Curricular -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <h2>📖 Línea de Acción: Currículo Inclusivo</h2>
+                        <div class="content-body">
+                            <div class="highlight-box">
+                                <strong>Propuesta:</strong> Diseño Universal para el Aprendizaje (DUA) con enfoque intercultural bilingüe integrado en todas las áreas curriculares.
+                            </div>
+                            <div class="two-columns">
+                                <div class="column">
+                                    <h3>📝 Estrategias</h3>
+                                    <div class="content-item">
+                                        <div class="content-icon">1</div>
+                                        <div class="content-text"><strong>Múltiples representaciones:</strong> Contenidos en guaraní y castellano con recursos visuales y auditivos.</div>
+                                    </div>
+                                    <div class="content-item">
+                                        <div class="content-icon">2</div>
+                                        <div class="content-text"><strong>Múltiples formas de expresión:</strong> Evaluaciones flexibles que respeten estilos de aprendizaje.</div>
+                                    </div>
+                                    <div class="content-item">
+                                        <div class="content-icon">3</div>
+                                        <div class="content-text"><strong>Múltiples formas de implicación:</strong> Proyectos comunitarios significativos.</div>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <h3>🎯 Resultados esperados</h3>
+                                    <div class="content-item">
+                                        <div class="content-icon">→</div>
+                                        <div class="content-text">Reducción de barreras de aprendizaje</div>
+                                    </div>
+                                    <div class="content-item">
+                                        <div class="content-icon">→</div>
+                                        <div class="content-text">Mayor participación estudiantil</div>
+                                    </div>
+                                    <div class="content-item">
+                                        <div class="content-icon">→</div>
+                                        <div class="content-text">Valoración de la identidad cultural</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="keywords">
+                                <span class="keyword">DUA</span>
+                                <span class="keyword">Flexibilidad</span>
+                                <span class="keyword">Contextualización</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Escuela Viva Hekokatúva</span>
+                        <span>Angela P. Corredor</span>
+                    </div>
+                </div>
+
+                <!-- Slide 6: Organización del Centro -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <h2>🏛️ Reflexión: Organización del Centro</h2>
+                        <div class="content-body">
+                            <div class="content-item">
+                                <div class="content-icon">🔑</div>
+                                <div class="content-text"><strong>Liderazgo pedagógico:</strong> El director como líder transformacional que inspira y acompaña los procesos de cambio hacia la inclusión.</div>
+                            </div>
+                            <div class="content-item">
+                                <div class="content-icon">🔑</div>
+                                <div class="content-text"><strong>Cultura colaborativa:</strong> Ambiente donde todos los actores participan en la toma de decisiones y comparten responsabilidades.</div>
+                            </div>
+                            <div class="content-item">
+                                <div class="content-icon">🔑</div>
+                                <div class="content-text"><strong>Estructuras flexibles:</strong> Horarios, espacios y agrupamientos que se adaptan a las necesidades del estudiantado.</div>
+                            </div>
+                            <div class="content-item">
+                                <div class="content-icon">🔑</div>
+                                <div class="content-text"><strong>Vinculación comunitaria:</strong> La escuela como centro de desarrollo social que integra saberes locales y fortalece la identidad.</div>
+                            </div>
+                            <div class="highlight-box">
+                                <strong>Reflexión final:</strong> Una escuela inclusiva e intercultural requiere transformar no solo las prácticas pedagógicas, sino toda la cultura organizacional hacia valores de respeto, equidad y participación democrática.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Escuela Viva Hekokatúva</span>
+                        <span>Angela P. Corredor</span>
+                    </div>
+                </div>
+
+                <!-- Slide 7: Referencias -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <h2>📚 Referencias Bibliográficas</h2>
+                        <div class="content-body">
+                            <div class="references" style="flex: 1; font-size: 0.9em;">
+                                <h4>Referencias en formato APA 7ª edición:</h4>
+                                <br>
+                                <p>Mondaca-Rojas, C., & Aguirre-Munizaga, C. (2022). La inclusión educativa intercultural como herramienta conceptual para la transformación de la escuela en tiempos de incertidumbre. <em>Estudios Pedagógicos</em>, 48(1), 275-292. https://doi.org/10.4067/S0718-07052022000100275</p>
+                                <br>
+                                <p>Vargas Castro, K., Rojas-Ceballos, V. C., Saona-Lozano, R. V., & Pinos-Medrano, V. F. (2024). Análisis de los factores que influyen en la educación inclusiva en Ecuador. <em>Revista Electrónica Interuniversitaria de Formación del Profesorado</em>, 27(1), 61-73. https://doi.org/10.6018/reifop.580821</p>
+                            </div>
+                            <div class="highlight-box" style="margin-top: 20px; text-align: center;">
+                                <strong>¡Gracias por su atención!</strong><br>
+                                <span style="font-size: 0.9em;">Angela Patricia Corredor Torres</span><br>
+                                <span style="font-size: 0.85em;">📧 Contacto</span>
+                                <div style="margin-top: 15px;">
+                                    <audio controls style="width: 100%;">
+                                        <source src="https://recursosedcucativos.github.io/IAS/audioAngela.mp3" type="audio/mpeg">
+                                        Tu navegador no soporta el elemento de audio.
+                                    </audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Escuela Viva Hekokatúva</span>
+                        <span>Angela P. Corredor</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="nav-controls">
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ Anterior</button>
+            <span class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">7</span></span>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Siguiente ▶</button>
+            <button class="nav-btn fullscreen-btn" onclick="toggleFullscreen()">⛶ Pantalla Completa</button>
+        </div>
+
+        <!-- Floating Audio Player -->
+        <div class="audio-float">
+            <div class="audio-panel" id="audioPanel">
+                <h4>🎧 Audio Explicativo</h4>
+                <audio controls id="mainAudio">
+                    <source src="https://recursosedcucativos.github.io/IAS/audioAngela.mp3" type="audio/mpeg">
+                    Tu navegador no soporta audio.
+                </audio>
+            </div>
+            <button class="audio-toggle-btn" onclick="toggleAudio()" title="Reproducir audio">
+                🔊
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const thumbs = document.querySelectorAll('.slide-thumb');
+        const totalSlides = slides.length;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            thumbs.forEach(thumb => thumb.classList.remove('active'));
+            
+            // Show current slide
+            slides[index].classList.add('active');
+            thumbs[index].classList.add('active');
+            
+            // Update counter
+            document.getElementById('currentSlide').textContent = index + 1;
+            
+            // Update buttons
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === totalSlides - 1;
+            
+            // Scroll thumbnail into view
+            thumbs[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            if (currentSlideIndex < 0) currentSlideIndex = 0;
+            if (currentSlideIndex >= totalSlides) currentSlideIndex = totalSlides - 1;
+            showSlide(currentSlideIndex);
+        }
+
+        function goToSlide(index) {
+            currentSlideIndex = index;
+            showSlide(currentSlideIndex);
+        }
+
+        function toggleFullscreen() {
+            const container = document.getElementById('presentationContainer');
+            container.classList.toggle('fullscreen');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            switch(e.key) {
+                case 'ArrowRight':
+                case 'ArrowDown':
+                case ' ':
+                case 'PageDown':
+                    e.preventDefault();
+                    changeSlide(1);
+                    break;
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                case 'PageUp':
+                    e.preventDefault();
+                    changeSlide(-1);
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    goToSlide(0);
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    goToSlide(totalSlides - 1);
+                    break;
+                case 'Escape':
+                    document.getElementById('presentationContainer').classList.remove('fullscreen');
+                    break;
+                case 'F5':
+                case 'f':
+                    e.preventDefault();
+                    toggleFullscreen();
+                    break;
+            }
+        });
+
+        // Touch support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    changeSlide(1); // Swipe left - next slide
+                } else {
+                    changeSlide(-1); // Swipe right - previous slide
+                }
+            }
+        }
+
+        // Initialize
+        showSlide(0);
+
+        // Audio toggle function
+        function toggleAudio() {
+            const panel = document.getElementById('audioPanel');
+            panel.classList.toggle('active');
+        }
+
+        // Close audio panel when clicking outside
+        document.addEventListener('click', function(e) {
+            const audioFloat = document.querySelector('.audio-float');
+            const panel = document.getElementById('audioPanel');
+            if (!audioFloat.contains(e.target) && panel.classList.contains('active')) {
+                panel.classList.remove('active');
+            }
+        });
+
+        // Start presentation with audio
+        function startPresentation() {
+            const overlay = document.getElementById('startOverlay');
+            const audio = document.getElementById('mainAudio');
+            const toggleBtn = document.querySelector('.audio-toggle-btn');
+            
+            // Hide overlay
+            overlay.classList.add('hidden');
+            
+            // Play audio
+            audio.play().then(() => {
+                toggleBtn.classList.add('playing');
+                toggleBtn.innerHTML = '⏸';
+            }).catch(err => {
+                console.log('Audio autoplay blocked:', err);
+            });
+        }
+
+        // Audio progress tracking
+        const mainAudio = document.getElementById('mainAudio');
+        const progressBar = document.getElementById('audioProgress');
+        const toggleBtn = document.querySelector('.audio-toggle-btn');
+
+        // Tiempos de cambio de diapositiva (en segundos)
+        // Ajusta estos valores según la duración real de tu audio
+        const slideTimings = [
+            0,      // Diapositiva 1: Portada (0:00)
+            8,      // Diapositiva 2: Agentes socioeducativos (0:08)
+            45,     // Diapositiva 3: Conceptos inclusivos (0:45)
+            75,     // Diapositiva 4: Gestión educativa (1:15)
+            105,    // Diapositiva 5: Currículo (1:45)
+            135,    // Diapositiva 6: Organización del centro (2:15)
+            160     // Diapositiva 7: Referencias/Cierre (2:40)
+        ];
+
+        let autoSlideEnabled = true;
+
+        mainAudio.addEventListener('timeupdate', function() {
+            const currentTime = mainAudio.currentTime;
+            const progress = (currentTime / mainAudio.duration) * 100;
+            progressBar.style.width = progress + '%';
+
+            // Cambio automático de diapositivas
+            if (autoSlideEnabled) {
+                for (let i = slideTimings.length - 1; i >= 0; i--) {
+                    if (currentTime >= slideTimings[i]) {
+                        if (currentSlideIndex !== i) {
+                            goToSlide(i);
+                        }
+                        break;
+                    }
+                }
+            }
+        });
+
+        mainAudio.addEventListener('ended', function() {
+            toggleBtn.classList.remove('playing');
+            toggleBtn.innerHTML = '🔊';
+            progressBar.style.width = '0%';
+        });
+
+        mainAudio.addEventListener('play', function() {
+            toggleBtn.classList.add('playing');
+            toggleBtn.innerHTML = '⏸';
+        });
+
+        mainAudio.addEventListener('pause', function() {
+            toggleBtn.classList.remove('playing');
+            toggleBtn.innerHTML = '▶';
+        });
+
+        // Toggle play/pause from floating button
+        document.querySelector('.audio-toggle-btn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (mainAudio.paused) {
+                mainAudio.play();
+            } else {
+                mainAudio.pause();
+            }
+        });
+
+        // Permitir cambio manual sin desactivar el auto
+        // Si el usuario cambia manualmente, puede saltar a ese punto del audio
+        function goToSlideManual(index) {
+            goToSlide(index);
+            // Opcional: saltar el audio al tiempo de esa diapositiva
+            if (!mainAudio.paused && slideTimings[index] !== undefined) {
+                mainAudio.currentTime = slideTimings[index];
+            }
+        }
+    </script>
+</body>
+</html>
