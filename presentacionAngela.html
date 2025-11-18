@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 1: Una mirada crítica</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carga de la fuente Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilo base con la fuente Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Estilo para las diapositivas */
+        .slide {
+            /* Oculta todas las diapositivas por defecto */
+            opacity: 0;
+            z-index: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: opacity 0.5s ease-in-out;
+            /* Permite el scroll si el contenido es mucho */
+            overflow-y: auto;
+        }
+
+        /* Estilo para la diapositiva activa (visible) */
+        .slide.active {
+            opacity: 1;
+            z-index: 10;
+        }
+        
+        /* Estilos para el contenido de la diapositiva */
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            padding: 2rem 4rem; /* 8px 16px */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <!-- Contenedor principal de la "presentación" -->
+    <main class="bg-white rounded-lg shadow-2xl w-full max-w-4xl h-[600px] relative overflow-hidden">
+        
+        <!-- Diapositiva 1: Título -->
+        <section class="slide active" data-slide="0">
+            <div class="slide-content text-center bg-blue-900 text-white">
+                <h2 class="text-sm font-semibold uppercase tracking-widest text-blue-300">Actividad 1</h2>
+                <h1 class="text-4xl font-bold mt-4 mb-6">Una mirada crítica a nuestra experiencia educativa</h1>
+                <p class="text-xl">Angela Patricia Corredor Torres</p>
+            </div>
+        </section>
+
+        <!-- Diapositiva 2: El Video-Relato (Cumple con el requisito de "audio") -->
+        <section class="slide" data-slide="1">
+            <div class="slide-content p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Mi Relato: El Video</h2>
+                <p class="text-center text-gray-600 mb-6">El siguiente video (3:17) contiene la narración personal y el análisis que se solicitan en la actividad.</p>
+                <!-- Iframe de YouTube incrustado -->
+                <div class="aspect-video w-full max-w-2xl mx-auto rounded-lg overflow-hidden shadow-lg">
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        src="https://www.youtube.com/embed/h8oT91m9fpk" 
+                        title="Historia de Angela Patricia Corredor Torres" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="text-center text-sm text-gray-500 mt-4">
+                    Si no carga, <a href="https://www.youtube.com/watch?v=h8oT91m9fpk" target="_blank" class="text-blue-600 hover:underline">ver en YouTube</a>
+                </p>
+            </div>
+        </section>
+
+        <!-- Diapositiva 3: Personas Implicadas -->
+        <section class="slide" data-slide="2">
+            <div class="slide-content">
+                <h2 class="text-3xl font-bold text-blue-800 mb-6">Personas Implicadas</h2>
+                <ul class="list-disc list-inside space-y-4 text-lg text-gray-700">
+                    <li>
+                        <strong class="font-semibold text-gray-900">La Estudiante (Yo, 10 años):</strong>
+                        <span class="block ml-6 text-gray-600">Niña curiosa y enérgica con dificultades para mantenerse quieta, etiquetada como "un problema".</span>
+                    </li>
+                    <li>
+                        <strong class="font-semibold text-gray-900">La Profesora de Matemáticas:</strong>
+                        <span class="block ml-6 text-gray-600">Figura de autoridad que ejerce una acción punitiva y de humillación pública.</span>
+                    </li>
+                    <li>
+                        <strong class="font-semibold text-gray-900">Los Compañeros de Clase:</strong>
+                        <span class="block ml-6 text-gray-600">Testigos silenciosos que, con su pasividad, contribuyeron a la normalización del abuso.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Diapositiva 4: Exposición de los Hechos -->
+        <section class="slide" data-slide="3">
+            <div class="slide-content">
+                <h2 class="text-3xl font-bold text-blue-800 mb-6">Exposición de los Hechos</h2>
+                <div class="space-y-4 text-lg text-gray-700">
+                    <p><strong class="text-gray-900">Contexto:</strong> Mi inquietud natural en clase era vista como un "problema" de disciplina y no como una característica personal o una necesidad de aprendizaje distinta.</p>
+                    <p><strong class="text-gray-900">Incidente:</strong> Un día, la profesora, frustrada, golpeó mi mesa y me gritó <span class="font-semibold text-red-600">"tú no sirves para estudiar"</span> delante de todos.</p>
+                    <p><strong class="text-gray-900">Acción Punitiva:</strong> Fui expulsada del salón y obligada a permanecer en el pasillo, aislada de la clase, como castigo.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diapositiva 5: Fundamentación Teórica -->
+        <section class="slide" data-slide="4">
+            <div class="slide-content">
+                <h2 class="text-3xl font-bold text-blue-800 mb-6">Fundamentación Teórica</h2>
+                <div class="space-y-4 text-lg text-gray-700">
+                    <p>La situación evidencia un modelo pedagógico <strong class="text-gray-900">punitivo y excluyente</strong>, centrado en el castigo y no en la comprensión.</p>
+                    <p>Se ignora la <strong class="text-gray-900">neurodiversidad</strong> y las diferentes necesidades de aprendizaje. La inquietud motora es tratada como indisciplina y no como una posible manifestación (p.ej., TDAH) que requiere <strong class="text-gray-900">adaptaciones pedagógicas</strong>.</p>
+                    <p>El clima escolar se vuelve hostil. Como señala la UNESCO (2020), un entorno de aprendizaje inclusivo y seguro es fundamental para el bienestar y el éxito académico, algo que fue activamente destruido en este caso.</p>
+                    <p>El acto de la docente es una forma de <strong class="text-gray-900">violencia simbólica</strong> (Bourdieu), donde la autoridad impone una etiqueta negativa ("no sirves") que el estudiante internaliza, afectando su auto-concepto (López et al., 2022).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diapositiva 6: Acciones que se llevaron a cabo -->
+        <section class="slide" data-slide="5">
+            <div class="slide-content">
+                <h2 class="text-3xl font-bold text-blue-800 mb-6">Acciones Llevadas a Cabo</h2>
+                <ul class="list-disc list-inside space-y-4 text-lg text-gray-700">
+                    <li>
+                        <strong class="font-semibold text-gray-900">Por parte de la Docente:</strong>
+                        <span class="block ml-6 text-gray-600">Humillación pública, castigo (expulsión) y etiquetado negativo. No hubo estrategia pedagógica ni intento de comprensión.</span>
+                    </li>
+                    <li>
+                        <strong class="font-semibold text-gray-900">Por parte de la Estudiante (Yo):</strong>
+                        <span class="block ml-6 text-gray-600">Obediencia, sumisión, llanto y vergüenza. Internalización de la culpa.</span>
+                    </li>
+                    <li>
+                        <strong class="font-semibold text-gray-900">Por parte de los Pares y la Institución:</strong>
+                        <span class="block ml-6 text-gray-600">Silencio y normalización. La falta de intervención validó el abuso como una práctica aceptable.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Diapositiva 7: Consecuencias -->
+        <section class="slide" data-slide="6">
+            <div class="slide-content">
+                <h2 class="text-3xl font-bold text-blue-800 mb-6">Consecuencias Derivadas</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg">
+                    <div class="bg-red-50 p-4 rounded-lg border border-red-200">
+                        <h3 class="font-semibold text-red-700 mb-2">Inmediatas</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Humillación y soledad.</li>
+                            <li>Sensación de no encajar.</li>
+                            <li>Pérdida de la clase (exclusión).</li>
+                        </ul>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg border border-red-200">
+                        <h3 class="font-semibold text-red-700 mb-2">A Largo Plazo</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Destrucción de la autoestima.</li>
+                            <li>Creencia internalizada de "ser el problema".</li>
+                            <li>Rechazo profundo hacia la escuela.</li>
+                            <li>Impacto en el rendimiento académico y la autoimagen.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diapositiva 8: Derechos Vulnerados -->
+        <section class="slide" data-slide="7">
+            <div class="slide-content">
+                <h2 class="text-3xl font-bold text-blue-800 mb-6">Derechos Vulnerados</h2>
+                <ul class="list-disc list-inside space-y-4 text-lg text-gray-700">
+                    <li>
+                        <strong class="font-semibold text-gray-900">Derecho a la Dignidad (Art. 1, DUDH):</strong>
+                        <span class="block ml-6 text-gray-600">Pisoteado mediante la humillación pública y el trato degradante.</span>
+                    </li>
+                    <li>
+                        <strong class="font-semibold text-gray-900">Derecho a una Educación Inclusiva (Art. 24, CDPD):</strong>
+                        <span class="block ml-6 text-gray-600">Negado al no adaptar la enseñanza a mis necesidades y optar por la exclusión.</span>
+                    </li>
+                    <li>
+                        <strong class="font-semibold text-gray-900">Derecho a no ser Discriminada (Art. 2, DUDH):</strong>
+                        <span class="block ml-6 text-gray-600">Discriminación basada en mi comportamiento/características personales.</span>
+                    </li>
+                     <li>
+                        <strong class="font-semibold text-gray-900">Derecho a la Integridad Personal:</strong>
+                        <span class="block ml-6 text-gray-600">La violencia psicológica y la humillación constituyen un trato que afecta la integridad (López et al., 2022).</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Diapositiva 9: Conclusión Crítica -->
+        <section class="slide" data-slide="8">
+            <div class="slide-content">
+                <h2 class="text-3xl font-bold text-blue-800 mb-6">Conclusión Crítica</h2>
+                <blockquote class="border-l-4 border-blue-300 pl-6 text-xl text-gray-700 italic space-y-4">
+                    <p>"La educación sin empatía es una estructura vacía."</p>
+                    <p>"La verdadera inclusión no consiste en pedirle al niño que se adapte a la rigidez de la escuela, sino en que la escuela sea lo suficientemente flexible y humana para adaptarse a cada niño."</p>
+                </blockquote>
+                <p class="text-lg text-gray-800 mt-6">
+                    Esta experiencia dolorosa formó mi compromiso profesional: ser la docente que yo necesité. Mi objetivo es crear aulas donde cada estudiante se sienta <strong class="font-semibold">visto, valorado y seguro</strong>.
+                </p>
+            </div>
+        </section>
+
+        <!-- Diapositiva 10: Referencias Bibliográficas -->
+        <section class="slide" data-slide="9">
+            <div class="slide-content">
+                <h2 class="text-3xl font-bold text-blue-800 mb-6">Referencias (APA 7)</h2>
+                <div class="space-y-4 text-sm text-gray-700">
+                    <p class="hanging-indent pl-8">López, V., Varela, J., & Oyarzún, G. (2022). La dignidad en la escuela: Prácticas pedagógicas que la promueven y la vulneran. <em>Estudios Pedagógicos</em>, 48(1), 145-164.</p>
+                    
+                    <p class="hanging-indent pl-8">Naciones Unidas. (1948). <em>Declaración Universal de Derechos Humanos (DUDH)</em>.</p>
+                    
+                    <p class="hanging-indent pl-8">Naciones Unidas. (2006). <em>Convención sobre los Derechos de las Personas con Discapacidad (CDPD)</em>.</p>
+                    
+                    <p class="hanging-indent pl-8">UNESCO. (2020). <em>Guía para asegurar la inclusión y la equidad en la educación</em>. París: UNESCO.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Controles de Navegación -->
+        <div class="absolute bottom-4 left-0 right-0 px-8 flex justify-between z-20">
+            <button id="prevBtn" class="bg-blue-600 text-white py-2 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors disabled:opacity-50" disabled>
+                Anterior
+            </button>
+            <span id="slideCounter" class="text-gray-600 text-lg flex items-center">1 / 10</span>
+            <button id="nextBtn" class="bg-blue-600 text-white py-2 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors">
+                Siguiente
+            </button>
+        </div>
+    </main>
+
+    <script>
+        // Lógica de JavaScript para el carrusel de diapositivas
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+            
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const slideCounter = document.getElementById('slideCounter');
+
+            // Función para mostrar la diapositiva
+            function showSlide(n) {
+                // Oculta la diapositiva actual
+                slides[currentSlide].classList.remove('active');
+                
+                // Actualiza el índice
+                currentSlide = (n + totalSlides) % totalSlides;
+                
+                // Muestra la nueva diapositiva
+                slides[currentSlide].classList.add('active');
+
+                // Actualiza el contador
+                slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+                
+                // Actualiza el estado de los botones
+                prevBtn.disabled = (currentSlide === 0);
+                nextBtn.disabled = (currentSlide === totalSlides - 1);
+            }
+
+            // Event listeners para los botones
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < totalSlides - 1) {
+                    showSlide(currentSlide + 1);
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    showSlide(currentSlide - 1);
+                }
+            });
+
+            // Inicializa la primera diapositiva
+            showSlide(currentSlide);
+        });
+    </script>
+</body>
+</html>
